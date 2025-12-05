@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HY WISEFUND - Premier Wealth Management Singapore</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;line-height:1.6;color:#333;overflow-x:hidden}
+[lang="zh"]{display:none}
+body[data-lang="zh"] [lang="en"]{display:none}
+body[data-lang="zh"] [lang="zh"]{display:inline-block}
+body[data-lang="en"] [lang="en"]{display:inline-block}
+body[data-lang="en"] [lang="zh"]{display:none}
+.loader{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s}
+.loader.hidden{opacity:0;pointer-events:none}
+.loader-content{text-align:center;color:white}
+.loader-logo{width:150px;animation:pulse 2s infinite}
+.loader-text{font-size:1.5rem;margin-top:2rem;animation:fadeInOut 2s infinite}
+@keyframes fadeInOut{0%,100%{opacity:0.3}50%{opacity:1}}
+.bg{position:fixed;width:100%;height:100%;top:0;left:0;z-index:-1;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);overflow:hidden}
+.particle{position:absolute;width:3px;height:3px;background:rgba(255,255,255,0.6);border-radius:50%;animation:float 25s infinite ease-in-out}
+@keyframes float{0%,100%{transform:translate(0,0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translate(100px,-100vh);opacity:0}}
+nav{position:fixed;width:100%;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);padding:1rem 5%;z-index:1000;box-shadow:0 2px 30px rgba(102,126,234,0.2);transition:all 0.3s}
+nav.scrolled{padding:0.7rem 5%;box-shadow:0 4px 40px rgba(102,126,234,0.3)}
+.nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.logo-img{height:50px;transition:transform 0.3s}
+.logo-img:hover{transform:scale(1.05)}
+.nav-right{display:flex;align-items:center;gap:2rem}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:#333;font-weight:500;transition:all 0.3s;position:relative}
+.nav-links a:hover{color:#667eea}
+.nav-links a::after{content:'';position:absolute;bottom:-5px;left:0;width:0;height:2px;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 0.3s}
+.nav-links a:hover::after{width:100%}
+.lang-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;padding:0.6rem 1.5rem;border-radius:25px;cursor:pointer;font-weight:600;transition:all 0.3s;box-shadow:0 4px 15px rgba(102,126,234,0.4)}
+.lang-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,0.6)}
+.hero{min-height:100vh;background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.85)),url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg');background-size:cover;background-position:center;background-attachment:fixed;display:flex;align-items:center;justify-content:center;text-align:center;color:white;padding:2rem;position:relative}
+.hero::before{content:'';position:absolute;width:100%;height:100%;background:radial-gradient(circle at 30% 50%,rgba(255,255,255,0.1) 0%,transparent 50%);animation:pulse 8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+.hero-content{max-width:1000px;z-index:1;animation:fadeInUp 1s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:4rem;margin-bottom:1rem;font-weight:700;letter-spacing:1px;text-shadow:2px 2px 4px rgba(0,0,0,0.3);line-height:1.2}
+.hero p{font-size:1.4rem;margin-bottom:3rem;opacity:0.95;line-height:1.9;text-shadow:1px 1px 2px rgba(0,0,0,0.2);max-width:900px;margin-left:auto;margin-right:auto}
+.cta-buttons{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap}
+.cta-btn{padding:1.2rem 3rem;text-decoration:none;border-radius:50px;font-weight:600;font-size:1.1rem;transition:all 0.3s;box-shadow:0 10px 30px rgba(0,0,0,0.2);display:inline-block}
+.cta-btn.primary{background:white;color:#667eea}
+.cta-btn.secondary{background:transparent;color:white;border:2px solid white}
+.cta-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,0.3)}
+section{padding:6rem 5%;max-width:1400px;margin:0 auto}
+.section-title{text-align:center;font-size:3rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
+.section-subtitle{text-align:center;font-size:1.3rem;color:#666;margin-bottom:4rem;line-height:1.8}
+.stats{background:linear-gradient(135deg,#f8f9fa,#e9ecef);padding:5rem 5%}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;max-width:1400px;margin:0 auto}
+.stat-card{background:white;padding:2.5rem;border-radius:20px;text-align:center;box-shadow:0 10px 40px rgba(102,126,234,0.15);transition:all 0.4s;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,#667eea,#764ba2)}
+.stat-card::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:radial-gradient(circle,rgba(102,126,234,0.1),transparent);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
+.stat-card:hover::after{width:300px;height:300px}
+.stat-card:hover{transform:translateY(-15px) scale(1.03);box-shadow:0 20px 60px rgba(102,126,234,0.25)}
+.stat-icon{font-size:3rem;margin-bottom:1rem;position:relative;z-index:1}
+.stat-number{font-size:3rem;font-weight:700;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;position:relative;z-index:1}
+.stat-label{color:#666;font-size:1.1rem;font-weight:500;position:relative;z-index:1}
+.about{background:white;position:relative}
+.about-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-text h3{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:2rem;margin:2rem 0 1.5rem}
+.about-text p{font-size:1.1rem;line-height:1.9;color:#555;margin-bottom:1.5rem}
+.about-features{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2rem}
+.feature-badge{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:1.2rem;border-radius:15px;text-align:center;font-weight:600;box-shadow:0 5px 15px rgba(102,126,234,0.3);transition:all 0.3s;font-size:0.95rem}
+.feature-badge:hover{transform:scale(1.08) rotate(2deg);box-shadow:0 10px 30px rgba(102,126,234,0.4)}
+.about-image{height:550px;background:linear-gradient(rgba(102,126,234,0.2),rgba(118,75,162,0.2)),url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg');background-size:cover;background-position:center;border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.2);animation:float-img 6s ease-in-out infinite;position:relative;overflow:hidden}
+.about-image::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(to top,rgba(0,0,0,0.3),transparent)}
+@keyframes float-img{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.landmark-badge{position:absolute;bottom:20px;left:20px;background:rgba(255,255,255,0.95);padding:1rem 1.5rem;border-radius:10px;font-weight:600;color:#667eea;box-shadow:0 5px 20px rgba(0,0,0,0.2)}
+.services{background:linear-gradient(to bottom,#f8f9fa,white);position:relative}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;margin-top:3rem}
+.service-card{background:white;padding:2.5rem;border-radius:20px;box-shadow:0 10px 40px rgba(102,126,234,0.1);transition:all 0.4s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:linear-gradient(135deg,transparent,rgba(102,126,234,0.1));transform:rotate(45deg);transition:all 0.6s}
+.service-card:hover::before{top:-100%;right:-100%}
+.service-card:hover{transform:translateY(-15px);box-shadow:0 25px 70px rgba(102,126,234,0.25)}
+.service-icon{font-size:3rem;margin-bottom:1rem;position:relative;z-index:1}
+.service-card h3{font-size:1.5rem;margin-bottom:1rem;color:#333;position:relative;z-index:1}
+.service-card p,.service-card li{color:#666;line-height:1.8;position:relative;z-index:1}
+.service-card ul{list-style:none;margin-top:1rem}
+.service-card li{padding:0.5rem 0;font-size:0.95rem}
+.service-card li::before{content:'✓';color:#667eea;font-weight:bold;margin-right:0.8rem;font-size:1.2rem}
+.insights{background:linear-gradient(135deg,rgba(102,126,234,0.95),rgba(118,75,162,0.95)),url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/gardens-by-the-bay.jpg');background-size:cover;background-position:center;background-attachment:fixed;color:white;padding:6rem 5%;position:relative}
+.insights::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.2)}
+.insights>*{position:relative;z-index:1}
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:3rem}
+.insight-card{background:rgba(255,255,255,0.15);backdrop-filter:blur(15px);padding:2.5rem;border-radius:20px;border:1px solid rgba(255,255,255,0.3);transition:all 0.3s}
+.insight-card:hover{background:rgba(255,255,255,0.25);transform:translateY(-10px);box-shadow:0 20px 50px rgba(0,0,0,0.3)}
+.insight-card h3{font-size:1.7rem;margin-bottom:1rem;color:#FFD700;text-shadow:1px 1px 2px rgba(0,0,0,0.3)}
+.insight-chart{height:200px;background:rgba(255,255,255,0.1);border-radius:10px;margin:1.5rem 0;display:flex;align-items:flex-end;padding:1rem;gap:0.5rem;position:relative}
+.chart-bar{flex:1;background:linear-gradient(to top,#FFD700,#FFA500);border-radius:5px 5px 0 0;animation:grow 1.5s ease forwards;opacity:0;position:relative;transition:all 0.3s}
+.chart-bar:hover{background:linear-gradient(to top,#FFA500,#FFD700);transform:scaleY(1.05)}
+@keyframes grow{to{opacity:1}}
+.chart-bar:nth-child(1){height:60%;animation-delay:0.1s}
+.chart-bar:nth-child(2){height:80%;animation-delay:0.2s}
+.chart-bar:nth-child(3){height:95%;animation-delay:0.3s}
+.chart-bar:nth-child(4){height:70%;animation-delay:0.4s}
+.chart-bar:nth-child(5){height:85%;animation-delay:0.5s}
+.chart-label{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:0.75rem;white-space:nowrap;opacity:0;transition:opacity 0.3s}
+.chart-bar:hover .chart-label{opacity:1}
+.performance{background:linear-gradient(to bottom,#f8f9fa,white);padding:6rem 5%}
+.performance-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3rem;margin-top:3rem}
+.performance-card{background:white;padding:2.5rem;border-radius:20px;box-shadow:0 10px 40px rgba(102,126,234,0.1);transition:all 0.3s}
+.performance-card:hover{box-shadow:0 15px 50px rgba(102,126,234,0.2)}
+.performance-card h3{font-size:1.8rem;margin-bottom:2rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric-row{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;border-bottom:1px solid #f0f0f0;transition:all 0.3s}
+.metric-row:hover{background:rgba(102,126,234,0.03);padding-left:1rem;margin-left:-1rem;margin-right:-1rem;padding-right:1rem}
+.metric-label{font-weight:600;color:#333;font-size:1.05rem}
+.metric-value{font-size:1.5rem;font-weight:700;color:#667eea}
+.progress-bar{width:100%;height:10px;background:#f0f0f0;border-radius:5px;margin-top:0.5rem;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);border-radius:5px;animation:fillProgress 2s ease forwards;position:relative}
+.progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shine 2s infinite}
+@keyframes fillProgress{from{width:0}}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.merlion-section{background:linear-gradient(to right,rgba(102,126,234,0.1),rgba(118,75,162,0.1));padding:4rem 5%;margin:4rem 0}
+.merlion-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.merlion-image{height:400px;background:url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg');background-size:cover;background-position:center;border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.2)}
+.merlion-text h3{font-size:2.5rem;color:#667eea;margin-bottom:1.5rem}
+.merlion-text p{font-size:1.2rem;line-height:1.8;color:#555;margin-bottom:1rem}
+.contact{background:linear-gradient(135deg,#f8f9fa,#e9ecef)}
+.contact-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
+.contact-info{background:linear-gradient(135deg,#667eea,#764ba2);padding:3rem;border-radius:20px;color:white;box-shadow:0 20px 60px rgba(102,126,234,0.3);position:relative;overflow:hidden}
+.contact-info::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1),transparent);animation:rotate 20s linear infinite}
+@keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.contact-info>*{position:relative;z-index:1}
+.contact-info h3{font-size:2rem;margin-bottom:2rem;color:#FFD700}
+.contact-item{margin-bottom:2rem;display:flex;gap:1rem;align-items:start}
+.contact-icon{font-size:1.5rem;margin-top:0.3rem}
+.contact-form{background:white;padding:3rem;border-radius:20px;box-shadow:0 10px 40px rgba(102,126,234,0.1)}
+.form-group{margin-bottom:1.5rem}
+.form-group label{display:block;margin-bottom:0.5rem;font-weight:600;color:#333}
+.form-group input,.form-group textarea{width:100%;padding:1rem;border:2px solid #e0e0e0;border-radius:10px;font-family:inherit;transition:all 0.3s;font-size:1rem}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,0.1);transform:translateY(-2px)}
+.submit-btn{width:100%;padding:1.2rem;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:10px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
+.submit-btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.3);border-radius:50%;transform:translate(-50%,-50%);transition:width 0.6s,height 0.6s}
+.submit-btn:hover::before{width:400px;height:400px}
+.submit-btn:hover{transform:translateY(-3px);box-shadow:0 15px 40px rgba(102,126,234,0.4)}
+.submit-btn span{position:relative;z-index:1}
+footer{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:4rem 5% 2rem;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)}
+.footer-content{max-width:1400px;margin:0 auto 3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;position:relative;z-index:1}
+.footer-section h3{font-size:1.5rem;margin-bottom:1.5rem;color:#FFD700}
+.footer-section p,.footer-section a{color:rgba(255,255,255,0.9);line-height:1.8;transition:color 0.3s}
+.footer-section a:hover{color:#FFD700}
+.footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.2);position:relative;z-index:1}
+@media (max-width:1024px){.about-content,.contact-content,.performance-grid,.merlion-content{grid-template-columns:1fr}.merlion-content{text-align:center}}
+@media (max-width:768px){.nav-links{display:none}.hero h1{font-size:2.5rem}.hero p{font-size:1.2rem}section{padding:4rem 5%}.section-title{font-size:2.2rem}.cta-btn{padding:1rem 2rem;font-size:1rem}.about-features{grid-template-columns:1fr}}
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 0.6s,transform 0.6s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.scroll-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;opacity:0;transition:all 0.3s;z-index:999;box-shadow:0 5px 20px rgba(102,126,234,0.4)}
+.scroll-top.visible{opacity:1}
+.scroll-top:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(102,126,234,0.6)}
+</style>
+</head>
+<body data-lang="en">
+<div class="loader" id="loader">
+<div class="loader-content">
+<img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/hywishlogo.png" alt="Loading" class="loader-logo">
+<div class="loader-text"><span lang="en">Loading Excellence...</span><span lang="zh">正在加载...</span></div>
+</div>
+</div>
+<div class="bg" id="bg"></div>
+<nav id="nav">
+<div class="nav-container">
+<img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/hywishlogo.png" alt="HY WISEFUND" class="logo-img">
+<div class="nav-right">
+<ul class="nav-links">
+<li><a href="#home"><span lang="en">Home</span><span lang="zh">首页</span></a></li>
+<li><a href="#about"><span lang="en">About</span><span lang="zh">关于</span></a></li>
+<li><a href="#services"><span lang="en">Services</span><span lang="zh">服务</span></a></li>
+<li><a href="#insights"><span lang="en">Insights</span><span lang="zh">洞察</span></a></li>
+<li><a href="#performance"><span lang="en">Performance</span><span lang="zh">业绩</span></a></li>
+<li><a href="#contact"><span lang="en">Contact</span><span lang="zh">联系</span></a></li>
+</ul>
+<button class="lang-btn" onclick="toggleLang()"><span lang="en">中文</span><span lang="zh">EN</span></button>
+</div>
+</div>
+</nav>
+<section id="home" class="hero">
+<div class="hero-content">
+<h1><span lang="en">Wealth Management Excellence</span><span lang="zh">卓越财富管理</span></h1>
+<p lang="en">Trusted financial guidance and sophisticated wealth management solutions<br>tailored for your prosperity in Singapore's dynamic financial landscape</p>
+<p lang="zh">值得信赖的财务指导和精密的财富管理解决方案<br>为您在新加坡充满活力的金融环境中实现繁荣而量身定制</p>
+<div class="cta-buttons">
+<a href="#contact" class="cta-btn primary"><span lang="en">Get Started</span><span lang="zh">立即开始</span></a>
+<a href="#services" class="cta-btn secondary"><span lang="en">Our Services</span><span lang="zh">我们的服务</span></a>
+</div>
+</div>
+</section>
+<div class="stats">
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-icon">💰</div><div class="stat-number">S$2B+</div><div class="stat-label"><span lang="en">Assets Under Management</span><span lang="zh">管理资产规模</span></div></div>
+<div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-number">500+</div><div class="stat-label"><span lang="en">Satisfied Clients</span><span lang="zh">满意客户</span></div></div>
+<div class="stat-card"><div class="stat-icon">📈</div><div class="stat-number">15.2%</div><div class="stat-label"><span lang="en">Avg Annual Returns</span><span lang="zh">平均年回报率</span></div></div>
+<div class="stat-card"><div class="stat-icon">🌏</div><div class="stat-number">25+</div><div class="stat-label"><span lang="en">Global Markets</span><span lang="zh">全球市场</span></div></div>
+</div>
+</div>
+<section id="about" class="about fade-in">
+<h2 class="section-title"><span lang="en">About HY WISEFUND</span><span lang="zh">关于恒源智汇</span></h2>
+<p class="section-subtitle"><span lang="en">Your Premier Wealth Management Partner in Singapore</span><span lang="zh">您在新加坡的首选财富管理合作伙伴</span></p>
+<div class="about-content">
+<div class="about-text">
+<p lang="en">HY WISEFUND (SINGAPORE) WEALTH MANAGEMENT PTE. LTD. is a premier wealth management firm established in Singapore, dedicated to providing comprehensive financial solutions for discerning individuals, families, and institutions.</p>
+<p lang="zh">恒源智汇(新加坡)财富管理私人有限公司是在新加坡成立的一家顶级财富管理公司，致力于为有眼光的个人、家庭和机构提供全面的金融解决方案。</p>
+<h3><span lang="en">Our Commitment</span><span lang="zh">我们的承诺</span></h3>
+<p lang="en">We combine deep market expertise with personalized service to help you build, preserve, and transfer wealth across generations. Our team leverages Singapore's robust financial ecosystem to deliver innovative investment strategies and holistic wealth planning.</p>
+<p lang="zh">我们将深厚的市场专业知识与个性化服务相结合，帮助您在各代之间建立、保护和传承财富。我们的团队利用新加坡强大的金融生态系统，提供创新的投资策略和全面的财富规划。</p>
+<div class="about-features">
+<div class="feature-badge"><span lang="en">🎯 Client-Centric</span><span lang="zh">🎯 以客户为中心</span></div>
+<div class="feature-badge"><span lang="en">🏆 Proven Expertise</span><span lang="zh">🏆 经过验证的专业知识</span></div>
+<div class="feature-badge"><span lang="en">🔒 Trust & Transparency</span><span lang="zh">🔒 信任与透明</span></div>
+<div class="feature-badge"><span lang="en">🌟 Innovation</span><span lang="zh">🌟 创新</span></div>
+</div>
+</div>
+<div class="about-image">
+<div class="landmark-badge"><span lang="en">📍 Marina Bay Sands</span><span lang="zh">📍 滨海湾金沙</span></div>
+</div>
+</div>
+</section>
+<section id="services" class="services fade-in">
+<h2 class="section-title"><span lang="en">Our Services</span><span lang="zh">我们的服务</span></h2>
+<p class="section-subtitle"><span lang="en">Comprehensive wealth management solutions designed for your success</span><span lang="zh">为您的成功设计的全面财富管理解决方案</span></p>
+<div class="services-grid">
+<div class="service-card">
+<div class="service-icon">📊</div>
+<h3><span lang="en">Investment Management</span><span lang="zh">投资管理</span></h3>
+<p lang="en">Strategic portfolio construction and active management across global markets, tailored to your risk profile and financial goals.</p>
+<p lang="zh">战略性投资组合构建和跨全球市场的主动管理，根据您的风险偏好和财务目标量身定制。</p>
+<ul lang="en"><li>Global Equity & Fixed Income</li><li>Alternative Investments</li><li>Risk-Adjusted Returns</li></ul>
+<ul lang="zh"><li>全球股票和固定收益</li><li>另类投资</li><li>风险调整后回报</li></ul>
+</div>
+<div class="service-card">
+<div class="service-icon">💼</div>
+<h3><span lang="en">Wealth Planning</span><span lang="zh">财富规划</span></h3>
+<p lang="en">Holistic financial planning encompassing retirement, estate planning, and intergenerational wealth transfer strategies.</p>
+<p lang="zh">全面的财务规划，包括退休、遗产规划和代际财富转移策略。</p>
+<ul lang="en"><li>Retirement Planning</li><li>Estate & Tax Planning</li><li>Legacy Strategies</li></ul>
+<ul lang="zh"><li>退休规划</li><li>遗产和税务规划</li><li>传承策略</li></ul>
+</div>
+<div class="service-card">
+<div class="service-icon">🏦</div>
+<h3><span lang="en">Asset Allocation</span><span lang="zh">资产配置</span></h3>
+<p lang="en">Sophisticated diversification strategies to optimize returns while managing risk across multiple asset classes and geographies.</p>
+<p lang="zh">精密的多元化策略，在管理风险的同时优化跨多种资产类别和地区的回报。</p>
+<ul lang="en"><li>Multi-Asset Portfolios</li><li>Geographic Diversification</li><li>Dynamic Rebalancing</li></ul>
+<ul lang="zh"><li>多资产投资组合</li><li>地理多元化</li><li>动态再平衡</li></ul>
+</div>
+<div class="service-card">
+<div class="service-icon">📈</div>
+<h3><span lang="en">Portfolio Advisory</span><span lang="zh">投资组合咨询</span></h3>
+<p lang="en">Expert guidance on market opportunities, risk management, and strategic positioning to enhance your investment outcomes.</p>
+<p lang="zh">关于市场机会、风险管理和战略定位的专家指导，以提升您的投资成果。</p>
+<ul lang="en"><li>Market Analysis</li><li>Performance Monitoring</li><li>Strategic Recommendations</li></ul>
+<ul lang="zh"><li>市场分析</li><li>绩效监控</li><li>战略建议</li></ul>
+</div>
+<div class="service-card">
+<div class="service-icon">🌐</div>
+<h3><span lang="en">Global Markets Access</span><span lang="zh">全球市场准入</span></h3>
+<p lang="en">Exclusive access to international investment opportunities across equities, fixed income, alternatives, and structured products.</p>
+<p lang="zh">独家获得跨股票、固定收益、另类投资和结构性产品的国际投资机会。</p>
+<ul lang="en"><li>International Markets</li><li>Structured Products</li><li>Private Placements</li></ul>
+<ul lang="zh"><li>国际市场</li><li>结构性产品</li><li>私募配售</li></ul>
+</div>
+<div class="service-card">
+<div class="service-icon">🛡️</div>
+<h3><span lang="en">Risk Management</span><span lang="zh">风险管理</span></h3>
+<p lang="en">Comprehensive risk assessment and mitigation strategies to protect and preserve your wealth through market cycles.</p>
+<p lang="zh">全面的风险评估和缓解策略，在市场周期中保护和保存您的财富。</p>
+<ul lang="en"><li>Risk Assessment</li><li>Hedging Strategies</li><li>Capital Preservation</li></ul>
+<ul lang="zh"><li>风险评估</li><li>对冲策略</li><li>资本保全</li></ul>
+</div>
+</div>
+</section>
+<div class="merlion-section fade-in">
+<div class="merlion-content">
+<div class="merlion-image"></div>
+<div class="merlion-text">
+<h3><span lang="en">Singapore: A Global Financial Hub</span><span lang="zh">新加坡：全球金融中心</span></h3>
+<p lang="en">Operating from the heart of Asia's premier financial center, we leverage Singapore's world-class infrastructure, regulatory excellence, and strategic position to deliver superior wealth management solutions to our global clientele.</p>
+<p lang="zh">我们在亚洲首屈一指的金融中心运营，利用新加坡世界级的基础设施、卓越的监管和战略地位，为全球客户提供卓越的财富管理解决方案。</p>
+<p lang="en">With its stable political environment, robust legal framework, and favorable tax policies, Singapore provides the ideal platform for wealth preservation and growth.</p>
+<p lang="zh">凭借稳定的政治环境、强大的法律框架和有利的税收政策，新加坡为财富保值增值提供了理想的平台。</p>
+</div>
+</div>
+</div>
+<div id="insights" class="insights fade-in">
+<h2 class="section-title" style="color:white"><span lang="en">Market Insights</span><span lang="zh">市场洞察</span></h2>
+<p class="section-subtitle" style="color:rgba(255,255,255,0.9)"><span lang="en">Data-driven analysis and market intelligence</span><span lang="zh">数据驱动的分析和市场智能</span></p>
+<div class="insights-grid">
+<div class="insight-card">
+<h3><span lang="en">Portfolio Growth</span><span lang="zh">投资组合增长</span></h3>
+<div class="insight-chart">
+<div class="chart-bar"><span class="chart-label">Q1</span></div>
+<div class="chart-bar"><span class="chart-label">Q2</span></div>
+<div class="chart-bar"><span class="chart-label">Q3</span></div>
+<div class="chart-bar"><span class="chart-label">Q4</span></div>
+<div class="chart-bar"><span class="chart-label">Q5</span></div>
+</div>
+<p lang="en">Consistent upward trajectory with strategic positioning across global markets and asset classes.</p>
+<p lang="zh">通过跨全球市场和资产类别的战略定位实现持续向上的轨迹。</p>
+</div>
+<div class="insight-card">
+<h3><span lang="en">Risk-Adjusted Returns</span><span lang="zh">风险调整后回报</span></h3>
+<div class="insight-chart">
+<div class="chart-bar"><span class="chart-label">2020</span></div>
+<div class="chart-bar"><span class="chart-label">2021</span></div>
+<div class="chart-bar"><span class="chart-label">2022</span></div>
+<div class="chart-bar"><span class="chart-label">2023</span></div>
+<div class="chart-bar"><span class="chart-label">2024</span></div>
+</div>
+<p lang="en">Superior performance metrics balancing growth potential with downside protection strategies.</p>
+<p lang="zh">平衡增长潜力与下行保护策略的卓越绩效指标。</p>
+</div>
+<div class="insight-card">
+<h3><span lang="en">Asset Diversification</span><span lang="zh">资产多元化</span></h3>
+<div class="insight-chart">
+<div class="chart-bar"><span class="chart-label">Equity</span></div>
+<div class="chart-bar"><span class="chart-label">Bonds</span></div>
+<div class="chart-bar"><span class="chart-label">RE</span></div>
+<div class="chart-bar"><span class="chart-label">Alt</span></div>
+<div class="chart-bar"><span class="chart-label">Cash</span></div>
+</div>
+<p lang="en">Optimal allocation across equities, fixed income, alternatives, and emerging opportunities.</p>
+<p lang="zh">跨股票、固定收益、另类投资和新兴机会的最优配置。</p>
+</div>
+</div>
+</div>
+<div id="performance" class="performance fade-in">
+<h2 class="section-title"><span lang="en">Performance Dashboard</span><span lang="zh">业绩仪表板</span></h2>
+<p class="section-subtitle"><span lang="en">Track record of exceptional results</span><span lang="zh">卓越成果的业绩记录</span></p>
+<div class="performance-grid">
+<div class="performance-card">
+<h3><span lang="en">Key Metrics</span><span lang="zh">关键指标</span></h3>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">5-Year Return</span><span lang="zh">5年回报</span></span>
+<span class="metric-value">+87.3%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:87%"></div></div>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">Sharpe Ratio</span><span lang="zh">夏普比率</span></span>
+<span class="metric-value">1.82</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:91%"></div></div>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">Volatility</span><span lang="zh">波动率</span></span>
+<span class="metric-value">8.4%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:42%"></div></div>
+</div>
+<div class="performance-card">
+<h3><span lang="en">Client Satisfaction</span><span lang="zh">客户满意度</span></h3>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">Client Retention</span><span lang="zh">客户保留率</span></span>
+<span class="metric-value">96%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:96%"></div></div>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">Referral Rate</span><span lang="zh">推荐率</span></span>
+<span class="metric-value">78%</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+<div class="metric-row">
+<span class="metric-label"><span lang="en">NPS Score</span><span lang="zh">净推荐值</span></span>
+<span class="metric-value">85</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
+</div>
+</div>
+</div>
+<section id="contact" class="contact fade-in">
+<h2 class="section-title"><span lang="en">Get In Touch</span><span lang="zh">联系我们</span></h2>
+<p class="section-subtitle"><span lang="en">Let's discuss how we can help you achieve your financial goals</span><span lang="zh">让我们讨论如何帮助您实现财务目标</span></p>
+<div class="contact-content">
+<div class="contact-info">
+<h3><span lang="en">Contact Information</span><span lang="zh">联系信息</span></h3>
+<div class="contact-item">
+<div class="contact-icon">🏢</div>
+<div>
+<strong>HY WISEFUND (SINGAPORE) WEALTH MANAGEMENT PTE. LTD.</strong><br>
+<span lang="en">UEN: 202447435C</span><span lang="zh">注册号: 202447435C</span>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">📍</div>
+<div>33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">🌐</div>
+<div><a href="https://www.hywisefund.com" style="color:white;text-decoration:none">www.hywisefund.com</a></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">📅</div>
+<div><span lang="en">Incorporation: 19 Nov 2024</span><span lang="zh">注册日期：2024年11月19日</span></div>
+</div>
+</div>
+<form class="contact-form" onsubmit="return handleSubmit(event)">
+<div class="form-group">
+<label><span lang="en">Full Name</span><span lang="zh">姓名</span></label>
+<input type="text" placeholder="John Doe / 张三" required>
+</div>
+<div class="form-group">
+<label><span lang="en">Email</span><span lang="zh">电子邮件</span></label>
+<input type="email" placeholder="your@email.com" required>
+</div>
+<div class="form-group">
+<label><span lang="en">Phone</span><span lang="zh">电话</span></label>
+<input type="tel" placeholder="+65 1234 5678">
+</div>
+<div class="form-group">
+<label><span lang="en">Message</span><span lang="zh">信息</span></label>
+<textarea rows="5" required></textarea>
+</div>
+<button type="submit" class="submit-btn"><span><span lang="en">Send Message</span><span lang="zh">发送信息</span></span></button>
+</form>
+</div>
+</section>
+<footer>
+<div class="footer-content">
+<div class="footer-section">
+<h3><span lang="en">HY WISEFUND</span><span lang="zh">恒源智汇</span></h3>
+<p lang="en">Premier Wealth Management in Singapore</p>
+<p lang="zh">新加坡首屈一指的财富管理</p>
+<p>33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)<br>UEN: 202447435C</p>
+</div>
+<div class="footer-section">
+<h3><span lang="en">Services</span><span lang="zh">服务</span></h3>
+<p lang="en">Investment Management<br>Wealth Planning<br>Asset Allocation<br>Portfolio Advisory<br>Global Markets<br>Risk Management</p>
+<p lang="zh">投资管理<br>财富规划<br>资产配置<br>投资组合咨询<br>全球市场<br>风险管理</p>
+</div>
+<div class="footer-section">
+<h3><span lang="en">Quick Links</span><span lang="zh">快速链接</span></h3>
+<p><a href="#about" style="color:rgba(255,255,255,0.9);text-decoration:none"><span lang="en">About Us</span><span lang="zh">关于我们</span></a></p>
+<p><a href="#services" style="color:rgba(255,255,255,0.9);text-decoration:none"><span lang="en">Services</span><span lang="zh">服务项目</span></a></p>
+<p><a href="#performance" style="color:rgba(255,255,255,0.9);text-decoration:none"><span lang="en">Performance</span><span lang="zh">业绩表现</span></a></p>
+<p><a href="#contact" style="color:rgba(255,255,255,0.9);text-decoration:none"><span lang="en">Contact</span><span lang="zh">联系我们</span></a></p>
+</div>
+</div>
+<div class="footer-bottom">
+<p>&copy; 2024 HY WISEFUND (SINGAPORE) WEALTH MANAGEMENT PTE. LTD. <span lang="en">All rights reserved.</span><span lang="zh">版权所有。</span></p>
+<p style="margin-top:1rem;font-size:0.9rem"><span lang="en">Disclaimer: Investment involves risk. Past performance is not indicative of future results.</span><span lang="zh">免责声明：投资涉及风险。过去的表现并不代表未来的结果。</span></p>
+</div>
+</footer>
+<div class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</div>
+<script>
+function toggleLang(){const b=document.body;b.setAttribute('data-lang',b.getAttribute('data-lang')==='en'?'zh':'en')}
+function handleSubmit(e){e.preventDefault();alert(document.body.getAttribute('data-lang')==='en'?'Thank you! We will contact you soon.':'谢谢！我们会尽快与您联系。');e.target.reset();return false}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},1500)});
+window.addEventListener('scroll',()=>{const n=document.getElementById('nav');const s=document.getElementById('scrollTop');if(window.scrollY>50){n.classList.add('scrolled')}else{n.classList.remove('scrolled')}if(window.scrollY>300){s.classList.add('visible')}else{s.classList.remove('visible')}});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+const o=new IntersectionObserver(e=>{e.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible')}})},{threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>o.observe(el));
+const bg=document.getElementById('bg');
+for(let i=0;i<50;i++){const p=document.createElement('div');p.className='particle';p.style.left=Math.random()*100+'%';p.style.animationDelay=Math.random()*25+'s';bg.appendChild(p)}
+</script>
+</body>
+</html>
