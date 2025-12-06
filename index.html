@@ -47,8 +47,8 @@ nav.scrolled{padding:0.7rem 5%;box-shadow:0 4px 40px rgba(102,126,234,0.3)}
 .cta-btn.secondary{background:transparent;color:white;border:2px solid white}
 .cta-btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 15px 40px rgba(0,0,0,0.3)}
 section{padding:6rem 5%;max-width:1400px;margin:0 auto}
-.section-title{text-align:center;font-size:3rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700}
-.section-subtitle{text-align:center;font-size:1.3rem;color:#666;margin-bottom:4rem;line-height:1.8}
+.section-title{text-align:center;font-size:3rem;margin-bottom:1rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:700;position:relative;z-index:10}
+.section-subtitle{text-align:center;font-size:1.3rem;color:#666;margin-bottom:4rem;line-height:1.8;position:relative;z-index:10}
 .stats{background:linear-gradient(135deg,#f8f9fa,#e9ecef);padding:5rem 5%}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;max-width:1400px;margin:0 auto}
 .stat-card{background:white;padding:2.5rem;border-radius:20px;text-align:center;box-shadow:0 10px 40px rgba(102,126,234,0.15);transition:all 0.4s;position:relative;overflow:hidden}
@@ -116,16 +116,19 @@ section{padding:6rem 5%;max-width:1400px;margin:0 auto}
 .progress-fill::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);animation:shine 2s infinite}
 @keyframes fillProgress{from{width:0}}
 @keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.merlion-section{background:linear-gradient(to right,rgba(102,126,234,0.08),rgba(118,75,162,0.08));padding:5rem 5%;margin:4rem 0;position:relative}
+.merlion-section{background:linear-gradient(to right,rgba(248,249,250,1),rgba(233,236,239,1));padding:5rem 5%;margin:4rem 0;position:relative}
 .merlion-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
 .merlion-image{height:450px;background-image:url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg');background-size:cover;background-position:center;border-radius:20px;box-shadow:0 20px 60px rgba(102,126,234,0.25);position:relative;overflow:hidden}
 .merlion-image::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(118,75,162,0.08));z-index:1}
 .merlion-image::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to top,rgba(0,0,0,0.5),transparent);z-index:1}
 .merlion-landmark{position:absolute;bottom:25px;left:25px;background:rgba(255,255,255,0.95);padding:1rem 1.8rem;border-radius:12px;font-weight:700;color:#667eea;box-shadow:0 8px 25px rgba(0,0,0,0.3);font-size:1.1rem;backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.5);z-index:10}
-.merlion-text h3{font-size:2rem;color:#667eea;margin-bottom:1.5rem;white-space:nowrap}
-.merlion-text p{font-size:1.2rem;line-height:1.8;color:#555;margin-bottom:1rem}
-.merlion-text{position:relative;z-index:10}
-.contact{background:linear-gradient(135deg,#f8f9fa,#e9ecef)}
+.merlion-text{position:relative;z-index:10;background:white;padding:2rem;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
+.merlion-text h3{font-size:2rem;color:#667eea;margin-bottom:1.5rem;white-space:nowrap;position:relative;z-index:10}
+.merlion-text p{font-size:1.15rem;line-height:1.9;color:#333;margin-bottom:1.2rem;position:relative;z-index:10;font-weight:400}
+.contact{background:linear-gradient(135deg,rgba(102,126,234,0.92),rgba(118,75,162,0.92)),url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/esplanade.jpg');background-size:cover;background-position:center;background-attachment:fixed;position:relative;padding:6rem 5%}
+.contact::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.1);z-index:0}
+.contact::after{content:'📍 Esplanade';position:absolute;top:30px;right:30px;background:rgba(255,255,255,0.95);padding:1rem 1.8rem;border-radius:12px;font-weight:700;color:#667eea;box-shadow:0 8px 25px rgba(0,0,0,0.3);font-size:1.1rem;backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.5);z-index:10}
+.contact>*{position:relative;z-index:1}
 .contact-content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem}
 .contact-info{background:linear-gradient(135deg,#667eea,#764ba2);padding:3rem;border-radius:20px;color:white;box-shadow:0 20px 60px rgba(102,126,234,0.3);position:relative;overflow:hidden}
 .contact-info::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1),transparent);animation:rotate 20s linear infinite}
@@ -406,15 +409,15 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <form class="contact-form" onsubmit="return handleSubmit(event)">
 <div class="form-group">
 <label><span lang="en">Full Name</span><span lang="zh">姓名</span></label>
-<input type="text" required>
+<input type="text" placeholder="John Doe / 张三" required>
 </div>
 <div class="form-group">
 <label><span lang="en">Email</span><span lang="zh">电子邮件</span></label>
-<input type="email" required>
+<input type="email" placeholder="your@email.com" required>
 </div>
 <div class="form-group">
 <label><span lang="en">Phone</span><span lang="zh">电话</span></label>
-<input type="tel" >
+<input type="tel" placeholder="+65 1234 5678">
 </div>
 <div class="form-group">
 <label><span lang="en">Message</span><span lang="zh">信息</span></label>
