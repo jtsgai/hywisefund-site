@@ -184,7 +184,7 @@
     .stat-num { font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--gold); }
     .stat-label { font-size: 0.85rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* Value Proposition Section - NEW */
+    /* Value Proposition Section */
     .value-prop-section { background: var(--bg-offwhite); padding: 6rem 5%; }
     .value-cards { 
         display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; 
@@ -248,7 +248,7 @@
     .theme-card:hover { border-color: var(--gold); }
     .theme-icon { font-size: 2rem; margin-bottom: 1rem; display: block; color: var(--accent); }
 
-    /* Singapore Advantage Section - NEW */
+    /* Singapore Advantage Section */
     .singapore-section { 
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         padding: 6rem 5%; color: white;
@@ -285,7 +285,7 @@
         list-style: disc; line-height: 1.6;
     }
 
-    /* Team Section - NEW */
+    /* Team Section */
     .team-section { padding: 6rem 5%; background: white; }
     .team-grid {
         display: grid; grid-template-columns: repeat(3, 1fr);
@@ -318,7 +318,7 @@
         line-height: 1.6; margin: 0 auto;
     }
 
-    /* FAQ Section - NEW */
+    /* FAQ Section */
     .faq-section { 
         background: var(--bg-offwhite); padding: 6rem 5%; 
     }
@@ -369,7 +369,8 @@
     .contact-map-side { background: #e2e8f0; position: relative; min-height: 400px; }
     .map-placeholder {
         width: 100%; height: 100%; object-fit: cover;
-        background-image: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg');
+        background-image: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg');
+        background-size: cover; background-position: center;
         filter: grayscale(80%) opacity(0.6);
     }
     .map-overlay {
@@ -467,7 +468,7 @@
         color: var(--text-main); line-height: 1.8;
     }
 
-    /* Highlight Box - NEW */
+    /* Highlight Box */
     .highlight-box {
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         border-left: 4px solid var(--gold);
@@ -505,7 +506,7 @@
 
 <nav>
     <div class="nav-inner">
-        <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/hy-logo.png" alt="HY WISEFUND" class="logo">
+        <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/hywishlogo.png" alt="HY WISEFUND" class="logo">
         <div class="nav-menu">
             <a onclick="switchView('home')" class="nav-link"><span class="en">Home</span><span class="zh">首页</span></a>
             <a onclick="switchView('solutions')" class="nav-link"><span class="en">Solutions</span><span class="zh">解决方案</span></a>
@@ -544,7 +545,7 @@
             </div>
             <div>
                 <div class="stat-num">50+</div>
-                <div class="stat-label"><span class="en">Family Offices Served</span><span class="zh">服务家族办公室</span></div>
+                <div class="stat-label"><span class="en">Clients Served</span><span class="zh">服务客户</span></div>
             </div>
             <div>
                 <div class="stat-num">15+</div>
@@ -557,7 +558,7 @@
         </div>
     </section>
 
-    <!-- NEW: Value Proposition Section -->
+    <!-- Value Proposition Section -->
     <section class="value-prop-section">
         <div class="title-group">
             <h2 class="zh">为什么选择 HY WISEFUND</h2>
@@ -577,15 +578,15 @@
                 <div class="value-icon">🏛️</div>
                 <h3 class="zh">机构级专业能力</h3>
                 <h3 class="en">Institutional-Grade Expertise</h3>
-                <p class="zh">我们的团队拥有在顶级投资银行、主权财富基金和家族办公室的工作经验，为您提供机构级的财富管理解决方案。</p>
-                <p class="en">Our team has worked at top investment banks, sovereign wealth funds, and family offices, bringing institutional-grade solutions to your wealth management.</p>
+                <p class="zh">我们的团队拥有在顶级投资银行、主权财富基金的工作经验，为您提供机构级的财富咨询解决方案。</p>
+                <p class="en">Our team has worked at top investment banks and sovereign wealth funds, bringing institutional-grade solutions to your wealth management.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon">🌏</div>
                 <h3 class="zh">全球视野与本地洞察</h3>
                 <h3 class="en">Global Perspective, Local Insight</h3>
-                <p class="zh">扎根新加坡，我们深谙亚太地区的财富管理生态，同时拥有全球资产配置的视野和网络，为您打造最优的跨境财富解决方案。</p>
-                <p class="en">Based in Singapore, we understand Asia-Pacific wealth management while maintaining global asset allocation perspective and networks for optimal cross-border solutions.</p>
+                <p class="zh">扎根新加坡，我们深谙亚太地区的财富咨询生态，同时拥有全球配置的视野和网络，为您打造最优的跨境财富解决方案。</p>
+                <p class="en">Based in Singapore, we understand Asia-Pacific wealth advisory while maintaining global allocation perspective and networks for optimal cross-border solutions.</p>
             </div>
         </div>
     </section>
@@ -595,13 +596,13 @@
             <h2 class="zh">财富架构设计</h2>
             <h2 class="en">Wealth Architecture Design</h2>
             <div class="divider"></div>
-            <p class="zh">我们帮助超高净值家族设计顶层法律与税务架构。从新加坡 VCC（可变资本公司）到离岸信托，我们与顶级律师和税务顾问协作，为您构建最优的财富持有结构。</p>
-            <p class="zh">我们的架构设计不仅关注当下的税务效率，更着眼于跨代际的财富传承。我们帮助您实现资产保护、税务优化和家族治理的三重目标。</p>
-            <p class="en">We help ultra-high-net-worth families design top-tier legal and tax structures. From Singapore VCC to offshore trusts, we collaborate with leading lawyers and tax advisors to build optimal wealth holding structures.</p>
-            <p class="en">Our architecture design focuses not only on current tax efficiency but also on multi-generational wealth transfer, achieving asset protection, tax optimization, and family governance.</p>
+            <p class="zh">我们帮助超高净值家族设计顶层法律与税务架构。从新加坡投资公司到离岸信托，我们与顶级律师和税务顾问协作，为您构建最优的财富持有结构。</p>
+            <p class="zh">我们的架构设计不仅关注当下的税务效率，更着眼于跨代际的财富传承。我们帮助您实现资产保护、税务优化和治理的三重目标。</p>
+            <p class="en">We help ultra-high-net-worth families design top-tier legal and tax structures. From Singapore investment companies to offshore trusts, we collaborate with leading lawyers and tax advisors to build optimal wealth holding structures.</p>
+            <p class="en">Our architecture design focuses not only on current tax efficiency but also on multi-generational wealth transfer, achieving asset protection, tax optimization, and governance.</p>
         </div>
         <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/wealth-structure.jpg" alt="Wealth Structure">
+            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg" alt="Wealth Structure">
         </div>
     </section>
 
@@ -616,7 +617,7 @@
             <p class="en">We employ a "core-satellite" strategy: the core focuses on capital preservation with defensive assets against inflation; satellites pursue asymmetric returns through growth instruments capturing tech and emerging market dividends.</p>
         </div>
         <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/investment-strategy.jpg" alt="Investment Strategy">
+            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/gardens-by-the-bay.jpg" alt="Investment Strategy">
         </div>
     </section>
 
@@ -626,12 +627,12 @@
             <h2 class="en">Family Governance & Legacy</h2>
             <div class="divider"></div>
             <p class="zh">没有治理计划，财富保值就毫无意义。我们帮助您起草家族宪章、建立家族委员会，确保您的价值观与财富一同传承。</p>
-            <p class="zh">我们协助设立慈善基金会，通过社会影响力凝聚家族成员，培养下一代的责任感。我们相信，真正的财富传承不仅是资产的转移,更是价值观和使命的延续。</p>
+            <p class="zh">我们协助设立慈善基金会，通过社会影响力凝聚家族成员，培养下一代的责任感。我们相信，真正的财富传承不仅是资产的转移，更是价值观和使命的延续。</p>
             <p class="en">Without governance, wealth preservation is meaningless. We help you draft family charters and establish family councils to ensure your values transfer alongside your wealth.</p>
             <p class="en">We assist in establishing charitable foundations, uniting family members through social impact and cultivating next-generation responsibility. True legacy is not just asset transfer, but the continuation of values and mission.</p>
         </div>
         <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/family-governance.jpg" alt="Family Governance">
+            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg" alt="Family Governance">
         </div>
     </section>
 
@@ -744,36 +745,36 @@
         </div>
     </section>
 
-    <!-- NEW: Singapore Advantage Section -->
+    <!-- Singapore Advantage Section -->
     <section class="singapore-section">
         <div class="singapore-content">
-            <h2 class="zh">新加坡：全球财富管理中心</h2>
-            <h2 class="en">Singapore: Global Wealth Management Hub</h2>
+            <h2 class="zh">新加坡：全球财富中心</h2>
+            <h2 class="en">Singapore: Global Wealth Hub</h2>
             <div class="divider"></div>
             <p class="zh" style="text-align:center; max-width:800px; margin:0 auto 3rem; color:rgba(255,255,255,0.85);">
-                新加坡已成为亚太地区首屈一指的财富管理中心。凭借稳定的政治环境、健全的法律体系、优惠的税收政策和世界级的金融基础设施，新加坡为超高净值家族提供了理想的财富管理平台。
+                新加坡已成为亚太地区首屈一指的财富中心。凭借稳定的政治环境、健全的法律体系、优惠的税收政策和世界级的金融基础设施，新加坡为超高净值家族提供了理想的财富平台。
             </p>
             <p class="en" style="text-align:center; max-width:800px; margin:0 auto 3rem; color:rgba(255,255,255,0.85);">
-                Singapore has emerged as Asia-Pacific's premier wealth management center. With political stability, robust legal framework, favorable tax policies, and world-class financial infrastructure, Singapore provides an ideal platform for ultra-high-net-worth families.
+                Singapore has emerged as Asia-Pacific's premier wealth center. With political stability, robust legal framework, favorable tax policies, and world-class financial infrastructure, Singapore provides an ideal platform for ultra-high-net-worth families.
             </p>
             <div class="singapore-grid">
                 <div class="singapore-item">
                     <h3 class="zh">税务优势</h3>
                     <h3 class="en">Tax Advantages</h3>
-                    <p class="zh">新加坡实行属地税制，对境外收入不征税。没有资本利得税、遗产税或股息预扣税。对于符合条件的家族办公室，可享受 13O/13U 税务激励计划，实现投资收益的税务豁免。</p>
-                    <p class="en">Singapore operates a territorial tax system with no tax on foreign-sourced income. No capital gains tax, estate tax, or dividend withholding tax. Qualified family offices can benefit from 13O/13U tax incentive schemes for investment income exemption.</p>
+                    <p class="zh">新加坡实行属地税制，对境外收入不征税。没有资本利得税、遗产税或股息预扣税。对于符合条件的投资架构，可享受税务激励计划，实现投资收益的税务豁免。</p>
+                    <p class="en">Singapore operates a territorial tax system with no tax on foreign-sourced income. No capital gains tax, estate tax, or dividend withholding tax. Qualified investment structures can benefit from tax incentive schemes for investment income exemption.</p>
                 </div>
                 <div class="singapore-item">
                     <h3 class="zh">法律框架</h3>
                     <h3 class="en">Legal Framework</h3>
-                    <p class="zh">新加坡拥有健全的信托法和公司法体系。VCC（可变资本公司）架构为家族办公室提供了灵活的法律载体。新加坡法院对财产权的保护和合同执行效率在全球名列前茅。</p>
-                    <p class="en">Singapore has a robust trust and corporate law framework. The VCC (Variable Capital Company) structure provides flexible legal vehicles for family offices. Singapore courts rank among the world's best for property rights protection and contract enforcement.</p>
+                    <p class="zh">新加坡拥有健全的信托法和公司法体系。投资架构为财富平台提供了灵活的法律载体。新加坡法院对财产权的保护和合同执行效率在全球名列前茅。</p>
+                    <p class="en">Singapore has a robust trust and corporate law framework. Investment structures provide flexible legal vehicles for wealth platforms. Singapore courts rank among the world's best for property rights protection and contract enforcement.</p>
                 </div>
                 <div class="singapore-item">
                     <h3 class="zh">金融生态</h3>
                     <h3 class="en">Financial Ecosystem</h3>
-                    <p class="zh">新加坡汇聚了全球顶级的私人银行、资产管理公司和专业服务机构。作为亚洲的金融枢纽，新加坡提供了无与伦比的投资渠道和专业服务网络。</p>
-                    <p class="en">Singapore hosts the world's leading private banks, asset managers, and professional service firms. As Asia's financial hub, Singapore offers unparalleled investment access and professional service networks.</p>
+                    <p class="zh">新加坡汇聚了全球顶级的私人银行、投资公司和专业服务机构。作为亚洲的金融枢纽，新加坡提供了无与伦比的投资渠道和专业服务网络。</p>
+                    <p class="en">Singapore hosts the world's leading private banks, investment firms, and professional service providers. As Asia's financial hub, Singapore offers unparalleled investment access and professional service networks.</p>
                 </div>
                 <div class="singapore-item">
                     <h3 class="zh">居留与移民</h3>
@@ -785,7 +786,7 @@
         </div>
     </section>
 
-    <!-- NEW: Team Section -->
+    <!-- Team Section -->
     <section class="team-section">
         <div class="title-group">
             <h2 class="zh">我们的团队</h2>
@@ -799,8 +800,8 @@
                 <h3 class="zh">张明</h3>
                 <h3 class="en">Ming Zhang</h3>
                 <p class="team-role"><span class="zh">创始合伙人 & 首席投资官</span><span class="en">Founding Partner & CIO</span></p>
-                <p class="zh">曾任职于新加坡主权财富基金 GIC，拥有 15 年机构投资经验。专注于全球资产配置和另类投资策略。</p>
-                <p class="en">Former GIC Singapore with 15 years of institutional investment experience. Specializes in global asset allocation and alternative investment strategies.</p>
+                <p class="zh">曾任职于新加坡主权财富基金 GIC，拥有 15 年机构投资经验。专注于全球配置和投资策略。</p>
+                <p class="en">Former GIC Singapore with 15 years of institutional investment experience. Specializes in global allocation and investment strategies.</p>
             </div>
             <div class="team-card">
                 <div class="team-avatar">💼</div>
@@ -815,13 +816,13 @@
                 <h3 class="zh">王芳</h3>
                 <h3 class="en">Fang Wang</h3>
                 <p class="team-role"><span class="zh">合伙人 & 家族治理顾问</span><span class="en">Partner & Family Governance Advisor</span></p>
-                <p class="zh">拥有心理学和商业管理双重背景，专注于家族治理和代际传承。曾服务多个百亿级家族办公室。</p>
-                <p class="en">With dual background in psychology and business management, specializes in family governance and generational transition. Served multiple billion-dollar family offices.</p>
+                <p class="zh">拥有心理学和商业管理双重背景，专注于家族治理和代际传承。曾服务多个超高净值家族。</p>
+                <p class="en">With dual background in psychology and business management, specializes in family governance and generational transition. Served multiple ultra-high-net-worth families.</p>
             </div>
         </div>
     </section>
 
-    <!-- NEW: FAQ Section -->
+    <!-- FAQ Section -->
     <section class="faq-section">
         <div class="title-group">
             <h2 class="zh">常见问题</h2>
@@ -848,7 +849,7 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p class="zh">我们采用 100% 纯咨询费模式。我们的收费基于资产规模和服务复杂度，通常为年度管理资产的 0.5%-1%。我们不收取任何产品佣金、返点或隐藏费用。所有费用在合同中明确列出，完全透明。</p>
+                    <p class="zh">我们采用 100% 纯咨询费模式。我们的收费基于资产规模和服务复杂度，通常为年度咨询资产的 0.5%-1%。我们不收取任何产品佣金、返点或隐藏费用。所有费用在合同中明确列出，完全透明。</p>
                     <p class="en">We operate on a 100% fee-only model. Our fees are based on asset size and service complexity, typically 0.5%-1% of annual assets under advisory. We don't charge any product commissions, rebates, or hidden fees. All fees are clearly stated in the contract with complete transparency.</p>
                 </div>
             </div>
@@ -865,8 +866,8 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
-                    <span class="zh">设立新加坡家族办公室需要多长时间？</span>
-                    <span class="en">How long does it take to establish a Singapore family office?</span>
+                    <span class="zh">设立新加坡财富平台需要多长时间？</span>
+                    <span class="en">How long does it take to establish a Singapore wealth platform?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
@@ -881,8 +882,8 @@
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
-                    <p class="zh">不一定。我们可以为您设计全球化的资产持有架构。您的资产可以分散在不同司法管辖区，通过新加坡的控股公司或信托进行统一管理。我们会根据您的税务居民身份、资产类型和风险偏好，为您设计最优的全球资产配置方案。</p>
-                    <p class="en">Not necessarily. We can design a global asset holding structure for you. Your assets can be distributed across different jurisdictions, managed centrally through Singapore holding companies or trusts. We'll design the optimal global asset allocation plan based on your tax residency, asset types, and risk preferences.</p>
+                    <p class="zh">不一定。我们可以为您设计全球化的资产持有架构。您的资产可以分散在不同司法管辖区，通过新加坡的控股公司或信托进行统一管理。我们会根据您的税务居民身份、资产类型和风险偏好，为您设计最优的全球配置方案。</p>
+                    <p class="en">Not necessarily. We can design a global asset holding structure for you. Your assets can be distributed across different jurisdictions, managed centrally through Singapore holding companies or trusts. We'll design the optimal global allocation plan based on your tax residency, asset types, and risk preferences.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -900,8 +901,8 @@
     </section>
 
     <section class="section-pad" style="background:var(--bg-offwhite); text-align:center;">
-        <h2 class="zh">准备开始您的财富管理旅程？</h2>
-        <h2 class="en">Ready to Begin Your Wealth Management Journey?</h2>
+        <h2 class="zh">准备开始您的财富旅程？</h2>
+        <h2 class="en">Ready to Begin Your Wealth Journey?</h2>
         <p class="zh" style="margin:2rem auto; max-width:600px;">
             联系我们，预约一次免费的初步咨询。我们将深入了解您的需求，为您提供初步的财富架构建议。
         </p>
@@ -929,16 +930,16 @@
         <div class="content-body">
             <div id="sol-structure" class="content-block">
                 <h2 class="zh">财富架构设计</h2>
-                <p class="zh">我们帮助超高净值家族设计顶层法律与税务架构。从新加坡 VCC（可变资本公司）到离岸信托，我们与顶级律师和税务顾问协作，为您构建最优的财富持有结构。</p>
+                <p class="zh">我们帮助超高净值家族设计顶层法律与税务架构。从新加坡投资公司到离岸信托，我们与顶级律师和税务顾问协作，为您构建最优的财富持有结构。</p>
                 
                 <div class="highlight-box">
-                    <h4 class="zh">新加坡 VCC 架构的优势</h4>
-                    <p class="zh">VCC（Variable Capital Company）是新加坡在 2020 年推出的创新型公司架构，专为投资基金和家族办公室设计。它提供了无与伦比的灵活性和税务效率。</p>
+                    <h4 class="zh">新加坡投资架构的优势</h4>
+                    <p class="zh">新加坡提供了创新型公司架构，专为投资平台设计。它提供了无与伦比的灵活性和税务效率。</p>
                     <ul class="check-list">
-                        <li class="zh"><strong>灵活的资本结构：</strong> 可以设立多个子基金，每个子基金拥有独立的资产和负债，实现风险隔离。</li>
-                        <li class="zh"><strong>税务优势：</strong> 符合条件的 VCC 可以申请 13O/13U 税务激励，享受投资收益的税务豁免。</li>
-                        <li class="zh"><strong>简化管理：</strong> 所有子基金共享同一个董事会和管理团队,降低管理成本。</li>
-                        <li class="zh"><strong>全球认可：</strong> VCC 架构受到全球金融机构的认可，便于开立银行账户和进行跨境投资。</li>
+                        <li class="zh"><strong>灵活的资本结构：</strong> 可以设立多个投资组合，每个组合拥有独立的资产和负债，实现风险隔离。</li>
+                        <li class="zh"><strong>税务优势：</strong> 符合条件的架构可以申请税务激励，享受投资收益的税务豁免。</li>
+                        <li class="zh"><strong>简化管理：</strong> 统一的董事会和管理团队，降低管理成本。</li>
+                        <li class="zh"><strong>全球认可：</strong> 架构受到全球金融机构的认可，便于开立银行账户和进行跨境投资。</li>
                     </ul>
                 </div>
 
@@ -947,7 +948,7 @@
                     <ul class="check-list">
                         <li class="zh"><strong>顶层架构设计：</strong> 根据您的税务居民身份、资产类型和传承目标，设计最优的法律持有结构。</li>
                         <li class="zh"><strong>信托规划：</strong> 协助设立离岸信托或新加坡本地信托，实现资产保护和代际传承。</li>
-                        <li class="zh"><strong>税务效率：</strong> 就 13O/13U 激励计划的可行性提供建议，优化税务成本。</li>
+                        <li class="zh"><strong>税务效率：</strong> 就税务激励计划的可行性提供建议，优化税务成本。</li>
                         <li class="zh"><strong>传承路线：</strong> 设计跨代际的财富转移路线图，防止家族纠纷。</li>
                         <li class="zh"><strong>身份规划：</strong> 协助申请新加坡 GIP 及税务居民身份，实现全球流动性。</li>
                         <li class="zh"><strong>合规管理：</strong> 确保架构符合所有相关司法管辖区的法律和监管要求。</li>
@@ -956,10 +957,10 @@
 
                 <h3 class="zh">典型案例场景</h3>
                 <p class="zh"><strong>场景一：中国企业家的全球化布局</strong></p>
-                <p class="zh">张先生是一位成功的中国企业家，计划将部分资产转移到海外以实现全球化配置。我们为他设计了一个多层架构：在新加坡设立 VCC 作为控股公司，下设多个子基金分别投资于美国股票、欧洲债券和亚洲私募股权。通过申请 13O 税务激励，张先生的投资收益享受税务豁免。同时，我们协助他申请了新加坡 GIP，全家获得了永久居留权。</p>
+                <p class="zh">张先生是一位成功的中国企业家，计划将部分资产转移到海外以实现全球化配置。我们为他设计了一个多层架构：在新加坡设立控股公司，下设多个投资组合分别投资于美国股票、欧洲市场和亚洲增长型企业。通过申请税务激励，张先生的投资收益享受税务豁免。同时，我们协助他申请了新加坡 GIP，全家获得了永久居留权。</p>
                 
                 <p class="zh"><strong>场景二：东南亚家族的代际传承</strong></p>
-                <p class="zh">李家族是一个拥有百年历史的东南亚家族企业。第三代继承人希望建立一个现代化的家族治理架构。我们为他们设立了一个新加坡信托，持有家族企业的股权。信托的受益人包括第三代和第四代家族成员。我们还协助起草了家族宪章，明确了家族价值观、治理结构和继承规则，确保家族财富和企业的顺利传承。</p>
+                <p class="zh">李家族是一个拥有百年历史的东南亚家族企业。第三代继承人希望建立一个现代化的治理架构。我们为他们设立了一个新加坡信托，持有家族企业的股权。信托的受益人包括第三代和第四代家族成员。我们还协助起草了家族宪章，明确了家族价值观、治理结构和继承规则，确保家族财富和企业的顺利传承。</p>
             </div>
 
             <div id="sol-invest" class="content-block">
@@ -1006,7 +1007,7 @@
                     <h4 class="zh">核心-卫星投资策略</h4>
                     <p class="zh"><strong>核心部分（60-70%）：</strong>关注资本保值和稳定收益</p>
                     <ul class="check-list">
-                        <li class="zh">高等级固定收益：政府债券、投资级公司债</li>
+                        <li class="zh">稳健收益工具：政府证券、投资级产品</li>
                         <li class="zh">全球蓝筹股票：标普 500、欧洲 50、亚洲优质企业</li>
                         <li class="zh">实物资产：基础设施基金、房地产投资信托 (REITs)</li>
                     </ul>
@@ -1014,13 +1015,13 @@
                     <ul class="check-list">
                         <li class="zh">科技增长：AI、云计算、半导体、生物科技</li>
                         <li class="zh">新兴市场：印度、东南亚、拉美优质企业</li>
-                        <li class="zh">另类投资：私募股权、对冲基金、风险投资</li>
+                        <li class="zh">另类投资：非公开市场投资、对冲基金</li>
                         <li class="zh">数字资产：比特币、以太坊（小比例配置）</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">管理人筛选与尽职调查</h3>
-                <p class="zh">我们拥有庞大的基金经理数据库，涵盖全球顶级的资产管理公司。我们的筛选流程包括：</p>
+                <p class="zh">我们拥有庞大的基金经理数据库，涵盖全球顶级的投资公司。我们的筛选流程包括：</p>
                 <ul class="check-list">
                     <li class="zh"><strong>定量分析：</strong> 历史业绩、风险调整回报、最大回撤、夏普比率</li>
                     <li class="zh"><strong>定性评估：</strong> 投资哲学、团队稳定性、运营能力、合规记录</li>
@@ -1079,7 +1080,7 @@
                 </ul>
 
                 <h3 class="zh">企业并购咨询</h3>
-                <p class="zh">无论是收购还是出售企业，我们都能提供专业的财富管理视角：</p>
+                <p class="zh">无论是收购还是出售企业，我们都能提供专业的财富视角：</p>
                 <ul class="check-list">
                     <li class="zh">评估交易对个人财富的影响，优化交易结构</li>
                     <li class="zh">协调税务顾问和律师，最小化税务成本</li>
@@ -1087,11 +1088,11 @@
                     <li class="zh">管理流动性事件后的心理和生活方式转变</li>
                 </ul>
 
-                <h3 class="zh">家族企业与投资资产分离</h3>
-                <p class="zh">我们帮助企业家实现"企业财富"和"家族财富"的分离，降低风险：</p>
+                <h3 class="zh">企业财富与投资资产分离</h3>
+                <p class="zh">我们帮助企业家实现"企业财富"和"投资财富"的分离，降低风险：</p>
                 <ul class="check-list">
-                    <li class="zh">将企业经营风险与家族投资资产隔离</li>
-                    <li class="zh">设立独立的家族投资平台，专注于资本增值</li>
+                    <li class="zh">将企业经营风险与投资资产隔离</li>
+                    <li class="zh">设立独立的投资平台，专注于资本增值</li>
                     <li class="zh">为非经营性资产（如房地产、金融投资）建立独立架构</li>
                     <li class="zh">确保即使企业遇到困难，家族财富依然安全</li>
                 </ul>
@@ -1160,7 +1161,7 @@
                 <div class="timeline-date">03</div>
                 <div class="timeline-content">
                     <h3 class="zh">架构蓝图</h3>
-                    <p class="zh">设计顶层法律架构。我们与税务顾问和律师协调，推荐最佳的法律结构（如VCC或信托）。这个阶段重点解决"资产放在哪里"和"如何持有"的问题。</p>
+                    <p class="zh">设计顶层法律架构。我们与税务顾问和律师协调，推荐最佳的法律结构（如投资公司或信托）。这个阶段重点解决"资产放在哪里"和"如何持有"的问题。</p>
                     <p class="zh">我们会为您设计一个多层次的架构方案，包括控股公司、投资平台、信托安排等。架构设计需要平衡税务效率、资产保护、传承便利性和运营成本。</p>
                 </div>
             </div>
@@ -1206,7 +1207,7 @@
                 <div class="timeline-date">07</div>
                 <div class="timeline-content">
                     <h3 class="zh">风险监督</h3>
-                    <p class="zh">财富管理是动态的。我们提供持续的风险监控、综合报表整合，确保投资组合不偏离既定轨道。我们使用先进的系统监控市场风险、信用风险和流动性风险。</p>
+                    <p class="zh">财富咨询是动态的。我们提供持续的风险监控、综合报表整合，确保投资组合不偏离既定轨道。我们使用先进的系统监控市场风险、信用风险和流动性风险。</p>
                     <div class="highlight-box">
                         <h4 class="zh">我们的监督服务包括</h4>
                         <ul class="check-list">
@@ -1253,20 +1254,20 @@
                 <div class="highlight-box">
                     <h4 class="zh">配置模型示意（典型超高净值家族）</h4>
                     <ul class="check-list">
-                        <li class="zh"><strong>流动性底仓（15-20%）：</strong> 高等级固定收益工具与现金管理，确保随时可用的流动性。包括短期国债、货币市场基金和高等级公司债。</li>
+                        <li class="zh"><strong>流动性底仓（15-20%）：</strong> 稳健收益工具与现金管理，确保随时可用的流动性。包括短期政府证券、货币市场基金和高等级产品。</li>
                         <li class="zh"><strong>增长引擎（30-40%）：</strong> 全球优质增长型资产与科技板块，捕捉时代红利。包括美国科技股、亚洲增长型企业、创新主题基金。</li>
                         <li class="zh"><strong>抗通胀层（20-25%）：</strong> 实物资产与基础设施，提供稳定现金流并抵御货币贬值。包括房地产、基础设施基金、大宗商品。</li>
                         <li class="zh"><strong>非相关回报（15-20%）：</strong> 市场中性策略与宏观对冲，在市场下跌时提供保护。包括对冲基金、CTA 策略、多策略基金。</li>
-                        <li class="zh"><strong>私募股权（10-15%）：</strong> 长期资本增值，捕捉私募市场的超额回报。包括 PE、VC、私募信贷。</li>
+                        <li class="zh"><strong>长期股权（10-15%）：</strong> 长期资本增值，捕捉非公开市场的超额回报。包括长期股权投资、早期企业投资。</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">为什么传统 60/40 组合已经过时？</h3>
-                <p class="zh">传统的 60% 股票 + 40% 债券组合在过去几十年表现良好，但在当前环境下面临挑战：</p>
+                <p class="zh">传统的 60% 股票 + 40% 固收组合在过去几十年表现良好，但在当前环境下面临挑战：</p>
                 <ul class="check-list">
-                    <li class="zh"><strong>低利率环境：</strong> 债券收益率处于历史低位，难以提供有效的收益和分散化</li>
-                    <li class="zh"><strong>股债相关性上升：</strong> 在通胀环境下，股票和债券可能同时下跌</li>
-                    <li class="zh"><strong>忽视另类资产：</strong> 私募股权、对冲基金等另类资产能提供更好的风险调整回报</li>
+                    <li class="zh"><strong>低利率环境：</strong> 固收产品收益率处于历史低位，难以提供有效的收益和分散化</li>
+                    <li class="zh"><strong>相关性上升：</strong> 在通胀环境下，股票和固收可能同时下跌</li>
+                    <li class="zh"><strong>忽视另类资产：</strong> 非公开市场投资、对冲基金等另类资产能提供更好的风险调整回报</li>
                     <li class="zh"><strong>缺乏通胀保护：</strong> 传统组合在高通胀环境下表现不佳</li>
                 </ul>
             </div>
@@ -1293,7 +1294,7 @@
                 <p class="zh">对于超高净值家族，保护下行风险比追求上行收益更重要。我们建议配置一定比例的尾部风险对冲工具：</p>
                 <ul class="check-list">
                     <li class="zh">长期看跌期权：保护股票组合的下行风险</li>
-                    <li class="zh">黄金配置：在系统性危机中提供保护</li>
+                    <li class="zh">贵金属配置：在系统性危机中提供保护</li>
                     <li class="zh">尾部风险基金：专门设计用于在市场崩盘时获利</li>
                     <li class="zh">现金储备：确保在危机中有"干火药"抄底</li>
                 </ul>
@@ -1301,7 +1302,7 @@
             
             <div id="exp-macro" class="content-block">
                 <h2 class="zh">全球宏观主题</h2>
-                <p class="zh">我们正处于一个去全球化和高通胀并存的新周期。传统的估值模型正在失效。我们帮助客户识别那些能够定价权、拥有护城河的优质资产。</p>
+                <p class="zh">我们正处于一个去全球化和高通胀并存的新周期。传统的估值模型正在失效。我们帮助客户识别那些拥有定价权、拥有护城河的优质资产。</p>
                 <p class="zh">顺应未来20年的发展趋势，我们建议关注代表"能量"与"智慧"的板块：人工智能、聚变能源、生物科技以及受监管的数字资产。这些领域将诞生下一个时代的财富巨擘。</p>
                 
                 <h3 class="zh">2025-2030 年的关键投资主题</h3>
@@ -1340,15 +1341,15 @@
                 <h2 class="zh">另类投资策略</h2>
                 <p class="zh">另类投资是超高净值家族投资组合的重要组成部分。与公开市场相比，另类投资提供了更好的风险调整回报、更低的相关性和更多的阿尔法机会。</p>
                 
-                <h3 class="zh">私募股权 (Private Equity)</h3>
-                <p class="zh">私募股权历史上提供了优于公开市场的回报，但需要长期资本承诺和专业的管理人筛选能力。</p>
+                <h3 class="zh">长期股权投资</h3>
+                <p class="zh">长期股权投资历史上提供了优于公开市场的回报，但需要长期资本承诺和专业的管理人筛选能力。</p>
                 <div class="highlight-box">
-                    <h4 class="zh">我们关注的 PE 策略</h4>
+                    <h4 class="zh">我们关注的投资策略</h4>
                     <ul class="check-list">
                         <li class="zh"><strong>成长型股权：</strong> 投资于高增长的中后期企业</li>
                         <li class="zh"><strong>并购基金：</strong> 通过杠杆收购和运营改善创造价值</li>
-                        <li class="zh"><strong>风险投资：</strong> 早期科技公司投资，高风险高回报</li>
-                        <li class="zh"><strong>二级市场：</strong> 购买其他投资者的 PE 份额，获得流动性折扣</li>
+                        <li class="zh"><strong>早期企业投资：</strong> 早期科技公司投资，高风险高回报</li>
+                        <li class="zh"><strong>二级市场：</strong> 购买其他投资者的份额，获得流动性折扣</li>
                     </ul>
                 </div>
 
