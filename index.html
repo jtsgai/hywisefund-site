@@ -25,9 +25,10 @@
         --text-light: #64748b;
         
         --nav-height: 80px;
-        --container: 1200px;
+        --container: 1280px;
         --radius: 6px;
-        --shadow-card: 0 10px 30px rgba(0,0,0,0.05);
+        --shadow-card: 0 15px 35px rgba(30, 27, 75, 0.06);
+        --shadow-hover: 0 20px 40px rgba(30, 27, 75, 0.12);
         
         /* 字体栈 */
         --font-en: 'Lato', sans-serif;
@@ -52,29 +53,17 @@
     /* 中文模式字体优化 */
     body[data-lang="zh"] { 
         font-family: var(--font-zh); 
-        letter-spacing: 0.02em;
+        letter-spacing: 0.04em;
     }
 
     h1, h2, h3, h4 { 
-        font-family: var(--font-serif); 
-        color: var(--primary); 
-        font-weight: 700; 
-        line-height: 1.3;
-        margin-bottom: 1rem;
+        font-family: var(--font-serif); color: var(--primary); font-weight: 700; line-height: 1.3; margin-bottom: 1rem;
     }
-    
-    /* 中文标题特殊处理 */
-    body[data-lang="zh"] h1, body[data-lang="zh"] h2, body[data-lang="zh"] h3 { 
-        font-family: var(--font-zh); 
-        font-weight: 600;
-    }
+    body[data-lang="zh"] h1, body[data-lang="zh"] h2, body[data-lang="zh"] h3 { font-family: var(--font-zh); font-weight: 600; }
 
-    p { 
-        margin-bottom: 1.5rem; 
-        max-width: 800px;
-    }
+    p { margin-bottom: 1.5rem; max-width: 800px; transition: color 0.3s; }
     
-    /* 中文两端对齐，英文左对齐 (修复排版混乱的核心) */
+    /* 对齐修正 */
     body[data-lang="zh"] p { text-align: justify; text-justify: inter-ideograph; }
     body[data-lang="en"] p { text-align: left; }
     
@@ -93,23 +82,26 @@
     /* ================= 3. 导航与组件 ================= */
     nav {
         position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-        background: rgba(255,255,255,0.98); border-bottom: 1px solid rgba(0,0,0,0.05);
+        background: rgba(255,255,255,0.9); backdrop-filter: blur(15px); /* 磨砂质感增强 */
+        border-bottom: 1px solid rgba(0,0,0,0.05);
         z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        transition: all 0.3s;
     }
     .nav-inner {
         max-width: var(--container); margin: 0 auto; height: 100%; padding: 0 5%;
         display: flex; justify-content: space-between; align-items: center;
     }
-    .logo { height: 48px; width: auto; }
+    .logo { height: 48px; width: auto; transition: transform 0.3s; }
+    .logo:hover { transform: scale(1.02); }
     
-    .nav-menu { display: flex; gap: 2rem; align-items: center; }
+    .nav-menu { display: flex; gap: 2.5rem; align-items: center; }
     .nav-link { 
-        font-size: 0.95rem; font-weight: 600; color: var(--text-main);
-        position: relative; padding: 10px 0; white-space: nowrap;
+        font-size: 0.9rem; font-weight: 600; color: var(--text-main);
+        position: relative; padding: 10px 0; white-space: nowrap; letter-spacing: 0.5px;
     }
     .nav-link::after {
         content: ''; position: absolute; bottom: 5px; left: 0; width: 0; height: 2px;
-        background: var(--accent); transition: 0.3s;
+        background: var(--accent); transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .nav-link:hover { color: var(--accent); }
     .nav-link:hover::after { width: 100%; }
@@ -121,20 +113,28 @@
     }
     .lang-btn:hover { border-color: var(--primary); background: var(--primary); color: white; }
 
-    /* 按钮组件 */
+    /* 按钮组件 (含光泽特效) */
     .btn {
         display: inline-flex; align-items: center; justify-content: center;
         padding: 1rem 2.5rem; background: var(--primary); color: white;
         font-weight: 600; border-radius: var(--radius); transition: 0.3s;
         border: 1px solid var(--primary); min-width: 160px;
+        position: relative; overflow: hidden; z-index: 1;
     }
-    .btn:hover { background: white; color: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    /* 光泽扫过动画 */
+    .btn::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s; z-index: -1;
+    }
+    .btn:hover::after { left: 100%; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(30, 27, 75, 0.2); }
     
     .btn-outline {
         display: inline-flex; align-items: center; justify-content: center;
         padding: 1rem 2.5rem; background: transparent; color: var(--primary);
         font-weight: 600; border-radius: var(--radius); border: 1px solid var(--primary);
-        min-width: 160px;
+        min-width: 160px; transition: 0.3s;
     }
     .btn-outline:hover { background: var(--bg-accent); border-color: var(--accent); color: var(--accent); }
 
@@ -157,38 +157,59 @@
     .back-btn-float.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
     .back-btn-float:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* 通用布局 */
-    .section-pad { padding: 7rem 5%; max-width: var(--container); margin: 0 auto; }
+    .section-pad { padding: 7rem 5%; max-width: var(--container); margin: 0 auto; position: relative; }
     .divider { width: 60px; height: 3px; background: var(--gold); margin: 1.5rem 0; }
     .text-center { text-align: center; }
     
-    .title-group { margin-bottom: 3rem; }
-    .title-group h2 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .title-group { margin-bottom: 4rem; text-align: center; position: relative; z-index: 2; }
+    .title-group h2 { font-size: 2.8rem; margin-bottom: 0.5rem; color: var(--primary); }
     .title-group span { 
         display: block; font-family: var(--font-en); font-size: 0.9rem; 
         color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; 
     }
 
-    /* ================= 4. 视图动画 ================= */
-    .view { display: none; opacity: 0; animation: fadeUp 0.6s forwards; }
+    /* ================= 4. 视图动画 & 特效 ================= */
+    .view { display: none; opacity: 0; animation: pageIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
     .view.active { display: block; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pageIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* 滚动淡入效果 */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* 背景粒子 Canvas */
+    #ambient-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; pointer-events: none; }
+
+    /* 开场 Loader */
+    #loader {
+        position: fixed; inset: 0; background: white; z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        transition: opacity 0.8s ease;
+    }
+    .loader-content { text-align: center; animation: pulse 2s infinite; }
 
     /* ================= 5. 首页 (Home) ================= */
     .hero {
         position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;
         text-align: center; overflow: hidden;
-        background: radial-gradient(circle at center, #fff 0%, #f7f9fc 100%);
     }
+    .hero-bg {
+        position: absolute; inset: 0; opacity: 0.4;
+        background: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg') center/cover;
+        filter: grayscale(100%); transform: scale(1.05);
+        animation: slowZoom 30s infinite alternate;
+    }
+    @keyframes slowZoom { from {transform: scale(1.05);} to {transform: scale(1.15);} }
+
     .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 5%; }
-    .hero h1 { font-size: 4rem; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: 4rem; margin-bottom: 1.5rem; text-shadow: 0 10px 30px rgba(255,255,255,0.8); }
     .hero p { font-size: 1.25rem; margin: 0 auto 3rem; color: var(--text-main); }
 
     /* 信任条 */
     .trust-bar { border-bottom: 1px solid #eee; padding: 3rem 0; background: white; }
     .trust-grid { 
         max-width: var(--container); margin: 0 auto; padding: 0 5%;
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 响应式修复 */
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
         gap: 2rem; text-align: center; 
     }
     .stat-num { font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--gold); }
@@ -196,44 +217,74 @@
 
     /* Zig-Zag Section */
     .split-section { 
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 响应式修复 */
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
         gap: 6rem; align-items: center; padding: 6rem 5%; max-width: var(--container); margin: 0 auto; 
     }
     .split-text p { font-size: 1.05rem; line-height: 1.8; }
-    .split-img { height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); }
-    .split-img img { width: 100%; height: 100%; transition: 0.5s; }
-    .split-img:hover img { transform: scale(1.03); }
+    .split-img { 
+        height: 450px; border-radius: var(--radius); overflow: hidden; 
+        box-shadow: var(--shadow-card); position: relative;
+    }
+    .split-img img { width: 100%; height: 100%; transition: 0.8s; }
+    .split-img:hover img { transform: scale(1.05); }
     .reverse { direction: rtl; } 
     .reverse .split-text { direction: ltr; }
 
-    /* Advisory Services Grid */
-    .process-section { background: var(--bg-offwhite); padding: 8rem 5%; text-align: center; }
-    .process-grid { 
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 响应式修复 */
-        gap: 2rem; max-width: var(--container); margin: 4rem auto 0; 
+    /* 核心价值 (3列) */
+    .value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
+    .value-card { 
+        padding: 3rem; background: white; border: 1px solid #eee; border-top: 3px solid var(--primary);
+        transition: 0.4s; height: 100%; 
     }
-    .process-card { 
-        background: white; padding: 2.5rem 2rem; border-radius: 8px; box-shadow: var(--shadow-card);
-        position: relative; cursor: pointer; transition: 0.3s; text-align: left;
+    .value-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-top-color: var(--accent); }
+    .value-icon { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary); display: block; }
+    .value-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+
+    /* 客户旅程 (8步 - 4x2 网格) */
+    .process-section { background: var(--bg-offwhite); padding: 8rem 5%; }
+    .process-grid-8 { 
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+        gap: 1.5rem; max-width: var(--container); margin: 0 auto; 
     }
-    .process-card:hover { transform: translateY(-10px); border-bottom: 4px solid var(--accent); }
-    .process-step { font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; }
-    .process-card h4 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary); }
-    .process-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; }
+    .process-card-small { 
+        background: white; padding: 2rem 1.5rem; border-radius: 4px; box-shadow: var(--shadow-card); 
+        position: relative; cursor: pointer; transition: 0.3s; text-align: left; height: 100%;
+        border: 1px solid transparent;
+    }
+    .process-card-small:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .process-step-num { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: block; margin-bottom: 0.5rem; }
+    .process-card-small h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary); line-height: 1.4; }
+    .process-card-small p { font-size: 0.85rem; color: var(--text-light); line-height: 1.5; margin-bottom: 0; }
 
-    /* Investment Themes */
-    .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; margin-top: 4rem; }
-    .theme-card { background: white; padding: 3rem; text-align: center; transition: 0.3s; border: 1px solid #eee; }
-    .theme-card:hover { box-shadow: var(--shadow-card); border-color: var(--accent); }
+    /* 战略主题 (4大支柱) */
+    .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .theme-card { 
+        background: white; padding: 2.5rem 2rem; text-align: center; 
+        transition: 0.3s; border: 1px solid #eee; border-radius: 4px;
+    }
+    .theme-card:hover { box-shadow: var(--shadow-card); border-color: var(--gold); }
+    .theme-icon { font-size: 2rem; margin-bottom: 1.5rem; display: block; color: var(--accent); }
 
-    /* Partners */
-    .partners-bar { padding: 4rem 5%; border-top: 1px solid #eee; text-align: center; }
-    .partners-logos { 
-        display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap; 
-        color: var(--text-light); font-weight: 700; font-size: 1.2rem; letter-spacing: 2px;
+    /* 联系页 (地图版) */
+    .contact-hero-grid { 
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 0; 
+        background: white; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-card);
+        border: 1px solid #eee;
+    }
+    .contact-info-side { padding: 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .contact-map-side { background: #e2e8f0; position: relative; min-height: 400px; }
+    .map-placeholder {
+        width: 100%; height: 100%; object-fit: cover;
+        background-image: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg');
+        filter: grayscale(80%) opacity(0.6);
+    }
+    .map-overlay {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        background: white; padding: 1rem 2rem; border-radius: 50px; 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-weight: 700; color: var(--primary);
     }
 
-    /* ================= 6. 二级页面 (Consulting Detail) ================= */
+    /* ================= 6. 二级页面 (Detail) ================= */
     .detail-header { padding: 8rem 5% 4rem; background: var(--bg-offwhite); text-align: center; }
     .detail-header h1 { font-size: 3rem; margin-bottom: 1rem; color: var(--primary); }
     .breadcrumbs { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
@@ -267,19 +318,13 @@
     .data-table th { background: var(--primary); color: white; white-space: nowrap; }
     .data-table tr:nth-child(even) { background: var(--bg-offwhite); }
     
-    /* Timeline */
+    /* 8-Step Timeline (Vertical) */
     .timeline-item { display: flex; gap: 2rem; margin-bottom: 3rem; }
     .timeline-date { min-width: 60px; font-weight: 700; color: var(--accent); font-family: 'Playfair Display'; font-size: 1.5rem; text-align: right; }
-    .timeline-content { border-left: 1px solid #eee; padding-left: 2rem; padding-bottom: 2rem; }
-    .timeline-content h3 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+    .timeline-content { border-left: 1px solid #eee; padding-left: 2rem; padding-bottom: 2rem; flex: 1; }
+    .timeline-content h3 { margin-bottom: 0.5rem; font-size: 1.4rem; color: var(--primary); }
 
-    /* ================= 7. 联系页 (极简) ================= */
-    .contact-wrapper { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 5%; background: white; border-radius: 8px; border: 1px solid #eee; box-shadow: var(--shadow-card); }
-    .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; text-align: left; }
-    .contact-group h4 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.8rem; letter-spacing: 2px; }
-    .contact-group p { font-size: 1.1rem; color: var(--primary); font-weight: 600; line-height: 1.6; }
-
-    /* ================= 8. Footer ================= */
+    /* ================= 7. Footer ================= */
     footer { background: var(--bg-offwhite); border-top: 1px solid #eee; padding: 6rem 5% 3rem; margin-top: 6rem; }
     .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; max-width: var(--container); margin: 0 auto; }
     .footer-brand h4 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary); }
@@ -290,20 +335,35 @@
     .footer-disclaimer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #94a3b8; }
 
     /* 响应式 */
-    @media (max-width: 900px) {
-        .split-section { grid-template-columns: 1fr; gap: 3rem; }
-        .hero h1 { font-size: 2.5rem; }
-        .nav-menu { display: none; } /* 移动端隐藏菜单 */
-        .side-nav { position: sticky; top: var(--nav-height); z-index: 800; background: white; padding: 10px 0; overflow-x: auto; display: flex; gap: 15px; border-bottom: 1px solid #eee; white-space: nowrap; margin-bottom: 2rem; }
-        .side-link { border-bottom: none; background: #f5f5f5; border-radius: 20px; padding: 5px 15px; }
+    @media (max-width: 1024px) {
+        .nav-menu { display: none; }
+        .hero h1 { font-size: 2.8rem; }
+        .split-section.reverse { direction: ltr; } 
+        .split-text { direction: ltr; }
+        .detail-layout { grid-template-columns: 1fr; }
+        
+        /* Mobile Horizontal Scroll Nav */
+        .side-nav { 
+            position: sticky; top: var(--nav-height); z-index: 800; background: white; 
+            padding: 15px 0; overflow-x: auto; display: flex; gap: 15px; 
+            border-bottom: 1px solid #eee; white-space: nowrap; margin-bottom: 2rem; 
+        }
+        .side-link { border-bottom: none; background: #f5f5f5; border-radius: 20px; padding: 8px 15px; }
         .side-link.active { background: var(--accent); color: white; }
         .back-btn-float { top: 90px; }
-        .contact-row { grid-template-columns: 1fr; }
-        .split-section.reverse { direction: ltr; } .reverse .split-text { direction: ltr; }
     }
 </style>
 </head>
 <body data-lang="en">
+
+<div id="loader">
+    <div class="loader-content">
+        <h2 style="color:var(--primary); font-family:'Cinzel'; letter-spacing:3px;">HY WISEFUND</h2>
+        <p style="color:var(--gold); font-size:0.8rem; text-transform:uppercase;">Strategic Consultancy</p>
+    </div>
+</div>
+
+<canvas id="ambient-canvas"></canvas>
 
 <nav>
     <div class="nav-inner">
@@ -328,14 +388,15 @@
 <main id="home-view" class="view active">
     
     <section class="hero">
-        <div class="hero-content">
+        <div class="hero-bg"></div>
+        <div class="hero-content fade-up">
             <div style="color:var(--accent); font-family:'Cinzel'; letter-spacing:2px; margin-bottom:1rem; font-weight:700;">
                 <span class="en">Vision . Clarity . Legacy</span><span class="zh">远见 · 清晰 · 传承</span>
             </div>
             <h1 class="en">Strategic Advisory for Generational Wealth</h1>
             <h1 class="zh">世代财富的战略顾问</h1>
-            <p class="en">We are Singapore's premier independent wealth consultancy. We provide the intellectual capital, top-tier oversight, and strategic roadmap for your legacy.</p>
-            <p class="zh">我们是新加坡顶级的独立财富咨询机构。我们提供智力资本、顶层监督以及家族传承的战略路线图。</p>
+            <p class="en">Singapore's premier independent wealth consultancy. Providing intellectual capital, oversight, and strategic roadmaps for ultra-high-net-worth families.</p>
+            <p class="zh">新加坡顶级的独立财富咨询机构。为超高净值家族提供智力资本、顶层监督以及家族传承的战略路线图。</p>
             <div>
                 <button class="btn" onclick="switchView('solutions')"><span class="en">Our Expertise</span><span class="zh">我们的专长</span></button>
                 <button class="btn-outline" onclick="switchView('contact')"><span class="en">Private Inquiry</span><span class="zh">私密咨询</span></button>
@@ -344,7 +405,7 @@
     </section>
 
     <div class="stats-bar">
-        <div class="stats-grid">
+        <div class="stats-grid fade-up">
             <div><div class="stat-num">S$2B+</div><div class="stat-label"><span class="en">Advised Assets</span><span class="zh">咨询资产规模</span></div></div>
             <div><div class="stat-num">AAA</div><div class="stat-label"><span class="en">Jurisdiction</span><span class="zh">顶级管辖区</span></div></div>
             <div><div class="stat-num">100%</div><div class="stat-label"><span class="en">Independent</span><span class="zh">独立智库</span></div></div>
@@ -352,103 +413,132 @@
         </div>
     </div>
 
-    <section class="split-section">
-        <div class="split-text">
-            <div class="divider"></div>
-            <div class="title-group">
-                <h2 class="zh">新加坡优势</h2>
-                <span class="en">The Strategic Sanctuary</span>
-            </div>
-            <p class="en">In an era of fragmentation, capital seeks a sanctuary. Singapore offers political neutrality, common law stability, and strategic proximity to Asian growth engines.</p>
-            <p class="zh">在碎片化的时代，资本寻求避风港。新加坡提供政治中立、普通法系的稳定性，以及紧邻亚洲增长引擎的战略位置。我们以此为基地，为您提供全球视野的咨询服务。</p>
-            <a onclick="switchView('solutions')" style="color:var(--accent); font-weight:600;"><span class="en">Explore Advisory</span><span class="zh">探索咨询服务</span> &rarr;</a>
+    <section class="section-pad">
+        <div class="title-group fade-up">
+            <h2 class="zh">核心价值</h2><span class="en">The Core Value Proposition</span>
         </div>
-        <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg" alt="Singapore">
+        <div class="value-grid">
+            <div class="value-card fade-up">
+                <span class="value-icon">🏛️</span>
+                <h3 class="zh">顶层架构</h3><h3 class="en" style="font-size:1rem; color:var(--text-light); text-transform:uppercase;">Structuring</h3>
+                <p class="zh">利用新加坡 VCC 和信托架构，实现全球资产的合规隔离、税务优化与隐私保护。我们为您构建坚不可摧的财富堡垒。</p>
+                <p class="en">Utilizing Singapore VCC and Trust structures for compliant segregation, tax optimization, and privacy protection.</p>
+            </div>
+            <div class="value-card fade-up">
+                <span class="value-icon">⚖️</span>
+                <h3 class="zh">独立监督</h3><h3 class="en" style="font-size:1rem; color:var(--text-light); text-transform:uppercase;">Oversight</h3>
+                <p class="zh">作为您的买方代表，我们独立筛选全球顶级托管银行与基金经理。无利益冲突，只为您的利益代言。</p>
+                <p class="en">Acting as your buy-side advocate, we independently select top-tier custodian banks and fund managers.</p>
+            </div>
+            <div class="value-card fade-up">
+                <span class="value-icon">🔭</span>
+                <h3 class="zh">宏观远见</h3><h3 class="en" style="font-size:1rem; color:var(--text-light); text-transform:uppercase;">Vision</h3>
+                <p class="zh">基于全球宏观趋势，布局科技、能源与长寿经济。在不确定性中寻找确定性增长。</p>
+                <p class="en">Positioning in technology, energy, and longevity based on global macro trends.</p>
+            </div>
         </div>
     </section>
 
-    <section class="section-pad text-center" style="background:var(--bg-offwhite);">
-        <div class="title-group">
-            <h2 class="zh">客户旅程</h2>
-            <span class="en">The Advisory Process</span>
+    <section class="process-section">
+        <div class="title-group fade-up">
+            <h2 class="zh">客户旅程</h2><span class="en">The 8-Step Advisory Process</span>
         </div>
-        <div class="process-grid">
-            <div class="process-card" onclick="switchView('journey')">
-                <span class="process-step">Step 01</span>
-                <h4 class="zh">发现与诊断</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Discovery</h4>
-                <p class="zh">深入理解您的金融基因与传承目标，量身定制。</p>
+        <div class="process-grid-8">
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">01</span>
+                <h4 class="zh">发现与倾听</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Discovery</h4>
+                <p class="zh">深度访谈，绘制家族金融基因。</p>
             </div>
-            <div class="process-card" onclick="switchView('journey')">
-                <span class="process-step">Step 02</span>
-                <h4 class="zh">蓝图设计</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Blueprint</h4>
-                <p class="zh">设计法律架构与税务筹划路线图，确保合规。</p>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">02</span>
+                <h4 class="zh">财务诊断</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Diagnosis</h4>
+                <p class="zh">现有资产结构的风险体检。</p>
             </div>
-            <div class="process-card" onclick="switchView('journey')">
-                <span class="process-step">Step 03</span>
-                <h4 class="zh">策略筛选</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Selection</h4>
-                <p class="zh">筛选一流的托管银行与基金经理，把控品质。</p>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">03</span>
+                <h4 class="zh">架构蓝图</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Blueprint</h4>
+                <p class="zh">设计法律实体与税务路径。</p>
             </div>
-            <div class="process-card" onclick="switchView('journey')">
-                <span class="process-step">Step 04</span>
-                <h4 class="zh">监督管家</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Oversight</h4>
-                <p class="zh">持续的风险监控与绩效审查，保驾护航。</p>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">04</span>
+                <h4 class="zh">策略制定</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Strategy</h4>
+                <p class="zh">制定资产配置政策声明 (IPS)。</p>
+            </div>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">05</span>
+                <h4 class="zh">供应商筛选</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Selection</h4>
+                <p class="zh">精选全球托管行与管理人。</p>
+            </div>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">06</span>
+                <h4 class="zh">落地实施</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Implementation</h4>
+                <p class="zh">账户开立与资产注入。</p>
+            </div>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">07</span>
+                <h4 class="zh">风险监督</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Oversight</h4>
+                <p class="zh">持续的合规与风控监测。</p>
+            </div>
+            <div class="process-card-small fade-up" onclick="switchView('journey')">
+                <span class="process-step-num">08</span>
+                <h4 class="zh">动态再平衡</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Rebalancing</h4>
+                <p class="zh">适应宏观变化的动态调整。</p>
             </div>
         </div>
-        <div style="margin-top:3rem;">
+        <div style="text-align:center; margin-top:3rem;">
             <button class="btn-outline" onclick="switchView('journey')"><span class="en">View Full Details</span><span class="zh">查看完整细节</span></button>
         </div>
     </section>
 
-    <section class="split-section reverse">
-        <div class="split-text">
-            <div class="divider"></div>
-            <div class="title-group">
-                <h2 class="zh">全方位生态系统</h2>
-                <span class="en">A Comprehensive Ecosystem</span>
-            </div>
-            <p class="en">We act as your strategic architect. We help you navigate the landscape of Trusts, Foundations, and Global Custodians. We serve as your gateway to the premier financial institutions.</p>
-            <p class="zh">我们充当您的战略架构师。我们帮助您驾驭信托、基金会和全球托管机构的复杂环境。我们是您通往顶级金融机构的门户，为您链接最优质的资源。</p>
-        </div>
-        <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg" alt="Ecosystem">
-        </div>
-    </section>
-
     <section class="section-pad">
-        <div class="text-center title-group">
-            <h2 class="zh">九运战略主题</h2>
-            <span class="en">Strategic Themes</span>
+        <div class="title-group fade-up">
+            <h2 class="zh">全球宏观主题</h2><span class="en">Global Macro Themes</span>
         </div>
-        <div class="themes-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2rem;">
-            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
-                <h3 class="zh" style="margin-bottom:0.5rem;">科技与人工智能</h3>
-                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Technology & AI</span>
-                <p class="zh" style="margin-top:1rem;">火元素的终极体现。建议关注半导体基础设施与企业级软件。</p>
+        <div class="themes-grid">
+            <div class="theme-card fade-up">
+                <span class="theme-icon">🤖</span>
+                <h3 class="zh">科技与AI</h3>
+                <p class="zh">算力基础设施与企业级软件应用。</p>
             </div>
-            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
-                <h3 class="zh" style="margin-bottom:0.5rem;">可持续能源</h3>
-                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Sustainable Energy</span>
-                <p class="zh" style="margin-top:1rem;">从太阳能到核聚变。能源转型提供了长期的代际增长机会。</p>
+            <div class="theme-card fade-up">
+                <span class="theme-icon">☀️</span>
+                <h3 class="zh">能源转型</h3>
+                <p class="zh">电网现代化、储能与核聚变技术。</p>
             </div>
-            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
-                <h3 class="zh" style="margin-bottom:0.5rem;">数字资产</h3>
-                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Digital Assets</span>
-                <p class="zh" style="margin-top:1rem;">价值的数字化。就进入这一资产类别的受监管渠道提供建议。</p>
+            <div class="theme-card fade-up">
+                <span class="theme-icon">🔐</span>
+                <h3 class="zh">数字资产</h3>
+                <p class="zh">受监管的代币化实物资产 (RWA)。</p>
+            </div>
+            <div class="theme-card fade-up">
+                <span class="theme-icon">🧬</span>
+                <h3 class="zh">医疗与长寿</h3>
+                <p class="zh">基因编辑、精准医疗与银发经济。</p>
             </div>
         </div>
     </section>
 
-    <section class="partners-bar">
-        <h4 class="en" style="color:var(--text-light); text-transform:uppercase; letter-spacing:2px;">Ecosystem Partners</h4>
-        <h4 class="zh" style="color:var(--text-light); text-transform:uppercase; letter-spacing:2px;">生态合作伙伴</h4>
-        <div class="partners-logos">
-            <span>UBS</span>
-            <span>DBS</span>
-            <span>Credit Suisse</span>
-            <span>Julius Baer</span>
-            <span>Dentons Rodyk</span>
-            <span>Rajah & Tann</span>
+    <section class="section-pad" style="background:white;">
+        <div class="title-group fade-up">
+            <h2 class="zh">联系我们</h2><span class="en">Get in Touch</span>
+        </div>
+        <div class="contact-hero-grid fade-up">
+            <div class="contact-info-side">
+                <h3 class="zh" style="margin-bottom:1rem;">新加坡总部</h3>
+                <p class="zh" style="font-size:1.1rem; color:var(--primary); font-weight:700;">
+                    33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)
+                </p>
+                <div class="divider" style="margin:2rem 0;"></div>
+                <p class="zh"><strong>咨询邮箱：</strong> contact@hywisefund.com</p>
+                <p class="zh"><strong>注册号：</strong> UEN 202447435C</p>
+                <div style="margin-top:2rem;">
+                    <a href="#" class="btn-whatsapp"><span class="zh">WhatsApp 在线咨询</span></a>
+                </div>
+            </div>
+            <div class="contact-map-side">
+                <div class="map-placeholder"></div>
+                <div class="map-overlay">Vertex Singapore</div>
+            </div>
         </div>
     </section>
 
@@ -462,16 +552,17 @@
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('sol-plan')" class="side-link active"><span class="zh">战略规划</span><br><span class="en" style="font-size:0.7rem">Strategic Planning</span></a>
-            <a onclick="scrollToId('sol-invest')" class="side-link"><span class="zh">投资咨询</span><br><span class="en" style="font-size:0.7rem">Investment Advisory</span></a>
-            <a onclick="scrollToId('sol-gov')" class="side-link"><span class="zh">家族治理</span><br><span class="en" style="font-size:0.7rem">Family Governance</span></a>
-            <a onclick="scrollToId('sol-corp')" class="side-link"><span class="zh">企业咨询</span><br><span class="en" style="font-size:0.7rem">Corporate Advisory</span></a>
+            <a onclick="scrollToId('sol-plan')" class="side-link active"><span class="zh">战略规划</span></a>
+            <a onclick="scrollToId('sol-invest')" class="side-link"><span class="zh">投资咨询</span></a>
+            <a onclick="scrollToId('sol-gov')" class="side-link"><span class="zh">家族治理</span></a>
+            <a onclick="scrollToId('sol-corp')" class="side-link"><span class="zh">企业咨询</span></a>
         </aside>
 
         <div class="content-body">
             <div id="sol-plan" class="content-block">
                 <h2 class="zh">战略财富规划</h2>
                 <p class="zh">我们提供高层架构建议。这包括分析您的全球资产，并推荐最佳结构（如信托、基金会或私人有限公司），以实现税务效率和隐私保护。我们的目标是构建一个能够适应不同司法管辖区法规变化的灵活架构。</p>
+                <p class="zh">规划的核心在于预见性。我们不仅仅解决当下的问题，更着眼于未来10年甚至20年的家族发展需求。无论是全球税务透明化趋势（CRS/FATCA），还是地缘政治带来的不确定性，我们的架构设计都为您提供了最大的缓冲空间。</p>
                 <div class="insight-box">
                     <h4 class="zh">咨询重点</h4>
                     <ul class="check-list">
@@ -484,7 +575,8 @@
 
             <div id="sol-invest" class="content-block">
                 <h2 class="zh">投资咨询与监督</h2>
-                <p class="zh">我们作为独立顾问运营。我们不持有您的资金；顶级托管银行负责持有。我们提供智力资本、策略和管理人筛选，以优化您的投资组合。这种模式消除了利益冲突。我们的动机完全与您投资组合的增长和保值一致，而非销售佣金。</p>
+                <p class="zh">我们作为独立顾问运营。我们不持有您的资金；顶级托管银行负责持有。我们提供智力资本、策略和管理人筛选，以优化您的投资组合。</p>
+                <p class="zh">我们采用“核心-卫星”策略。核心部分关注资本保值，利用防御性资产对抗通胀；卫星部分关注非对称回报，通过增长型工具捕捉科技与新兴市场的红利。</p>
                 
                 <table class="data-table">
                     <tr>
@@ -503,9 +595,9 @@
                         <td>全市场开放架构</td>
                     </tr>
                     <tr>
-                        <td><strong>收费模式</strong></td>
-                        <td>隐藏佣金为主</td>
-                        <td>透明咨询费为主</td>
+                        <td><strong>利益冲突</strong></td>
+                        <td>有销售佣金动机</td>
+                        <td>无佣金，只收咨询费</td>
                     </tr>
                 </table>
             </div>
@@ -513,6 +605,7 @@
             <div id="sol-gov" class="content-block">
                 <h2 class="zh">家族治理与传承</h2>
                 <p class="zh">没有治理计划，财富保值就毫无意义。我们帮助您起草家族宪章并建立家族委员会，确保您的价值观与财富一同传承。我们协助设立慈善基金会，通过社会影响力凝聚家族成员，培养下一代的责任感。</p>
+                <p class="zh">治理不仅仅是文件，更是一种沟通机制。我们定期组织家族会议，促进代际沟通，确保家族精神的延续。</p>
             </div>
             
             <div id="sol-corp" class="content-block">
@@ -526,59 +619,79 @@
 <main id="journey-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Journey</span><span class="zh">首页 > 客户旅程</span></div>
-        <h1 class="zh">客户旅程</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">The Client Journey</h1>
+        <h1 class="zh">8步咨询旅程</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">The 8-Step Advisory Process</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
             <a onclick="scrollToId('step-1')" class="side-link active"><span class="zh">01. 发现</span></a>
-            <a onclick="scrollToId('step-2')" class="side-link"><span class="zh">02. 蓝图</span></a>
-            <a onclick="scrollToId('step-3')" class="side-link"><span class="zh">03. 筛选</span></a>
-            <a onclick="scrollToId('step-4')" class="side-link"><span class="zh">04. 监督</span></a>
+            <a onclick="scrollToId('step-3')" class="side-link"><span class="zh">03. 架构</span></a>
+            <a onclick="scrollToId('step-5')" class="side-link"><span class="zh">05. 筛选</span></a>
+            <a onclick="scrollToId('step-7')" class="side-link"><span class="zh">07. 监督</span></a>
         </aside>
 
         <div class="content-body">
             <div id="step-1" class="timeline-item">
                 <div class="timeline-date">01</div>
                 <div class="timeline-content">
-                    <h3 class="zh">发现与诊断</h3>
-                    <p class="zh">我们以深度倾听开始。我们绘制您的“金融基因”——您的风险承受能力、流动性需求和多代愿景。这是一个全面的体检过程，旨在发现现有结构中的潜在风险。</p>
-                    <div class="insight-box">
-                        <strong>交付物：</strong> 需求分析报告 (Needs Analysis Report)
-                    </div>
+                    <h3 class="zh">发现与倾听</h3>
+                    <p class="zh">我们以深度倾听开始。不预设方案，而是绘制您的“金融基因”——您的风险承受能力、流动性需求和多代愿景。我们会详细梳理您的资产负债表，了解您的隐形需求。</p>
                 </div>
             </div>
-
+            
             <div id="step-2" class="timeline-item">
                 <div class="timeline-date">02</div>
                 <div class="timeline-content">
-                    <h3 class="zh">战略蓝图</h3>
-                    <p class="zh">我们设计路线图。我们与税务顾问和律师协调，推荐最佳的法律结构和资产配置政策声明 (IPS)。这是一份长期的战略文件，指导未来的所有决策。</p>
-                    <div class="insight-box">
-                        <strong>交付物：</strong> 战略路线图与结构建议书
-                    </div>
+                    <h3 class="zh">财务诊断</h3>
+                    <p class="zh">对现有资产结构进行全面体检。识别税务漏洞、法律风险以及资产配置中的过度集中问题。我们会出具一份详细的诊断报告，指出当前结构的不足之处。</p>
                 </div>
             </div>
 
             <div id="step-3" class="timeline-item">
                 <div class="timeline-date">03</div>
                 <div class="timeline-content">
-                    <h3 class="zh">供应商筛选</h3>
-                    <p class="zh">我们帮助您筛选一流的托管银行和基金经理。我们作为您的代表，协助协商费用和条款，确保您获得机构级的待遇。我们不接受任何形式的回扣，确保筛选的公正性。</p>
-                    <div class="insight-box">
-                        <strong>交付物：</strong> 筛选推荐报告 (Selection Report)
-                    </div>
+                    <h3 class="zh">架构蓝图</h3>
+                    <p class="zh">设计顶层法律架构。我们与税务顾问和律师协调，推荐最佳的法律结构（如VCC或信托）。这个阶段重点解决“资产放在哪里”和“如何持有”的问题。</p>
                 </div>
             </div>
-
+            
             <div id="step-4" class="timeline-item">
                 <div class="timeline-date">04</div>
                 <div class="timeline-content">
-                    <h3 class="zh">监督与管家</h3>
-                    <p class="zh">财富管理是动态的。我们提供持续的风险监控、综合报表整合和绩效审查，以确保与不断变化的宏观环境保持一致。我们定期召开家族会议，汇报进展。</p>
-                    <div class="insight-box">
-                        <strong>交付物：</strong> 季度审查报告 (Quarterly Review)
-                    </div>
+                    <h3 class="zh">投资策略制定</h3>
+                    <p class="zh">起草详细的资产配置政策声明 (IPS)，明确目标回报、风险限额及流动性要求。这是未来的投资宪法，所有的投资决策都将以此为基准。</p>
+                </div>
+            </div>
+
+            <div id="step-5" class="timeline-item">
+                <div class="timeline-date">05</div>
+                <div class="timeline-content">
+                    <h3 class="zh">供应商筛选</h3>
+                    <p class="zh">我们帮助您筛选一流的托管银行和基金经理。我们作为您的代表，协助协商费用和条款，确保您获得机构级的待遇。我们拥有庞大的数据库，能够为您匹配最适合的合作伙伴。</p>
+                </div>
+            </div>
+            
+            <div id="step-6" class="timeline-item">
+                <div class="timeline-date">06</div>
+                <div class="timeline-content">
+                    <h3 class="zh">落地实施</h3>
+                    <p class="zh">协助开立银行账户，完成KYC/AML流程，并将资产逐步注入新的架构中。我们全程跟进，确保资金划转的合规与安全。</p>
+                </div>
+            </div>
+
+            <div id="step-7" class="timeline-item">
+                <div class="timeline-date">07</div>
+                <div class="timeline-content">
+                    <h3 class="zh">风险监督</h3>
+                    <p class="zh">财富管理是动态的。我们提供持续的风险监控、综合报表整合，确保投资组合不偏离既定轨道。我们使用先进的系统监控市场风险、信用风险和流动性风险。</p>
+                </div>
+            </div>
+            
+            <div id="step-8" class="timeline-item">
+                <div class="timeline-date">08</div>
+                <div class="timeline-content">
+                    <h3 class="zh">动态再平衡</h3>
+                    <p class="zh">根据宏观经济变化（如利率、地缘政治）定期调整策略，确保资产始终处于最优配置状态。我们每年至少进行一次全面的策略复盘。</p>
                 </div>
             </div>
         </div>
@@ -595,7 +708,7 @@
         <aside class="side-nav">
             <a onclick="scrollToId('exp-alloc')" class="side-link active"><span class="zh">配置建议</span></a>
             <a onclick="scrollToId('exp-risk')" class="side-link"><span class="zh">风险管理</span></a>
-            <a onclick="scrollToId('exp-fire')" class="side-link"><span class="zh">九运策略</span></a>
+            <a onclick="scrollToId('exp-macro')" class="side-link"><span class="zh">宏观主题</span></a>
         </aside>
 
         <div class="content-body">
@@ -605,22 +718,24 @@
                 <div style="margin-top:1.5rem; border:1px solid #eee; padding:1.5rem; border-radius:4px;">
                     <h4 class="zh" style="margin-bottom:1rem; color:var(--primary);">配置模型示意</h4>
                     <ul class="check-list">
-                        <li class="zh"><strong>流动性底仓：</strong> 高等级固定收益工具与现金管理。</li>
-                        <li class="zh"><strong>增长引擎：</strong> 全球优质增长型资产与科技板块。</li>
-                        <li class="zh"><strong>抗通胀层：</strong> 实物资产与基础设施，提供稳定现金流。</li>
-                        <li class="zh"><strong>非相关回报：</strong> 市场中性策略与宏观对冲，降低组合波动。</li>
+                        <li class="zh"><strong>流动性底仓：</strong> 高等级固定收益工具与现金管理，确保随时可用的流动性。</li>
+                        <li class="zh"><strong>增长引擎：</strong> 全球优质增长型资产与科技板块，捕捉时代红利。</li>
+                        <li class="zh"><strong>抗通胀层：</strong> 实物资产与基础设施，提供稳定现金流并抵御货币贬值。</li>
+                        <li class="zh"><strong>非相关回报：</strong> 市场中性策略与宏观对冲，在市场下跌时提供保护。</li>
                     </ul>
                 </div>
             </div>
 
             <div id="exp-risk" class="content-block">
-                <h2 class="zh">风险管理</h2>
-                <p class="zh">风险不仅仅是波动，而是资本的永久损失。我们就针对地缘政治冲击和通胀情景的投资组合压力测试提供建议。我们强调“购买力保值”而非单纯的名义回报。我们使用先进的风险管理工具，监控投资组合的流动性和集中度风险。</p>
+                <h2 class="zh">风险管理框架</h2>
+                <p class="zh">风险不仅仅是波动，而是资本的永久损失。我们采用多维度的风险管理框架，涵盖市场风险、信用风险和流动性风险。</p>
+                <p class="zh">我们就针对地缘政治冲击和通胀情景的投资组合压力测试提供建议。我们强调“购买力保值”而非单纯的名义回报。我们使用先进的风险管理工具，实时监控投资组合的集中度风险，避免单一资产敞口过大。</p>
             </div>
             
-            <div id="exp-fire" class="content-block">
-                <h2 class="zh">“九运”投资逻辑</h2>
-                <p class="zh">顺应离火元素，我们建议关注代表光明与能量的板块：人工智能、光学、聚变能源以及数字资产。这20年的周期有利于透明度和快速创新。我们帮助客户识别这一宏观趋势下的结构性机会，提前布局未来。</p>
+            <div id="exp-macro" class="content-block">
+                <h2 class="zh">全球宏观主题</h2>
+                <p class="zh">我们正处于一个去全球化和高通胀并存的新周期。传统的估值模型正在失效。我们帮助客户识别那些能够定价权、拥有护城河的优质资产。</p>
+                <p class="zh">顺应未来20年的发展趋势，我们建议关注代表“能量”与“智慧”的板块：人工智能、聚变能源、生物科技以及受监管的数字资产。这些领域将诞生下一个时代的财富巨擘。</p>
             </div>
         </div>
     </div>
@@ -701,11 +816,9 @@
     function switchView(viewId) {
         window.scrollTo({top: 0, behavior: 'smooth'});
         
-        // 更新视图
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
         document.getElementById(viewId + '-view').classList.add('active');
         
-        // 悬浮按钮控制
         const backBtn = document.getElementById('backBtn');
         if(viewId === 'home') backBtn.classList.remove('active');
         else backBtn.classList.add('active');
@@ -718,8 +831,87 @@
         event.target.classList.add('active');
     }
     
+    // 初始化 Loader
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.style.display = 'none', 800);
+        }, 1000);
+        
+        // 粒子动画初始化
+        initCanvas();
+    });
+    
     // 初始化
     document.body.setAttribute('data-lang', 'en');
+
+    // 粒子背景逻辑
+    function initCanvas() {
+        const canvas = document.getElementById('ambient-canvas');
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.2;
+                this.vy = (Math.random() - 0.5) * 0.2;
+                this.size = Math.random() * 2;
+                this.alpha = Math.random() * 0.3;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x < 0 || this.x > width) this.vx *= -1;
+                if(this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(124, 58, 237, ${this.alpha})`; /* 紫色粒子 */
+                ctx.fill();
+            }
+        }
+
+        // 创建连接线
+        function drawLines() {
+            for(let i=0; i<particles.length; i++) {
+                for(let j=i+1; j<particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(124, 58, 237, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        for(let i=0; i<50; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
 </script>
 
 </body>
