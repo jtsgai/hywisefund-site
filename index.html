@@ -16,9 +16,9 @@
         --bg-offwhite: #f8fafc;
         --bg-light: #f1f5f9;
         
-        --primary: #0f172a;       /* 深邃蓝黑：稳重咨询感 */
-        --gold: #b45309;          /* 暗金：尊贵点缀 */
-        --accent: #6366f1;        /* 靛蓝：专业交互 */
+        --primary: #0f172a;
+        --gold: #b45309;
+        --accent: #6366f1;
         --whatsapp: #25D366;
         
         --text-main: #334155;
@@ -28,7 +28,6 @@
         --container: 1200px;
         --radius: 4px;
         
-        /* 字体栈 */
         --font-en: 'Lato', sans-serif;
         --font-zh: 'PingFang SC', 'Microsoft YaHei', sans-serif;
         --font-serif: 'Playfair Display', serif;
@@ -48,7 +47,6 @@
         -webkit-font-smoothing: antialiased;
     }
     
-    /* 中文模式字体优化 */
     body[data-lang="zh"] { 
         font-family: var(--font-zh); 
         letter-spacing: 0.05em;
@@ -63,7 +61,6 @@
 
     p { margin-bottom: 1.5rem; max-width: 800px; }
     
-    /* 关键修复：排版对齐 */
     body[data-lang="zh"] p { text-align: justify; text-justify: inter-ideograph; }
     body[data-lang="en"] p { text-align: left; }
     
@@ -79,21 +76,22 @@
     body[data-lang="zh"] .zh { display: block !important; }
     body[data-lang="zh"] .en { display: none !important; }
     
-    /* 特殊内联处理 */
     body[data-lang="en"] span.en { display: inline; }
     body[data-lang="zh"] span.zh { display: inline; }
 
-    /* ================= 3. 导航栏 (修复层级) ================= */
+    /* ================= 3. 导航栏 ================= */
     nav {
         position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
         background: rgba(255,255,255,0.98); border-bottom: 1px solid rgba(0,0,0,0.05);
         z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        backdrop-filter: blur(10px);
     }
     .nav-inner {
         max-width: var(--container); margin: 0 auto; height: 100%; padding: 0 5%;
         display: flex; justify-content: space-between; align-items: center;
     }
-    .logo { height: 48px; width: auto; }
+    .logo { height: 48px; width: auto; transition: 0.3s; }
+    .logo:hover { transform: scale(1.05); }
     
     .nav-menu { display: flex; gap: 2rem; align-items: center; }
     .nav-link { 
@@ -101,6 +99,11 @@
         padding: 10px 0; white-space: nowrap; position: relative;
     }
     .nav-link:hover { color: var(--accent); }
+    .nav-link::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        background: var(--accent); transition: 0.3s;
+    }
+    .nav-link:hover::after { width: 100%; }
 
     .lang-btn {
         padding: 0.4rem 1.2rem; border: 1px solid #ddd; border-radius: 50px;
@@ -116,15 +119,24 @@
         font-weight: 600; border-radius: var(--radius); transition: 0.3s;
         border: 1px solid var(--primary); min-width: 160px;
     }
-    .btn:hover { background: white; color: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .btn:hover { 
+        background: white; color: var(--primary); 
+        transform: translateY(-2px); 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    }
     
     .btn-outline {
         display: inline-flex; align-items: center; justify-content: center;
         padding: 1rem 2.5rem; background: transparent; color: var(--primary);
         font-weight: 600; border-radius: var(--radius); border: 1px solid var(--primary);
-        min-width: 160px;
+        min-width: 160px; transition: 0.3s;
     }
-    .btn-outline:hover { background: var(--bg-offwhite); border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { 
+        background: var(--bg-offwhite); 
+        border-color: var(--accent); 
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
 
     .btn-whatsapp {
         display: inline-flex; align-items: center; gap: 10px; padding: 1rem 2.5rem;
@@ -154,13 +166,54 @@
         transform: translateX(-10px);
     }
     .back-btn-float.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
-    .back-btn-float:hover { color: var(--accent); border-color: var(--accent); }
+    .back-btn-float:hover { 
+        color: var(--accent); 
+        border-color: var(--accent);
+        transform: translateX(0) scale(1.05);
+    }
 
     /* ================= 5. 视图管理 ================= */
     .view { display: none; opacity: 0; transition: opacity 0.4s ease; }
     .view.active { display: block; opacity: 1; }
 
-    /* ================= 6. 首页 (Home) ================= */
+    /* ================= 6. 动画效果 ================= */
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .fade-in-up { animation: fadeInUp 0.8s ease-out; }
+    .fade-in { animation: fadeIn 0.8s ease-out; }
+    .slide-in-left { animation: slideInLeft 0.8s ease-out; }
+    .slide-in-right { animation: slideInRight 0.8s ease-out; }
+
+    /* Scroll reveal */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ================= 7. 首页 ================= */
     .hero {
         position: relative; min-height: 85vh; display: flex; align-items: center; justify-content: center;
         text-align: center; background: radial-gradient(circle at center, #fff 0%, #f1f5f9 100%);
@@ -169,10 +222,17 @@
         position: absolute; inset: 0; opacity: 0.08;
         background: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg') center/cover;
         filter: grayscale(100%);
+        animation: fadeIn 1.5s ease-out;
     }
     .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 5%; }
-    .hero h1 { font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--primary); }
-    .hero p { font-size: 1.25rem; margin: 0 auto 3rem; color: var(--text-main); }
+    .hero h1 { 
+        font-size: 3.5rem; margin-bottom: 1.5rem; color: var(--primary);
+        animation: fadeInUp 1s ease-out 0.2s both;
+    }
+    .hero p { 
+        font-size: 1.25rem; margin: 0 auto 3rem; color: var(--text-main);
+        animation: fadeInUp 1s ease-out 0.4s both;
+    }
 
     /* Stats */
     .stats-bar { background: white; padding: 3rem 0; border-bottom: 1px solid #eee; }
@@ -181,10 +241,16 @@
         display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
         gap: 2rem; text-align: center; 
     }
-    .stat-num { font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--gold); }
+    .stat-num { 
+        font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--gold);
+        transition: 0.3s;
+    }
+    .stats-grid > div:hover .stat-num {
+        transform: scale(1.1);
+    }
     .stat-label { font-size: 0.85rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* Value Proposition Section */
+    /* Value Proposition */
     .value-prop-section { background: var(--bg-offwhite); padding: 6rem 5%; }
     .value-cards { 
         display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; 
@@ -192,17 +258,20 @@
     }
     .value-card {
         background: white; padding: 3rem 2rem; border-radius: 8px;
-        border: 1px solid #e2e8f0; transition: 0.3s;
+        border: 1px solid #e2e8f0; transition: 0.4s;
         text-align: center;
     }
     .value-card:hover { 
-        transform: translateY(-5px); 
-        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        transform: translateY(-10px); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         border-color: var(--accent);
     }
     .value-icon {
         font-size: 3rem; margin-bottom: 1.5rem; display: block;
-        color: var(--gold);
+        color: var(--gold); transition: 0.3s;
+    }
+    .value-card:hover .value-icon {
+        transform: scale(1.2) rotate(5deg);
     }
     .value-card h3 {
         font-size: 1.4rem; margin-bottom: 1rem; color: var(--primary);
@@ -218,9 +287,17 @@
         padding: 6rem 5%; max-width: var(--container); margin: 0 auto; 
     }
     .split-text p { font-size: 1.05rem; }
-    .split-img { height: 400px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+    .split-img { 
+        height: 400px; border-radius: var(--radius); overflow: hidden; 
+        box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        transition: 0.5s;
+    }
+    .split-img:hover {
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        transform: translateY(-5px);
+    }
     .split-img img { width: 100%; height: 100%; transition: 0.5s; }
-    .split-img:hover img { transform: scale(1.03); }
+    .split-img:hover img { transform: scale(1.1); }
     .reverse { direction: rtl; } 
     .reverse .split-text { direction: ltr; }
 
@@ -234,8 +311,15 @@
         background: white; padding: 2rem 1.5rem; border-radius: 4px; border: 1px solid #eee;
         position: relative; cursor: pointer; transition: 0.3s; text-align: left; height: 100%;
     }
-    .process-card-small:hover { transform: translateY(-5px); border-color: var(--accent); }
-    .process-step-num { font-size: 0.8rem; color: var(--gold); font-weight: 700; display: block; margin-bottom: 0.5rem; }
+    .process-card-small:hover { 
+        transform: translateY(-8px); 
+        border-color: var(--accent);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .process-step-num { 
+        font-size: 0.8rem; color: var(--gold); font-weight: 700; 
+        display: block; margin-bottom: 0.5rem; 
+    }
     .process-card-small h4 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary); }
     .process-card-small p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0; line-height: 1.5; }
 
@@ -245,10 +329,20 @@
         background: white; padding: 2.5rem 1.5rem; text-align: center; 
         transition: 0.3s; border: 1px solid #eee; border-radius: 4px;
     }
-    .theme-card:hover { border-color: var(--gold); }
-    .theme-icon { font-size: 2rem; margin-bottom: 1rem; display: block; color: var(--accent); }
+    .theme-card:hover { 
+        border-color: var(--gold);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    .theme-icon { 
+        font-size: 2rem; margin-bottom: 1rem; display: block; 
+        color: var(--accent); transition: 0.3s;
+    }
+    .theme-card:hover .theme-icon {
+        transform: scale(1.2);
+    }
 
-    /* Singapore Advantage Section */
+    /* Singapore Section */
     .singapore-section { 
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         padding: 6rem 5%; color: white;
@@ -270,6 +364,12 @@
     .singapore-item {
         background: rgba(255,255,255,0.05); padding: 2.5rem;
         border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+        transition: 0.3s;
+    }
+    .singapore-item:hover {
+        background: rgba(255,255,255,0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .singapore-item h3 {
         color: var(--gold); font-size: 1.5rem; margin-bottom: 1rem;
@@ -285,39 +385,6 @@
         list-style: disc; line-height: 1.6;
     }
 
-    /* Team Section */
-    .team-section { padding: 6rem 5%; background: white; }
-    .team-grid {
-        display: grid; grid-template-columns: repeat(3, 1fr);
-        gap: 3rem; max-width: var(--container); margin: 3rem auto 0;
-    }
-    .team-card {
-        text-align: center; padding: 2rem;
-        border: 1px solid #e2e8f0; border-radius: 8px;
-        transition: 0.3s;
-    }
-    .team-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-    }
-    .team-avatar {
-        width: 120px; height: 120px; margin: 0 auto 1.5rem;
-        border-radius: 50%; background: var(--bg-light);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 3rem; color: var(--gold);
-    }
-    .team-card h3 {
-        font-size: 1.3rem; margin-bottom: 0.5rem;
-    }
-    .team-role {
-        color: var(--text-light); font-size: 0.9rem;
-        margin-bottom: 1rem; font-weight: 600;
-    }
-    .team-card p {
-        font-size: 0.95rem; color: var(--text-main);
-        line-height: 1.6; margin: 0 auto;
-    }
-
     /* FAQ Section */
     .faq-section { 
         background: var(--bg-offwhite); padding: 6rem 5%; 
@@ -328,7 +395,10 @@
     .faq-item {
         background: white; margin-bottom: 1.5rem;
         border: 1px solid #e2e8f0; border-radius: 8px;
-        overflow: hidden;
+        overflow: hidden; transition: 0.3s;
+    }
+    .faq-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
     }
     .faq-question {
         padding: 1.5rem 2rem; cursor: pointer;
@@ -360,7 +430,7 @@
         margin-bottom: 1rem;
     }
 
-    /* Contact (Map) */
+    /* Contact */
     .contact-hero-grid { 
         display: grid; grid-template-columns: 1fr 1fr; gap: 0; 
         background: white; border-radius: 8px; overflow: hidden; border: 1px solid #eee;
@@ -396,7 +466,7 @@
         max-width: var(--container); margin: 0 auto; 
     }
 
-    /* ================= 7. 详情页通用样式 ================= */
+    /* ================= 8. 详情页通用样式 ================= */
     .detail-header {
         background: var(--bg-offwhite); padding: 3rem 5% 2rem; border-bottom: 1px solid #eee;
     }
@@ -416,7 +486,12 @@
         border-left: 3px solid transparent; color: var(--text-main);
         font-weight: 600; transition: 0.3s;
     }
-    .side-link:hover { background: var(--bg-light); border-color: var(--accent); color: var(--accent); }
+    .side-link:hover { 
+        background: var(--bg-light); 
+        border-color: var(--accent); 
+        color: var(--accent);
+        transform: translateX(5px);
+    }
     .side-link.active { background: var(--bg-light); border-color: var(--gold); color: var(--primary); }
 
     .content-body { max-width: 800px; }
@@ -473,6 +548,11 @@
         background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
         border-left: 4px solid var(--gold);
         padding: 2rem; margin: 2rem 0; border-radius: 4px;
+        transition: 0.3s;
+    }
+    .highlight-box:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transform: translateX(5px);
     }
     .highlight-box h4 {
         color: var(--primary); margin-bottom: 1rem;
@@ -482,7 +562,7 @@
         margin-bottom: 0.8rem; line-height: 1.7;
     }
 
-    /* ================= 8. 响应式 ================= */
+    /* ================= 9. 响应式 ================= */
     @media (max-width: 768px) {
         .nav-menu { display: none; }
         .hero h1 { font-size: 2rem; }
@@ -493,7 +573,6 @@
         .themes-grid { grid-template-columns: 1fr; }
         .value-cards { grid-template-columns: 1fr; }
         .singapore-grid { grid-template-columns: 1fr; }
-        .team-grid { grid-template-columns: 1fr; }
         .contact-hero-grid { grid-template-columns: 1fr; }
         .detail-layout { grid-template-columns: 1fr; }
         .side-nav { display: none; }
@@ -530,7 +609,7 @@
             <h1 class="zh">战略财富架构</h1>
             <p class="en">Independent advisory for ultra-high-net-worth families seeking institutional-grade wealth structuring, investment oversight, and multi-generational governance.</p>
             <p class="zh">为超高净值家族提供机构级财富架构、投资监督与跨代治理的独立咨询服务。</p>
-            <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+            <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; animation: fadeInUp 1s ease-out 0.6s both;">
                 <a onclick="switchView('solutions')" class="btn"><span class="en">Our Solutions</span><span class="zh">解决方案</span></a>
                 <a onclick="switchView('contact')" class="btn-outline"><span class="en">Get in Touch</span><span class="zh">联系我们</span></a>
             </div>
@@ -558,7 +637,6 @@
         </div>
     </section>
 
-    <!-- Value Proposition Section -->
     <section class="value-prop-section">
         <div class="title-group">
             <h2 class="zh">为什么选择 HY WISEFUND</h2>
@@ -745,7 +823,6 @@
         </div>
     </section>
 
-    <!-- Singapore Advantage Section -->
     <section class="singapore-section">
         <div class="singapore-content">
             <h2 class="zh">新加坡：全球财富中心</h2>
@@ -786,43 +863,6 @@
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="team-section">
-        <div class="title-group">
-            <h2 class="zh">我们的团队</h2>
-            <h2 class="en">Our Team</h2>
-            <span class="en">Experienced Professionals Dedicated to Your Success</span>
-            <span class="zh">致力于您成功的专业团队</span>
-        </div>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-avatar">👔</div>
-                <h3 class="zh">张明</h3>
-                <h3 class="en">Ming Zhang</h3>
-                <p class="team-role"><span class="zh">创始合伙人 & 首席投资官</span><span class="en">Founding Partner & CIO</span></p>
-                <p class="zh">曾任职于新加坡主权财富基金 GIC，拥有 15 年机构投资经验。专注于全球配置和投资策略。</p>
-                <p class="en">Former GIC Singapore with 15 years of institutional investment experience. Specializes in global allocation and investment strategies.</p>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">💼</div>
-                <h3 class="zh">李华</h3>
-                <h3 class="en">Hua Li</h3>
-                <p class="team-role"><span class="zh">合伙人 & 财富架构总监</span><span class="en">Partner & Head of Wealth Structuring</span></p>
-                <p class="zh">前瑞银私人银行高级顾问，专注于跨境财富架构设计和税务规划。持有 CFA 和 CFP 资格。</p>
-                <p class="en">Former UBS Private Banking Senior Advisor, specializing in cross-border wealth structuring and tax planning. CFA and CFP charterholder.</p>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">📊</div>
-                <h3 class="zh">王芳</h3>
-                <h3 class="en">Fang Wang</h3>
-                <p class="team-role"><span class="zh">合伙人 & 家族治理顾问</span><span class="en">Partner & Family Governance Advisor</span></p>
-                <p class="zh">拥有心理学和商业管理双重背景，专注于家族治理和代际传承。曾服务多个超高净值家族。</p>
-                <p class="en">With dual background in psychology and business management, specializes in family governance and generational transition. Served multiple ultra-high-net-worth families.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
     <section class="faq-section">
         <div class="title-group">
             <h2 class="zh">常见问题</h2>
@@ -916,185 +956,281 @@
 <main id="solutions-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Solutions</span><span class="zh">首页 > 解决方案</span></div>
-        <h1 class="zh">解决方案</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">Comprehensive Wealth Solutions</h1>
+        <h1 class="zh">解决方案</h1>
+        <h1 class="en">Comprehensive Wealth Solutions</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('sol-structure')" class="side-link active"><span class="zh">财富架构</span></a>
-            <a onclick="scrollToId('sol-invest')" class="side-link"><span class="zh">投资咨询</span></a>
-            <a onclick="scrollToId('sol-gov')" class="side-link"><span class="zh">家族治理</span></a>
-            <a onclick="scrollToId('sol-corp')" class="side-link"><span class="zh">企业咨询</span></a>
+            <a onclick="scrollToId('sol-structure')" class="side-link active">
+                <span class="zh">财富架构</span>
+                <span class="en">Wealth Structure</span>
+            </a>
+            <a onclick="scrollToId('sol-invest')" class="side-link">
+                <span class="zh">投资咨询</span>
+                <span class="en">Investment Advisory</span>
+            </a>
+            <a onclick="scrollToId('sol-gov')" class="side-link">
+                <span class="zh">家族治理</span>
+                <span class="en">Family Governance</span>
+            </a>
+            <a onclick="scrollToId('sol-corp')" class="side-link">
+                <span class="zh">企业咨询</span>
+                <span class="en">Corporate Advisory</span>
+            </a>
         </aside>
 
         <div class="content-body">
             <div id="sol-structure" class="content-block">
                 <h2 class="zh">财富架构设计</h2>
+                <h2 class="en">Wealth Architecture Design</h2>
                 <p class="zh">我们帮助超高净值家族设计顶层法律与税务架构。从新加坡投资公司到离岸信托，我们与顶级律师和税务顾问协作，为您构建最优的财富持有结构。</p>
+                <p class="en">We help ultra-high-net-worth families design top-tier legal and tax structures. From Singapore investment companies to offshore trusts, we collaborate with leading lawyers and tax advisors to build optimal wealth holding structures.</p>
                 
                 <div class="highlight-box">
                     <h4 class="zh">新加坡投资架构的优势</h4>
+                    <h4 class="en">Advantages of Singapore Investment Structures</h4>
                     <p class="zh">新加坡提供了创新型公司架构，专为投资平台设计。它提供了无与伦比的灵活性和税务效率。</p>
+                    <p class="en">Singapore offers innovative corporate structures designed specifically for investment platforms, providing unparalleled flexibility and tax efficiency.</p>
                     <ul class="check-list">
                         <li class="zh"><strong>灵活的资本结构：</strong> 可以设立多个投资组合，每个组合拥有独立的资产和负债，实现风险隔离。</li>
+                        <li class="en"><strong>Flexible Capital Structure:</strong> Multiple investment portfolios can be established, each with independent assets and liabilities for risk segregation.</li>
                         <li class="zh"><strong>税务优势：</strong> 符合条件的架构可以申请税务激励，享受投资收益的税务豁免。</li>
+                        <li class="en"><strong>Tax Benefits:</strong> Qualified structures can apply for tax incentives and enjoy investment income tax exemptions.</li>
                         <li class="zh"><strong>简化管理：</strong> 统一的董事会和管理团队，降低管理成本。</li>
+                        <li class="en"><strong>Streamlined Management:</strong> Unified board and management team reduces operational costs.</li>
                         <li class="zh"><strong>全球认可：</strong> 架构受到全球金融机构的认可，便于开立银行账户和进行跨境投资。</li>
+                        <li class="en"><strong>Global Recognition:</strong> Structures are recognized by global financial institutions, facilitating banking and cross-border investments.</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">我们的架构设计服务包括</h3>
+                <h3 class="en">Our Architecture Design Services Include</h3>
                 <div style="margin-top:1.5rem;">
                     <ul class="check-list">
                         <li class="zh"><strong>顶层架构设计：</strong> 根据您的税务居民身份、资产类型和传承目标，设计最优的法律持有结构。</li>
+                        <li class="en"><strong>Top-Tier Structure Design:</strong> Design optimal legal holding structures based on your tax residency, asset types, and succession goals.</li>
                         <li class="zh"><strong>信托规划：</strong> 协助设立离岸信托或新加坡本地信托，实现资产保护和代际传承。</li>
+                        <li class="en"><strong>Trust Planning:</strong> Assist in establishing offshore or Singapore trusts for asset protection and generational transfer.</li>
                         <li class="zh"><strong>税务效率：</strong> 就税务激励计划的可行性提供建议，优化税务成本。</li>
+                        <li class="en"><strong>Tax Efficiency:</strong> Advise on tax incentive scheme feasibility to optimize tax costs.</li>
                         <li class="zh"><strong>传承路线：</strong> 设计跨代际的财富转移路线图，防止家族纠纷。</li>
+                        <li class="en"><strong>Succession Roadmap:</strong> Design multi-generational wealth transfer pathways to prevent family disputes.</li>
                         <li class="zh"><strong>身份规划：</strong> 协助申请新加坡 GIP 及税务居民身份，实现全球流动性。</li>
+                        <li class="en"><strong>Residency Planning:</strong> Assist with Singapore GIP and tax residency applications for global mobility.</li>
                         <li class="zh"><strong>合规管理：</strong> 确保架构符合所有相关司法管辖区的法律和监管要求。</li>
+                        <li class="en"><strong>Compliance Management:</strong> Ensure structures meet all relevant jurisdictional legal and regulatory requirements.</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">典型案例场景</h3>
+                <h3 class="en">Typical Case Scenarios</h3>
                 <p class="zh"><strong>场景一：中国企业家的全球化布局</strong></p>
+                <p class="en"><strong>Scenario 1: Global Expansion for Chinese Entrepreneur</strong></p>
                 <p class="zh">张先生是一位成功的中国企业家，计划将部分资产转移到海外以实现全球化配置。我们为他设计了一个多层架构：在新加坡设立控股公司，下设多个投资组合分别投资于美国股票、欧洲市场和亚洲增长型企业。通过申请税务激励，张先生的投资收益享受税务豁免。同时，我们协助他申请了新加坡 GIP，全家获得了永久居留权。</p>
+                <p class="en">Mr. Zhang, a successful Chinese entrepreneur, planned to transfer part of his assets overseas for global diversification. We designed a multi-tier structure: a Singapore holding company with multiple investment portfolios investing in US equities, European markets, and Asian growth companies. Through tax incentive applications, Mr. Zhang's investment income enjoys tax exemption. We also assisted his GIP application, securing permanent residency for his family.</p>
                 
                 <p class="zh"><strong>场景二：东南亚家族的代际传承</strong></p>
+                <p class="en"><strong>Scenario 2: Generational Succession for Southeast Asian Family</strong></p>
                 <p class="zh">李家族是一个拥有百年历史的东南亚家族企业。第三代继承人希望建立一个现代化的治理架构。我们为他们设立了一个新加坡信托，持有家族企业的股权。信托的受益人包括第三代和第四代家族成员。我们还协助起草了家族宪章，明确了家族价值观、治理结构和继承规则，确保家族财富和企业的顺利传承。</p>
+                <p class="en">The Li family, a century-old Southeast Asian family business, sought modern governance. We established a Singapore trust holding family business equity with third and fourth-generation beneficiaries. We also drafted a family charter clarifying values, governance structure, and succession rules, ensuring smooth wealth and business transfer.</p>
             </div>
 
             <div id="sol-invest" class="content-block">
                 <h2 class="zh">投资咨询与监督</h2>
+                <h2 class="en">Investment Advisory & Oversight</h2>
                 <p class="zh">我们作为独立顾问运营。我们不持有您的资金；顶级托管银行负责持有。我们提供智力资本、策略和管理人筛选，以优化您的投资组合。</p>
+                <p class="en">We operate as independent advisors. We don't hold your assets; top custodian banks handle custody. We provide intellectual capital, strategy, and manager selection to optimize your portfolio.</p>
                 <p class="zh">我们采用"核心-卫星"策略。核心部分关注资本保值，利用防御性资产对抗通胀；卫星部分关注非对称回报，通过增长型工具捕捉科技与新兴市场的红利。</p>
+                <p class="en">We employ a "core-satellite" strategy. The core focuses on capital preservation using defensive assets against inflation; satellites pursue asymmetric returns through growth instruments capturing tech and emerging market opportunities.</p>
                 
                 <h3 class="zh">独立顾问 vs 银行理财顾问</h3>
+                <h3 class="en">Independent Advisor vs Bank Wealth Advisor</h3>
                 <table class="data-table">
                     <tr>
-                        <th>对比项目</th>
-                        <th>银行理财顾问</th>
-                        <th>独立财富顾问 (HY)</th>
+                        <th><span class="zh">对比项目</span><span class="en">Comparison</span></th>
+                        <th><span class="zh">银行理财顾问</span><span class="en">Bank Advisor</span></th>
+                        <th><span class="zh">独立财富顾问 (HY)</span><span class="en">Independent Advisor (HY)</span></th>
                     </tr>
                     <tr>
-                        <td><strong>立场</strong></td>
-                        <td>销售导向</td>
-                        <td>客户利益导向</td>
+                        <td><strong><span class="zh">立场</span><span class="en">Position</span></strong></td>
+                        <td><span class="zh">销售导向</span><span class="en">Sales-oriented</span></td>
+                        <td><span class="zh">客户利益导向</span><span class="en">Client-interest oriented</span></td>
                     </tr>
                     <tr>
-                        <td><strong>产品范围</strong></td>
-                        <td>受限于本行产品库</td>
-                        <td>全市场开放架构</td>
+                        <td><strong><span class="zh">产品范围</span><span class="en">Product Range</span></strong></td>
+                        <td><span class="zh">受限于本行产品库</span><span class="en">Limited to bank products</span></td>
+                        <td><span class="zh">全市场开放架构</span><span class="en">Open architecture</span></td>
                     </tr>
                     <tr>
-                        <td><strong>收费模式</strong></td>
-                        <td>隐藏佣金为主</td>
-                        <td>咨询费透明</td>
+                        <td><strong><span class="zh">收费模式</span><span class="en">Fee Model</span></strong></td>
+                        <td><span class="zh">隐藏佣金为主</span><span class="en">Hidden commissions</span></td>
+                        <td><span class="zh">咨询费透明</span><span class="en">Transparent advisory fees</span></td>
                     </tr>
                     <tr>
-                        <td><strong>利益冲突</strong></td>
-                        <td>存在（推销高佣金产品）</td>
-                        <td>无（纯咨询费模式）</td>
+                        <td><strong><span class="zh">利益冲突</span><span class="en">Conflicts</span></strong></td>
+                        <td><span class="zh">存在（推销高佣金产品）</span><span class="en">Yes (high-commission products)</span></td>
+                        <td><span class="zh">无（纯咨询费模式）</span><span class="en">None (fee-only model)</span></td>
                     </tr>
                     <tr>
-                        <td><strong>资产托管</strong></td>
-                        <td>本行托管</td>
-                        <td>第三方独立托管</td>
+                        <td><strong><span class="zh">资产托管</span><span class="en">Custody</span></strong></td>
+                        <td><span class="zh">本行托管</span><span class="en">In-house custody</span></td>
+                        <td><span class="zh">第三方独立托管</span><span class="en">Third-party independent custody</span></td>
                     </tr>
                 </table>
 
                 <h3 class="zh">我们的投资咨询服务</h3>
+                <h3 class="en">Our Investment Advisory Services</h3>
                 <div class="highlight-box">
                     <h4 class="zh">核心-卫星投资策略</h4>
+                    <h4 class="en">Core-Satellite Investment Strategy</h4>
                     <p class="zh"><strong>核心部分（60-70%）：</strong>关注资本保值和稳定收益</p>
+                    <p class="en"><strong>Core (60-70%):</strong> Focus on capital preservation and stable returns</p>
                     <ul class="check-list">
                         <li class="zh">稳健收益工具：政府证券、投资级产品</li>
+                        <li class="en">Stable Income: Government securities, investment-grade products</li>
                         <li class="zh">全球蓝筹股票：标普 500、欧洲 50、亚洲优质企业</li>
+                        <li class="en">Global Blue Chips: S&P 500, Euro 50, Asian quality companies</li>
                         <li class="zh">实物资产：基础设施基金、房地产投资信托 (REITs)</li>
+                        <li class="en">Real Assets: Infrastructure funds, REITs</li>
                     </ul>
                     <p class="zh"><strong>卫星部分（30-40%）：</strong>追求非对称回报和增长机会</p>
+                    <p class="en"><strong>Satellite (30-40%):</strong> Pursue asymmetric returns and growth opportunities</p>
                     <ul class="check-list">
                         <li class="zh">科技增长：AI、云计算、半导体、生物科技</li>
+                        <li class="en">Tech Growth: AI, cloud computing, semiconductors, biotech</li>
                         <li class="zh">新兴市场：印度、东南亚、拉美优质企业</li>
+                        <li class="en">Emerging Markets: India, Southeast Asia, Latin America quality companies</li>
                         <li class="zh">另类投资：非公开市场投资、对冲基金</li>
+                        <li class="en">Alternatives: Private markets, hedge funds</li>
                         <li class="zh">数字资产：比特币、以太坊（小比例配置）</li>
+                        <li class="en">Digital Assets: Bitcoin, Ethereum (small allocation)</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">管理人筛选与尽职调查</h3>
+                <h3 class="en">Manager Selection & Due Diligence</h3>
                 <p class="zh">我们拥有庞大的基金经理数据库，涵盖全球顶级的投资公司。我们的筛选流程包括：</p>
+                <p class="en">We maintain an extensive fund manager database covering top global investment firms. Our selection process includes:</p>
                 <ul class="check-list">
                     <li class="zh"><strong>定量分析：</strong> 历史业绩、风险调整回报、最大回撤、夏普比率</li>
+                    <li class="en"><strong>Quantitative Analysis:</strong> Historical performance, risk-adjusted returns, maximum drawdown, Sharpe ratio</li>
                     <li class="zh"><strong>定性评估：</strong> 投资哲学、团队稳定性、运营能力、合规记录</li>
+                    <li class="en"><strong>Qualitative Assessment:</strong> Investment philosophy, team stability, operational capability, compliance record</li>
                     <li class="zh"><strong>现场尽调：</strong> 实地访问管理团队，评估投资流程和风控体系</li>
+                    <li class="en"><strong>On-site Due Diligence:</strong> Visit management teams, assess investment process and risk controls</li>
                     <li class="zh"><strong>费用谈判：</strong> 作为您的代表，争取机构级的费率和条款</li>
+                    <li class="en"><strong>Fee Negotiation:</strong> Negotiate institutional-level rates and terms on your behalf</li>
                 </ul>
             </div>
 
             <div id="sol-gov" class="content-block">
                 <h2 class="zh">家族治理与传承</h2>
+                <h2 class="en">Family Governance & Legacy</h2>
                 <p class="zh">没有治理计划，财富保值就毫无意义。我们帮助您起草家族宪章并建立家族委员会，确保您的价值观与财富一同传承。我们协助设立慈善基金会，通过社会影响力凝聚家族成员，培养下一代的责任感。</p>
+                <p class="en">Without governance, wealth preservation is meaningless. We help you draft family charters and establish family councils to ensure your values transfer with your wealth. We assist in establishing charitable foundations, uniting family members through social impact and cultivating next-generation responsibility.</p>
                 
                 <h3 class="zh">家族宪章的核心要素</h3>
+                <h3 class="en">Core Elements of a Family Charter</h3>
                 <div class="highlight-box">
                     <h4 class="zh">一份完整的家族宪章应包括</h4>
+                    <h4 class="en">A Complete Family Charter Should Include</h4>
                     <ul class="check-list">
                         <li class="zh"><strong>家族使命与价值观：</strong> 明确家族的核心价值观和长期使命</li>
+                        <li class="en"><strong>Family Mission & Values:</strong> Clarify core values and long-term mission</li>
                         <li class="zh"><strong>治理结构：</strong> 定义家族委员会、投资委员会的组成和职责</li>
+                        <li class="en"><strong>Governance Structure:</strong> Define family council, investment committee composition and responsibilities</li>
                         <li class="zh"><strong>决策机制：</strong> 建立重大决策的表决规则和争议解决机制</li>
+                        <li class="en"><strong>Decision-Making:</strong> Establish voting rules for major decisions and dispute resolution mechanisms</li>
                         <li class="zh"><strong>继承规则：</strong> 明确财富和企业控制权的传承路径</li>
+                        <li class="en"><strong>Succession Rules:</strong> Clarify wealth and business control transfer pathways</li>
                         <li class="zh"><strong>教育与培养：</strong> 制定下一代的教育计划和能力培养路径</li>
+                        <li class="en"><strong>Education & Development:</strong> Develop next-generation education plans and capability development paths</li>
                         <li class="zh"><strong>慈善与社会责任：</strong> 确立家族的慈善方向和社会贡献目标</li>
+                        <li class="en"><strong>Philanthropy & Social Responsibility:</strong> Establish philanthropic direction and social contribution goals</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">下一代培养计划</h3>
+                <h3 class="en">Next-Generation Development Program</h3>
                 <p class="zh">我们相信，真正的财富传承不仅是资产的转移，更是能力和价值观的传递。我们为家族下一代设计系统的培养计划：</p>
+                <p class="en">We believe true wealth transfer is not just asset transfer, but capability and values transmission. We design systematic development programs for next generations:</p>
                 <ul class="check-list">
                     <li class="zh"><strong>财务教育：</strong> 从基础的理财知识到高级的投资策略，循序渐进</li>
+                    <li class="en"><strong>Financial Education:</strong> From basic financial literacy to advanced investment strategies, progressively</li>
                     <li class="zh"><strong>实践参与：</strong> 让下一代参与家族投资委员会，培养决策能力</li>
+                    <li class="en"><strong>Practical Participation:</strong> Involve next generation in family investment committee to develop decision-making skills</li>
                     <li class="zh"><strong>导师计划：</strong> 安排行业导师，拓展视野和人脉网络</li>
+                    <li class="en"><strong>Mentorship Program:</strong> Arrange industry mentors to expand horizons and networks</li>
                     <li class="zh"><strong>创业支持：</strong> 为有创业意愿的家族成员提供资金和指导</li>
+                    <li class="en"><strong>Entrepreneurship Support:</strong> Provide funding and guidance for family members with entrepreneurial aspirations</li>
                 </ul>
 
                 <h3 class="zh">慈善基金会设立</h3>
+                <h3 class="en">Charitable Foundation Establishment</h3>
                 <p class="zh">我们协助家族设立慈善基金会，实现财富的社会价值。新加坡提供了优越的慈善基金会环境，包括税务优惠和灵活的运营框架。我们帮助您：</p>
+                <p class="en">We assist families in establishing charitable foundations to realize wealth's social value. Singapore offers an excellent charitable foundation environment with tax benefits and flexible operational frameworks. We help you:</p>
                 <ul class="check-list">
                     <li class="zh">确定慈善使命和重点领域（教育、医疗、环保等）</li>
+                    <li class="en">Define philanthropic mission and focus areas (education, healthcare, environment, etc.)</li>
                     <li class="zh">设计基金会的治理结构和运营模式</li>
+                    <li class="en">Design foundation governance structure and operational model</li>
                     <li class="zh">筛选和评估慈善项目，确保资金的有效使用</li>
+                    <li class="en">Screen and evaluate charitable projects to ensure effective fund utilization</li>
                     <li class="zh">建立影响力评估体系，衡量社会贡献</li>
+                    <li class="en">Establish impact assessment systems to measure social contribution</li>
                 </ul>
             </div>
             
             <div id="sol-corp" class="content-block">
                 <h2 class="zh">企业咨询</h2>
+                <h2 class="en">Corporate Advisory</h2>
                 <p class="zh">针对企业家客户，我们提供流动性事件管理（上市前规划）、并购建议以及非核心资产的剥离策略。我们协助企业主将商业财富转化为家族财富，实现风险隔离。</p>
+                <p class="en">For entrepreneur clients, we provide liquidity event management (pre-IPO planning), M&A advice, and non-core asset divestiture strategies. We help business owners convert business wealth to family wealth, achieving risk segregation.</p>
                 
                 <h3 class="zh">IPO 前财富规划</h3>
+                <h3 class="en">Pre-IPO Wealth Planning</h3>
                 <p class="zh">企业上市是创造巨额财富的关键时刻，但也伴随着巨大的税务和法律风险。我们在 IPO 前 12-18 个月介入，帮助企业家进行全面规划：</p>
+                <p class="en">IPO is a critical wealth-creation moment but comes with significant tax and legal risks. We intervene 12-18 months pre-IPO to help entrepreneurs with comprehensive planning:</p>
                 <ul class="check-list">
                     <li class="zh"><strong>股权架构优化：</strong> 在上市前重组股权结构，实现税务效率最大化</li>
+                    <li class="en"><strong>Equity Structure Optimization:</strong> Reorganize equity structure pre-IPO to maximize tax efficiency</li>
                     <li class="zh"><strong>锁定期策略：</strong> 制定锁定期后的减持计划，平衡流动性需求和市场影响</li>
+                    <li class="en"><strong>Lock-up Strategy:</strong> Develop post-lock-up reduction plans balancing liquidity needs and market impact</li>
                     <li class="zh"><strong>风险对冲：</strong> 使用期权和衍生品工具对冲股价波动风险</li>
+                    <li class="en"><strong>Risk Hedging:</strong> Use options and derivatives to hedge stock price volatility risk</li>
                     <li class="zh"><strong>多元化路径：</strong> 设计 IPO 后的资产多元化策略，降低单一资产集中度</li>
+                    <li class="en"><strong>Diversification Path:</strong> Design post-IPO asset diversification strategy to reduce single-asset concentration</li>
                 </ul>
 
                 <h3 class="zh">企业并购咨询</h3>
+                <h3 class="en">M&A Advisory</h3>
                 <p class="zh">无论是收购还是出售企业，我们都能提供专业的财富视角：</p>
+                <p class="en">Whether acquiring or selling businesses, we provide professional wealth perspective:</p>
                 <ul class="check-list">
                     <li class="zh">评估交易对个人财富的影响，优化交易结构</li>
+                    <li class="en">Assess transaction impact on personal wealth, optimize deal structure</li>
                     <li class="zh">协调税务顾问和律师，最小化税务成本</li>
+                    <li class="en">Coordinate tax advisors and lawyers to minimize tax costs</li>
                     <li class="zh">设计交易所得的再投资策略</li>
+                    <li class="en">Design reinvestment strategy for transaction proceeds</li>
                     <li class="zh">管理流动性事件后的心理和生活方式转变</li>
+                    <li class="en">Manage psychological and lifestyle transitions post-liquidity event</li>
                 </ul>
 
                 <h3 class="zh">企业财富与投资资产分离</h3>
+                <h3 class="en">Business Wealth & Investment Asset Separation</h3>
                 <p class="zh">我们帮助企业家实现"企业财富"和"投资财富"的分离，降低风险：</p>
+                <p class="en">We help entrepreneurs separate "business wealth" from "investment wealth" to reduce risk:</p>
                 <ul class="check-list">
                     <li class="zh">将企业经营风险与投资资产隔离</li>
+                    <li class="en">Segregate business operational risk from investment assets</li>
                     <li class="zh">设立独立的投资平台，专注于资本增值</li>
+                    <li class="en">Establish independent investment platforms focused on capital appreciation</li>
                     <li class="zh">为非经营性资产（如房地产、金融投资）建立独立架构</li>
+                    <li class="en">Create independent structures for non-operating assets (real estate, financial investments)</li>
                     <li class="zh">确保即使企业遇到困难，家族财富依然安全</li>
+                    <li class="en">Ensure family wealth remains secure even if business faces difficulties</li>
                 </ul>
             </div>
         </div>
@@ -1104,19 +1240,44 @@
 <main id="journey-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Journey</span><span class="zh">首页 > 客户旅程</span></div>
-        <h1 class="zh">8步咨询旅程</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">The 8-Step Advisory Process</h1>
+        <h1 class="zh">8步咨询旅程</h1>
+        <h1 class="en">The 8-Step Advisory Process</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('step-1')" class="side-link active"><span class="zh">01. 发现</span></a>
-            <a onclick="scrollToId('step-2')" class="side-link"><span class="zh">02. 诊断</span></a>
-            <a onclick="scrollToId('step-3')" class="side-link"><span class="zh">03. 架构</span></a>
-            <a onclick="scrollToId('step-4')" class="side-link"><span class="zh">04. 策略</span></a>
-            <a onclick="scrollToId('step-5')" class="side-link"><span class="zh">05. 筛选</span></a>
-            <a onclick="scrollToId('step-6')" class="side-link"><span class="zh">06. 实施</span></a>
-            <a onclick="scrollToId('step-7')" class="side-link"><span class="zh">07. 监督</span></a>
-            <a onclick="scrollToId('step-8')" class="side-link"><span class="zh">08. 再平衡</span></a>
+            <a onclick="scrollToId('step-1')" class="side-link active">
+                <span class="zh">01. 发现</span>
+                <span class="en">01. Discovery</span>
+            </a>
+            <a onclick="scrollToId('step-2')" class="side-link">
+                <span class="zh">02. 诊断</span>
+                <span class="en">02. Diagnosis</span>
+            </a>
+            <a onclick="scrollToId('step-3')" class="side-link">
+                <span class="zh">03. 架构</span>
+                <span class="en">03. Architecture</span>
+            </a>
+            <a onclick="scrollToId('step-4')" class="side-link">
+                <span class="zh">04. 策略</span>
+                <span class="en">04. Strategy</span>
+            </a>
+            <a onclick="scrollToId('step-5')" class="side-link">
+                <span class="zh">05. 筛选</span>
+                <span class="en">05. Selection</span>
+            </a>
+            <a onclick="scrollToId('step-6')" class="side-link">
+                <span class="zh">06. 实施</span>
+                <span class="en">06. Implementation</span>
+            </a>
+            <a onclick="scrollToId('step-7')" class="side-link">
+                <span class="zh">07. 监督</span>
+                <span class="en">07. Oversight</span>
+            </a>
+            <a onclick="scrollToId('step-8')" class="side-link">
+                <span class="zh">08. 再平衡</span>
+                <span class="en">08. Rebalancing</span>
+            </a>
         </aside>
 
         <div class="content-body">
@@ -1124,16 +1285,25 @@
                 <div class="timeline-date">01</div>
                 <div class="timeline-content">
                     <h3 class="zh">发现与倾听</h3>
+                    <h3 class="en">Discovery & Listening</h3>
                     <p class="zh">我们以深度倾听开始。不预设方案，而是绘制您的"金融基因"——您的风险承受能力、流动性需求和多代愿景。我们会详细梳理您的资产负债表，了解您的隐形需求。</p>
+                    <p class="en">We begin with deep listening. Rather than preset solutions, we map your "financial DNA"—your risk tolerance, liquidity needs, and multi-generational vision. We thoroughly review your balance sheet to understand your implicit needs.</p>
                     <div class="highlight-box">
                         <h4 class="zh">这个阶段我们会深入了解</h4>
+                        <h4 class="en">In This Phase We Deeply Understand</h4>
                         <ul class="check-list">
                             <li class="zh">您的财富来源和积累路径</li>
+                            <li class="en">Your wealth sources and accumulation path</li>
                             <li class="zh">当前的资产配置和持有结构</li>
+                            <li class="en">Current asset allocation and holding structure</li>
                             <li class="zh">家族成员构成和代际关系</li>
+                            <li class="en">Family member composition and generational relationships</li>
                             <li class="zh">短期和长期的财务目标</li>
+                            <li class="en">Short-term and long-term financial goals</li>
                             <li class="zh">风险承受能力和流动性需求</li>
+                            <li class="en">Risk tolerance and liquidity requirements</li>
                             <li class="zh">对财富传承和慈善的期望</li>
+                            <li class="en">Expectations for wealth succession and philanthropy</li>
                         </ul>
                     </div>
                 </div>
@@ -1143,15 +1313,23 @@
                 <div class="timeline-date">02</div>
                 <div class="timeline-content">
                     <h3 class="zh">财务诊断</h3>
+                    <h3 class="en">Financial Diagnosis</h3>
                     <p class="zh">对现有资产结构进行全面体检。识别税务漏洞、法律风险以及资产配置中的过度集中问题。我们会出具一份详细的诊断报告，指出当前结构的不足之处。</p>
+                    <p class="en">Conduct comprehensive review of existing asset structure. Identify tax loopholes, legal risks, and over-concentration in asset allocation. We issue a detailed diagnostic report highlighting current structure deficiencies.</p>
                     <div class="highlight-box">
                         <h4 class="zh">诊断报告包括</h4>
+                        <h4 class="en">Diagnostic Report Includes</h4>
                         <ul class="check-list">
                             <li class="zh"><strong>资产配置分析：</strong> 评估当前配置的风险收益特征</li>
+                            <li class="en"><strong>Asset Allocation Analysis:</strong> Assess current allocation risk-return characteristics</li>
                             <li class="zh"><strong>税务效率评估：</strong> 识别税务优化机会</li>
+                            <li class="en"><strong>Tax Efficiency Assessment:</strong> Identify tax optimization opportunities</li>
                             <li class="zh"><strong>法律风险识别：</strong> 发现潜在的法律和合规问题</li>
+                            <li class="en"><strong>Legal Risk Identification:</strong> Discover potential legal and compliance issues</li>
                             <li class="zh"><strong>集中度风险：</strong> 评估单一资产或地区的过度暴露</li>
+                            <li class="en"><strong>Concentration Risk:</strong> Assess over-exposure to single assets or regions</li>
                             <li class="zh"><strong>成本分析：</strong> 梳理当前的费用结构和隐藏成本</li>
+                            <li class="en"><strong>Cost Analysis:</strong> Review current fee structure and hidden costs</li>
                         </ul>
                     </div>
                 </div>
@@ -1161,8 +1339,11 @@
                 <div class="timeline-date">03</div>
                 <div class="timeline-content">
                     <h3 class="zh">架构蓝图</h3>
+                    <h3 class="en">Architecture Blueprint</h3>
                     <p class="zh">设计顶层法律架构。我们与税务顾问和律师协调，推荐最佳的法律结构（如投资公司或信托）。这个阶段重点解决"资产放在哪里"和"如何持有"的问题。</p>
+                    <p class="en">Design top-tier legal architecture. We coordinate with tax advisors and lawyers to recommend optimal legal structures (such as investment companies or trusts). This phase focuses on "where to place assets" and "how to hold them".</p>
                     <p class="zh">我们会为您设计一个多层次的架构方案，包括控股公司、投资平台、信托安排等。架构设计需要平衡税务效率、资产保护、传承便利性和运营成本。</p>
+                    <p class="en">We design a multi-tier architecture solution including holding companies, investment platforms, trust arrangements, etc. Architecture design must balance tax efficiency, asset protection, succession convenience, and operational costs.</p>
                 </div>
             </div>
             
@@ -1170,16 +1351,25 @@
                 <div class="timeline-date">04</div>
                 <div class="timeline-content">
                     <h3 class="zh">投资策略制定</h3>
+                    <h3 class="en">Investment Strategy Formulation</h3>
                     <p class="zh">起草详细的资产配置政策声明 (IPS)，明确目标回报、风险限额及流动性要求。这是未来的投资宪法，所有的投资决策都将以此为基准。</p>
+                    <p class="en">Draft detailed Investment Policy Statement (IPS) clarifying target returns, risk limits, and liquidity requirements. This is the future investment constitution; all investment decisions will be benchmarked against it.</p>
                     <div class="highlight-box">
                         <h4 class="zh">IPS 的核心内容</h4>
+                        <h4 class="en">Core IPS Content</h4>
                         <ul class="check-list">
                             <li class="zh"><strong>投资目标：</strong> 明确回报目标和时间框架</li>
+                            <li class="en"><strong>Investment Objectives:</strong> Clarify return targets and timeframes</li>
                             <li class="zh"><strong>风险参数：</strong> 设定最大回撤、波动率等风险限额</li>
+                            <li class="en"><strong>Risk Parameters:</strong> Set maximum drawdown, volatility, and other risk limits</li>
                             <li class="zh"><strong>资产配置：</strong> 确定各类资产的目标比例和允许偏离范围</li>
+                            <li class="en"><strong>Asset Allocation:</strong> Determine target proportions and permitted deviation ranges for each asset class</li>
                             <li class="zh"><strong>再平衡规则：</strong> 定义何时触发再平衡</li>
+                            <li class="en"><strong>Rebalancing Rules:</strong> Define when to trigger rebalancing</li>
                             <li class="zh"><strong>流动性管理：</strong> 确保满足短期现金需求</li>
+                            <li class="en"><strong>Liquidity Management:</strong> Ensure short-term cash needs are met</li>
                             <li class="zh"><strong>投资限制：</strong> 明确禁止或限制的投资类型</li>
+                            <li class="en"><strong>Investment Restrictions:</strong> Clarify prohibited or restricted investment types</li>
                         </ul>
                     </div>
                 </div>
@@ -1189,8 +1379,11 @@
                 <div class="timeline-date">05</div>
                 <div class="timeline-content">
                     <h3 class="zh">供应商筛选</h3>
+                    <h3 class="en">Provider Selection</h3>
                     <p class="zh">我们帮助您筛选一流的托管银行和基金经理。我们作为您的代表，协助协商费用和条款，确保您获得机构级的待遇。我们拥有庞大的数据库，能够为您匹配最适合的合作伙伴。</p>
+                    <p class="en">We help you select top-tier custodian banks and fund managers. As your representative, we assist in negotiating fees and terms to ensure you receive institutional-level treatment. We maintain an extensive database to match you with the most suitable partners.</p>
                     <p class="zh">我们的筛选流程严格而系统，包括定量分析、定性评估和现场尽调。我们不仅关注历史业绩，更重视投资哲学、团队稳定性和风控能力。</p>
+                    <p class="en">Our selection process is rigorous and systematic, including quantitative analysis, qualitative assessment, and on-site due diligence. We focus not only on historical performance but also on investment philosophy, team stability, and risk control capabilities.</p>
                 </div>
             </div>
             
@@ -1198,8 +1391,11 @@
                 <div class="timeline-date">06</div>
                 <div class="timeline-content">
                     <h3 class="zh">落地实施</h3>
+                    <h3 class="en">Implementation</h3>
                     <p class="zh">协助开立银行账户，完成KYC/AML流程，并将资产逐步注入新的架构中。我们全程跟进，确保资金划转的合规与安全。</p>
+                    <p class="en">Assist with opening bank accounts, completing KYC/AML processes, and gradually injecting assets into the new structure. We follow through to ensure fund transfer compliance and security.</p>
                     <p class="zh">这个阶段涉及大量的文书工作和协调工作。我们会协调律师、会计师、银行和基金经理，确保所有环节顺畅衔接。我们会制定详细的实施时间表，并定期向您汇报进展。</p>
+                    <p class="en">This phase involves extensive documentation and coordination. We coordinate lawyers, accountants, banks, and fund managers to ensure seamless integration. We develop detailed implementation timelines and regularly report progress to you.</p>
                 </div>
             </div>
 
@@ -1207,15 +1403,23 @@
                 <div class="timeline-date">07</div>
                 <div class="timeline-content">
                     <h3 class="zh">风险监督</h3>
+                    <h3 class="en">Risk Oversight</h3>
                     <p class="zh">财富咨询是动态的。我们提供持续的风险监控、综合报表整合，确保投资组合不偏离既定轨道。我们使用先进的系统监控市场风险、信用风险和流动性风险。</p>
+                    <p class="en">Wealth advisory is dynamic. We provide continuous risk monitoring and consolidated reporting to ensure portfolios don't deviate from established tracks. We use advanced systems to monitor market risk, credit risk, and liquidity risk.</p>
                     <div class="highlight-box">
                         <h4 class="zh">我们的监督服务包括</h4>
+                        <h4 class="en">Our Oversight Services Include</h4>
                         <ul class="check-list">
                             <li class="zh"><strong>月度报表：</strong> 整合所有账户的综合报表</li>
+                            <li class="en"><strong>Monthly Reports:</strong> Consolidated reports integrating all accounts</li>
                             <li class="zh"><strong>业绩归因：</strong> 分析收益来源和风险贡献</li>
+                            <li class="en"><strong>Performance Attribution:</strong> Analyze return sources and risk contributions</li>
                             <li class="zh"><strong>风险监控：</strong> 实时监控投资组合的风险指标</li>
+                            <li class="en"><strong>Risk Monitoring:</strong> Real-time monitoring of portfolio risk metrics</li>
                             <li class="zh"><strong>季度回顾：</strong> 与您一起回顾投资组合表现</li>
+                            <li class="en"><strong>Quarterly Reviews:</strong> Review portfolio performance together with you</li>
                             <li class="zh"><strong>管理人评估：</strong> 持续评估基金经理的表现</li>
+                            <li class="en"><strong>Manager Evaluation:</strong> Continuously assess fund manager performance</li>
                         </ul>
                     </div>
                 </div>
@@ -1225,8 +1429,11 @@
                 <div class="timeline-date">08</div>
                 <div class="timeline-content">
                     <h3 class="zh">动态再平衡</h3>
+                    <h3 class="en">Dynamic Rebalancing</h3>
                     <p class="zh">根据宏观经济变化（如利率、地缘政治）定期调整策略，确保资产始终处于最优配置状态。我们每年至少进行一次全面的策略复盘。</p>
+                    <p class="en">Regularly adjust strategy based on macroeconomic changes (such as interest rates, geopolitics) to ensure assets remain in optimal allocation. We conduct at least one comprehensive strategy review annually.</p>
                     <p class="zh">市场环境在不断变化，您的个人情况也在演进。我们会根据市场周期、估值水平和您的生活变化，及时调整投资策略。我们相信，主动的再平衡是长期投资成功的关键。</p>
+                    <p class="en">Market conditions constantly evolve, as do your personal circumstances. We adjust investment strategies based on market cycles, valuation levels, and your life changes. We believe proactive rebalancing is key to long-term investment success.</p>
                 </div>
             </div>
         </div>
@@ -1236,140 +1443,238 @@
 <main id="expertise-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Expertise</span><span class="zh">首页 > 专业洞察</span></div>
-        <h1 class="zh">专业领域与洞察</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">Expertise & Insights</h1>
+        <h1 class="zh">专业领域与洞察</h1>
+        <h1 class="en">Expertise & Insights</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('exp-alloc')" class="side-link active"><span class="zh">配置建议</span></a>
-            <a onclick="scrollToId('exp-risk')" class="side-link"><span class="zh">风险管理</span></a>
-            <a onclick="scrollToId('exp-macro')" class="side-link"><span class="zh">宏观主题</span></a>
-            <a onclick="scrollToId('exp-alternatives')" class="side-link"><span class="zh">另类投资</span></a>
+            <a onclick="scrollToId('exp-alloc')" class="side-link active">
+                <span class="zh">配置建议</span>
+                <span class="en">Allocation</span>
+            </a>
+            <a onclick="scrollToId('exp-risk')" class="side-link">
+                <span class="zh">风险管理</span>
+                <span class="en">Risk Management</span>
+            </a>
+            <a onclick="scrollToId('exp-macro')" class="side-link">
+                <span class="zh">宏观主题</span>
+                <span class="en">Macro Themes</span>
+            </a>
+            <a onclick="scrollToId('exp-alternatives')" class="side-link">
+                <span class="zh">另类投资</span>
+                <span class="en">Alternatives</span>
+            </a>
         </aside>
 
         <div class="content-body">
             <div id="exp-alloc" class="content-block">
                 <h2 class="zh">战略配置建议</h2>
+                <h2 class="en">Strategic Allocation Recommendations</h2>
                 <p class="zh">我们遵循改良版的"捐赠基金模式"（耶鲁模式）。在新时代，传统的 60/40 投资组合已显不足。我们建议构建包含"防御护城河"和"高增长引擎"的"全天候"投资组合，以应对市场波动。</p>
+                <p class="en">We follow a refined "endowment model" (Yale model). In the new era, traditional 60/40 portfolios are insufficient. We recommend building "all-weather" portfolios containing "defensive moats" and "high-growth engines" to handle market volatility.</p>
                 <div class="highlight-box">
                     <h4 class="zh">配置模型示意（典型超高净值家族）</h4>
+                    <h4 class="en">Allocation Model (Typical UHNW Family)</h4>
                     <ul class="check-list">
                         <li class="zh"><strong>流动性底仓（15-20%）：</strong> 稳健收益工具与现金管理，确保随时可用的流动性。包括短期政府证券、货币市场基金和高等级产品。</li>
+                        <li class="en"><strong>Liquidity Base (15-20%):</strong> Stable income instruments and cash management ensuring readily available liquidity. Includes short-term government securities, money market funds, and high-grade products.</li>
                         <li class="zh"><strong>增长引擎（30-40%）：</strong> 全球优质增长型资产与科技板块，捕捉时代红利。包括美国科技股、亚洲增长型企业、创新主题基金。</li>
+                        <li class="en"><strong>Growth Engine (30-40%):</strong> Global quality growth assets and tech sectors capturing era dividends. Includes US tech stocks, Asian growth companies, innovation theme funds.</li>
                         <li class="zh"><strong>抗通胀层（20-25%）：</strong> 实物资产与基础设施，提供稳定现金流并抵御货币贬值。包括房地产、基础设施基金、大宗商品。</li>
+                        <li class="en"><strong>Inflation Protection (20-25%):</strong> Real assets and infrastructure providing stable cash flows and hedging currency devaluation. Includes real estate, infrastructure funds, commodities.</li>
                         <li class="zh"><strong>非相关回报（15-20%）：</strong> 市场中性策略与宏观对冲，在市场下跌时提供保护。包括对冲基金、CTA 策略、多策略基金。</li>
+                        <li class="en"><strong>Uncorrelated Returns (15-20%):</strong> Market-neutral strategies and macro hedging providing protection during market declines. Includes hedge funds, CTA strategies, multi-strategy funds.</li>
                         <li class="zh"><strong>长期股权（10-15%）：</strong> 长期资本增值，捕捉非公开市场的超额回报。包括长期股权投资、早期企业投资。</li>
+                        <li class="en"><strong>Long-term Equity (10-15%):</strong> Long-term capital appreciation capturing private market excess returns. Includes private equity, venture capital.</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">为什么传统 60/40 组合已经过时？</h3>
+                <h3 class="en">Why Traditional 60/40 Portfolios Are Outdated</h3>
                 <p class="zh">传统的 60% 股票 + 40% 固收组合在过去几十年表现良好，但在当前环境下面临挑战：</p>
+                <p class="en">Traditional 60% equity + 40% fixed income portfolios performed well over past decades but face challenges in current environment:</p>
                 <ul class="check-list">
                     <li class="zh"><strong>低利率环境：</strong> 固收产品收益率处于历史低位，难以提供有效的收益和分散化</li>
+                    <li class="en"><strong>Low Interest Rate Environment:</strong> Fixed income yields at historic lows, unable to provide effective returns and diversification</li>
                     <li class="zh"><strong>相关性上升：</strong> 在通胀环境下，股票和固收可能同时下跌</li>
+                    <li class="en"><strong>Rising Correlations:</strong> In inflationary environments, equities and fixed income may decline simultaneously</li>
                     <li class="zh"><strong>忽视另类资产：</strong> 非公开市场投资、对冲基金等另类资产能提供更好的风险调整回报</li>
+                    <li class="en"><strong>Ignoring Alternatives:</strong> Private markets, hedge funds, and other alternatives offer better risk-adjusted returns</li>
                     <li class="zh"><strong>缺乏通胀保护：</strong> 传统组合在高通胀环境下表现不佳</li>
+                    <li class="en"><strong>Lack of Inflation Protection:</strong> Traditional portfolios perform poorly in high-inflation environments</li>
                 </ul>
             </div>
 
             <div id="exp-risk" class="content-block">
                 <h2 class="zh">风险管理框架</h2>
+                <h2 class="en">Risk Management Framework</h2>
                 <p class="zh">风险不仅仅是波动，而是资本的永久损失。我们采用多维度的风险管理框架，涵盖市场风险、信用风险和流动性风险。</p>
+                <p class="en">Risk is not just volatility, but permanent capital loss. We employ a multi-dimensional risk management framework covering market risk, credit risk, and liquidity risk.</p>
                 <p class="zh">我们就针对地缘政治冲击和通胀情景的投资组合压力测试提供建议。我们强调"购买力保值"而非单纯的名义回报。我们使用先进的风险管理工具，实时监控投资组合的集中度风险，避免单一资产敞口过大。</p>
+                <p class="en">We advise on portfolio stress testing for geopolitical shocks and inflation scenarios. We emphasize "purchasing power preservation" over nominal returns. We use advanced risk management tools to monitor portfolio concentration risk in real-time, avoiding excessive single-asset exposure.</p>
                 
                 <h3 class="zh">我们的风险管理工具箱</h3>
+                <h3 class="en">Our Risk Management Toolkit</h3>
                 <div class="highlight-box">
                     <h4 class="zh">多层次风险控制</h4>
+                    <h4 class="en">Multi-Layer Risk Control</h4>
                     <ul class="check-list">
                         <li class="zh"><strong>情景分析：</strong> 模拟各种极端市场情景（如 2008 金融危机、2020 疫情冲击）对投资组合的影响</li>
+                        <li class="en"><strong>Scenario Analysis:</strong> Simulate various extreme market scenarios (e.g., 2008 financial crisis, 2020 pandemic shock) on portfolio impact</li>
                         <li class="zh"><strong>压力测试：</strong> 评估利率上升、通胀飙升、地缘冲突等情景下的组合表现</li>
+                        <li class="en"><strong>Stress Testing:</strong> Assess portfolio performance under interest rate rises, inflation spikes, geopolitical conflicts</li>
                         <li class="zh"><strong>VaR 分析：</strong> 计算在给定置信水平下的最大可能损失</li>
+                        <li class="en"><strong>VaR Analysis:</strong> Calculate maximum possible loss at given confidence levels</li>
                         <li class="zh"><strong>流动性管理：</strong> 确保在市场压力下有足够的流动性应对赎回需求</li>
+                        <li class="en"><strong>Liquidity Management:</strong> Ensure sufficient liquidity under market stress to meet redemption demands</li>
                         <li class="zh"><strong>集中度监控：</strong> 限制单一资产、行业或地区的暴露</li>
+                        <li class="en"><strong>Concentration Monitoring:</strong> Limit exposure to single assets, sectors, or regions</li>
                         <li class="zh"><strong>对冲策略：</strong> 使用期权和衍生品对冲尾部风险</li>
+                        <li class="en"><strong>Hedging Strategies:</strong> Use options and derivatives to hedge tail risks</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">尾部风险管理</h3>
+                <h3 class="en">Tail Risk Management</h3>
                 <p class="zh">对于超高净值家族，保护下行风险比追求上行收益更重要。我们建议配置一定比例的尾部风险对冲工具：</p>
+                <p class="en">For ultra-high-net-worth families, protecting downside risk is more important than pursuing upside. We recommend allocating to tail risk hedging instruments:</p>
                 <ul class="check-list">
                     <li class="zh">长期看跌期权：保护股票组合的下行风险</li>
+                    <li class="en">Long-dated put options: Protect equity portfolio downside risk</li>
                     <li class="zh">贵金属配置：在系统性危机中提供保护</li>
+                    <li class="en">Precious metals allocation: Provide protection in systemic crises</li>
                     <li class="zh">尾部风险基金：专门设计用于在市场崩盘时获利</li>
+                    <li class="en">Tail risk funds: Specifically designed to profit during market crashes</li>
                     <li class="zh">现金储备：确保在危机中有"干火药"抄底</li>
+                    <li class="en">Cash reserves: Ensure "dry powder" to buy dips during crises</li>
                 </ul>
             </div>
             
             <div id="exp-macro" class="content-block">
                 <h2 class="zh">全球宏观主题</h2>
+                <h2 class="en">Global Macro Themes</h2>
                 <p class="zh">我们正处于一个去全球化和高通胀并存的新周期。传统的估值模型正在失效。我们帮助客户识别那些拥有定价权、拥有护城河的优质资产。</p>
+                <p class="en">We're in a new cycle of deglobalization and high inflation. Traditional valuation models are failing. We help clients identify quality assets with pricing power and moats.</p>
                 <p class="zh">顺应未来20年的发展趋势，我们建议关注代表"能量"与"智慧"的板块：人工智能、聚变能源、生物科技以及受监管的数字资产。这些领域将诞生下一个时代的财富巨擘。</p>
+                <p class="en">Aligning with next 20 years' trends, we recommend focusing on sectors representing "energy" and "intelligence": artificial intelligence, fusion energy, biotechnology, and regulated digital assets. These fields will birth the next era's wealth titans.</p>
                 
                 <h3 class="zh">2025-2030 年的关键投资主题</h3>
+                <h3 class="en">Key Investment Themes 2025-2030</h3>
                 <div class="highlight-box">
                     <h4 class="zh">人工智能革命</h4>
+                    <h4 class="en">AI Revolution</h4>
                     <p class="zh">AI 不仅是一个技术趋势，更是一场生产力革命。我们看好 AI 的三个层次：</p>
+                    <p class="en">AI is not just a tech trend but a productivity revolution. We favor three AI layers:</p>
                     <ul class="check-list">
                         <li class="zh"><strong>基础设施层：</strong> 芯片（NVIDIA、AMD）、云计算（AWS、Azure）、数据中心</li>
+                        <li class="en"><strong>Infrastructure Layer:</strong> Chips (NVIDIA, AMD), cloud computing (AWS, Azure), data centers</li>
                         <li class="zh"><strong>模型层：</strong> 大语言模型公司（OpenAI、Anthropic）、开源模型生态</li>
+                        <li class="en"><strong>Model Layer:</strong> Large language model companies (OpenAI, Anthropic), open-source model ecosystems</li>
                         <li class="zh"><strong>应用层：</strong> AI 赋能的软件（Copilot、AI 客服）、垂直行业应用</li>
+                        <li class="en"><strong>Application Layer:</strong> AI-enabled software (Copilot, AI customer service), vertical industry applications</li>
                     </ul>
                 </div>
 
                 <div class="highlight-box">
                     <h4 class="zh">能源转型与气候科技</h4>
+                    <h4 class="en">Energy Transition & Climate Tech</h4>
                     <p class="zh">能源转型是未来几十年最大的投资机会之一：</p>
+                    <p class="en">Energy transition is one of the biggest investment opportunities in coming decades:</p>
                     <ul class="check-list">
                         <li class="zh"><strong>清洁能源：</strong> 太阳能、风能、储能技术</li>
+                        <li class="en"><strong>Clean Energy:</strong> Solar, wind, energy storage technologies</li>
                         <li class="zh"><strong>电动化：</strong> 电动汽车、充电基础设施、电池技术</li>
+                        <li class="en"><strong>Electrification:</strong> Electric vehicles, charging infrastructure, battery technology</li>
                         <li class="zh"><strong>氢能：</strong> 绿氢生产、氢燃料电池</li>
+                        <li class="en"><strong>Hydrogen:</strong> Green hydrogen production, hydrogen fuel cells</li>
                         <li class="zh"><strong>碳捕捉：</strong> 碳捕捉与封存技术 (CCS)</li>
+                        <li class="en"><strong>Carbon Capture:</strong> Carbon capture and storage (CCS) technologies</li>
                     </ul>
                 </div>
 
                 <h3 class="zh">地缘政治与去全球化</h3>
+                <h3 class="en">Geopolitics & Deglobalization</h3>
                 <p class="zh">全球化正在逆转，供应链正在重组。这带来了新的投资机会和风险：</p>
+                <p class="en">Globalization is reversing, supply chains are reorganizing. This brings new investment opportunities and risks:</p>
                 <ul class="check-list">
                     <li class="zh"><strong>友岸外包 (Friend-shoring)：</strong> 投资于墨西哥、越南、印度等受益于供应链转移的国家</li>
+                    <li class="en"><strong>Friend-shoring:</strong> Invest in Mexico, Vietnam, India benefiting from supply chain shifts</li>
                     <li class="zh"><strong>国防与安全：</strong> 地缘紧张推动国防开支增加</li>
-                    <li class="zh"><strong>粮食安全：</strong> 农业科技、垂直农业</li>
-                    <li class="zh"><strong>网络安全：</strong> 数据主权和网络安全需求激增</li>
+                    <li class="en"><strong>Defense & Security:</strong> Geopolitical tensions drive defense spending increases</li>
+                    <li class="zh"><strong>粮食
+安全：</strong> 气候变化和地缘冲突推高粮食价格</li>
+                    <li class="en"><strong>Food Security:</strong> Climate change and geopolitical conflicts drive food prices higher</li>
+                    <li class="zh"><strong>关键矿产：</strong> 锂、钴、稀土等能源转型所需的关键资源</li>
+                    <li class="en"><strong>Critical Minerals:</strong> Lithium, cobalt, rare earths needed for energy transition</li>
                 </ul>
             </div>
 
             <div id="exp-alternatives" class="content-block">
                 <h2 class="zh">另类投资策略</h2>
-                <p class="zh">另类投资是超高净值家族投资组合的重要组成部分。与公开市场相比，另类投资提供了更好的风险调整回报、更低的相关性和更多的阿尔法机会。</p>
+                <h2 class="en">Alternative Investment Strategies</h2>
+                <p class="zh">另类投资是超高净值家族投资组合的重要组成部分。与传统股票和固收相比,另类资产提供了更低的相关性、更高的风险调整回报和独特的风险暴露。</p>
+                <p class="en">Alternative investments are a crucial component of ultra-high-net-worth family portfolios. Compared to traditional equities and fixed income, alternatives offer lower correlations, higher risk-adjusted returns, and unique risk exposures.</p>
                 
                 <h3 class="zh">长期股权投资</h3>
-                <p class="zh">长期股权投资历史上提供了优于公开市场的回报，但需要长期资本承诺和专业的管理人筛选能力。</p>
-                <div class="highlight-box">
-                    <h4 class="zh">我们关注的投资策略</h4>
-                    <ul class="check-list">
-                        <li class="zh"><strong>成长型股权：</strong> 投资于高增长的中后期企业</li>
-                        <li class="zh"><strong>并购基金：</strong> 通过杠杆收购和运营改善创造价值</li>
-                        <li class="zh"><strong>早期企业投资：</strong> 早期科技公司投资，高风险高回报</li>
-                        <li class="zh"><strong>二级市场：</strong> 购买其他投资者的份额，获得流动性折扣</li>
-                    </ul>
-                </div>
-
-                <h3 class="zh">对冲基金</h3>
-                <p class="zh">对冲基金能够在各种市场环境下创造绝对回报，是投资组合的重要分散化工具。</p>
+                <h3 class="en">Private Equity</h3>
+                <p class="zh">长期股权投资历史上提供了优于公开市场的回报。我们帮助客户接触顶级的投资机构：</p>
+                <p class="en">Private equity has historically provided returns superior to public markets. We help clients access top-tier investment firms:</p>
                 <ul class="check-list">
-                    <li class="zh"><strong>多空股票：</strong> 做多被低估的股票，做空被高估的股票</li>
-                    <li class="zh"><strong>宏观策略：</strong> 基于宏观经济判断进行跨资产交易</li>
+                    <li class="zh"><strong>大型并购基金：</strong> 投资成熟企业，通过运营改善创造价值</li>
+                    <li class="en"><strong>Large Buyout Funds:</strong> Invest in mature companies, creating value through operational improvements</li>
+                    <li class="zh"><strong>成长型投资：</strong> 投资高增长企业，分享企业扩张红利</li>
+                    <li class="en"><strong>Growth Equity:</strong> Invest in high-growth companies, sharing expansion dividends</li>
+                    <li class="zh"><strong>早期企业投资：</strong> 投资创新型初创企业，捕捉非对称回报</li>
+                    <li class="en"><strong>Venture Capital:</strong> Invest in innovative startups, capturing asymmetric returns</li>
+                    <li class="zh"><strong>特殊机会：</strong> 投资困境资产、不良债权等特殊情况</li>
+                    <li class="en"><strong>Special Situations:</strong> Invest in distressed assets, non-performing loans, and special situations</li>
+                </ul>
+
+                <h3 class="zh">对冲基金策略</h3>
+                <h3 class="en">Hedge Fund Strategies</h3>
+                <p class="zh">对冲基金可以在各种市场环境下创造正回报。我们筛选的对冲基金策略包括：</p>
+                <p class="en">Hedge funds can generate positive returns across market environments. Our screened hedge fund strategies include:</p>
+                <ul class="check-list">
+                    <li class="zh"><strong>多空股票：</strong> 做多优质股票，做空劣质股票，降低市场暴露</li>
+                    <li class="en"><strong>Long/Short Equity:</strong> Long quality stocks, short poor stocks, reducing market exposure</li>
+                    <li class="zh"><strong>宏观策略：</strong> 基于宏观经济趋势进行全球配置</li>
+                    <li class="en"><strong>Macro Strategies:</strong> Global allocation based on macroeconomic trends</li>
                     <li class="zh"><strong>事件驱动：</strong> 投资于并购、重组等特殊事件</li>
-                    <li class="zh"><strong>量化策略：</strong> 使用算法和模型进行系统化交易</li>
+                    <li class="en"><strong>Event Driven:</strong> Invest in M&A, restructuring, and special events</li>
+                    <li class="zh"><strong>相对价值：</strong> 利用不同资产间的定价偏差获利</li>
+                    <li class="en"><strong>Relative Value:</strong> Profit from pricing discrepancies between different assets</li>
                 </ul>
 
-                <h3 class="zh">实物资产</h3>
-                <p class="zh">实物资产提供了通胀保护和稳定的现金流，是长期投资组合的压舱石。</p>
+                <h3 class="zh">实物资产投资</h3>
+                <h3 class="en">Real Assets</h3>
+                <p class="zh">实物资产提供了通胀保护和稳定现金流：</p>
+                <p class="en">Real assets provide inflation protection and stable cash flows:</p>
                 <ul class="check-list">
-                    <li class="zh"><strong>房地产：</strong> 商业地产、住宅、物流仓储</li>
-                    <li class="zh"><strong>基础设施：</strong> 收费公路、机场、港口、电力输配</li>
+                    <li class="zh"><strong>房地产：</strong> 商业地产、住宅开发、物流仓储</li>
+                    <li class="en"><strong>Real Estate:</strong> Commercial property, residential development, logistics warehouses</li>
+                    <li class="zh"><strong>基础设施：</strong> 收费公路、机场、电力设施</li>
+                    <li class="en"><strong>Infrastructure:</strong> Toll roads, airports, power facilities</li>
                     <li class="zh"><strong>自然资源：</strong> 林地、农地、水资源</li>
-                    <li class="zh"><strong>艺术品与收藏：</strong> 高端艺术品、稀有葡萄酒、古董</li>
+                    <li class="en"><strong>Natural Resources:</strong> Timberland, farmland, water resources</li>
+                    <li class="zh"><strong>贵金属：</strong> 实物资产配置，系统性风险对冲</li>
+                    <li class="en"><strong>Precious Metals:</strong> Physical asset allocation, systemic risk hedging</li>
                 </ul>
+
+                <h3 class="zh">数字资产配置</h3>
+                <h3 class="en">Digital Asset Allocation</h3>
+                <p class="zh">对于风险承受能力较高的客户，我们建议小比例配置数字资产（1-5%）：</p>
+                <p class="en">For clients with higher risk tolerance, we recommend small digital asset allocations (1-5%):</p>
+                <ul class="check-list">
+                    <li class="zh"><strong>比特币：</strong> 作为"数字黄金"的价值储存</li>
+                    <li class="en"><strong>Bitcoin:</strong> Value storage as "digital gold"</li>
+                    <li class="zh"><strong>以太坊：</strong> 智能合约平台和去中心化应用基础</li>
+                    <li class="en"><strong>Ethereum:</strong> Smart contract platform and decentralized application foundation</li>
+                    <li class="zh"><strong>区块链基础设施：</strong> 投资区块链技术公司</li>
+                    <li class="en"><strong>Blockchain Infrastructure:</strong> Invest in blockchain technology companies</li>
+                </ul>
+                <p class="zh">我们强调数字资产的高风险性质，建议仅将其作为投资组合的卫星配置，而非核心持仓。</p>
+                <p class="en">We emphasize the high-risk nature of digital assets, recommending them only as satellite allocations, not core holdings.</p>
             </div>
         </div>
     </div>
@@ -1377,122 +1682,219 @@
 
 <main id="contact-view" class="view">
     <div class="detail-header">
-        <h1 class="zh">直接联系</h1>
-        <h1 class="en">Contact Us</h1>
+        <div class="breadcrumbs"><span class="en">Home > Contact</span><span class="zh">首页 > 联系我们</span></div>
+        <h1 class="zh">联系我们</h1>
+        <h1 class="en">Get in Touch</h1>
     </div>
-    
-    <div class="section-pad">
+
+    <section class="section-pad">
         <div class="contact-hero-grid">
             <div class="contact-info-side">
-                <h3 class="zh" style="margin-bottom:1rem;">新加坡总部</h3>
-                <h3 class="en" style="margin-bottom:1rem;">Singapore Headquarters</h3>
-                <p class="zh" style="font-size:1.1rem; color:var(--primary); font-weight:700;">
-                    33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)
-                </p>
-                <p class="en" style="font-size:1.1rem; color:var(--primary); font-weight:700;">
-                    33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)
-                </p>
-                <div class="divider" style="margin:2rem 0;"></div>
-                <p class="zh"><strong>咨询邮箱：</strong> contact@hywisefund.com</p>
-                <p class="en"><strong>Email:</strong> contact@hywisefund.com</p>
-                <p class="zh"><strong>注册号：</strong> UEN 202447435C</p>
-                <p class="en"><strong>UEN:</strong> 202447435C</p>
-                <p class="zh"><strong>监管机构：</strong> 新加坡金融管理局 (MAS)</p>
-                <p class="en"><strong>Regulator:</strong> Monetary Authority of Singapore (MAS)</p>
+                <h2 class="zh">开启您的财富旅程</h2>
+                <h2 class="en">Begin Your Wealth Journey</h2>
+                <p class="zh">我们欢迎可投资资产在 1000 万新币以上的超高净值家族与我们联系。请通过以下方式预约初步咨询。</p>
+                <p class="en">We welcome ultra-high-net-worth families with investable assets above SGD 10 million to contact us. Please schedule an initial consultation through the following channels.</p>
+                
+                <div style="margin:2rem 0;">
+                    <p style="margin-bottom:1rem;"><strong class="zh">新加坡办公室</strong><strong class="en">Singapore Office</strong></p>
+                    <p style="color:var(--text-light); line-height:1.8;">
+                        <span class="zh">地址：新加坡滨海湾金融中心<br>
+                        电话：+65 xxxx xxxx<br>
+                        邮箱：contact@hywisefund.com</span>
+                        <span class="en">Address: Marina Bay Financial Centre, Singapore<br>
+                        Phone: +65 xxxx xxxx<br>
+                        Email: contact@hywisefund.com</span>
+                    </p>
+                </div>
+
                 <div style="margin-top:2rem;">
-                    <a href="https://wa.me/6591234567" class="btn-whatsapp">
+                    <a href="https://wa.me/65xxxxxxxx" target="_blank" class="btn-whatsapp">
                         <span>📱</span>
-                        <span class="zh">WhatsApp 在线咨询</span>
-                        <span class="en">WhatsApp Consultation</span>
+                        <span class="zh">通过 WhatsApp 联系</span>
+                        <span class="en">Contact via WhatsApp</span>
                     </a>
                 </div>
+
+                <p style="margin-top:2rem; font-size:0.9rem; color:var(--text-light); line-height:1.6;">
+                    <span class="zh">我们承诺在 48 小时内回复所有咨询。初步咨询完全免费且保密。</span>
+                    <span class="en">We commit to responding to all inquiries within 48 hours. Initial consultations are completely complimentary and confidential.</span>
+                </p>
             </div>
             <div class="contact-map-side">
                 <div class="map-placeholder"></div>
-                <div class="map-overlay">Vertex Singapore</div>
+                <div class="map-overlay">
+                    <span class="zh">📍 新加坡滨海湾</span>
+                    <span class="en">📍 Marina Bay, Singapore</span>
+                </div>
             </div>
         </div>
-
-        <div style="margin-top:4rem; max-width:800px; margin-left:auto; margin-right:auto;">
-            <h3 class="zh" style="text-align:center; margin-bottom:2rem;">预约咨询</h3>
-            <h3 class="en" style="text-align:center; margin-bottom:2rem;">Schedule a Consultation</h3>
-            <p class="zh" style="text-align:center; color:var(--text-light); margin-bottom:3rem;">
-                我们提供免费的初步咨询。请发送邮件至 contact@hywisefund.com 或通过 WhatsApp 联系我们，我们的团队将在 24 小时内回复您。
-            </p>
-            <p class="en" style="text-align:center; color:var(--text-light); margin-bottom:3rem;">
-                We offer complimentary initial consultations. Please email contact@hywisefund.com or contact us via WhatsApp, and our team will respond within 24 hours.
-            </p>
-        </div>
-    </div>
+    </section>
 </main>
 
 <footer>
     <div class="footer-grid">
         <div class="footer-col">
-            <h4 class="en">HY WISEFUND</h4><h4 class="zh">恒源智汇</h4>
-            <a onclick="switchView('home')" class="footer-link"><span class="en">Home</span><span class="zh">首页</span></a>
-            <a onclick="switchView('contact')" class="footer-link"><span class="en">Contact</span><span class="zh">联系</span></a>
+            <h4 class="zh">关于我们</h4>
+            <h4 class="en">About Us</h4>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; line-height:1.6;">
+                <span class="zh">HY WISEFUND 是一家独立的财富咨询公司，专注于为超高净值家族提供机构级的财富架构、投资咨询和家族治理服务。</span>
+                <span class="en">HY WISEFUND is an independent wealth advisory firm specializing in institutional-grade wealth structuring, investment advisory, and family governance for ultra-high-net-worth families.</span>
+            </p>
         </div>
         <div class="footer-col">
-            <h4 class="en">Services</h4><h4 class="zh">服务</h4>
-            <a onclick="switchView('solutions')" class="footer-link"><span class="en">Strategic Planning</span><span class="zh">战略规划</span></a>
-            <a onclick="switchView('solutions')" class="footer-link"><span class="en">Investment Advisory</span><span class="zh">投资咨询</span></a>
-            <a onclick="switchView('solutions')" class="footer-link"><span class="en">Family Governance</span><span class="zh">家族治理</span></a>
+            <h4 class="zh">服务</h4>
+            <h4 class="en">Services</h4>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="zh">财富架构设计</span><span class="en">Wealth Architecture</span></a>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="zh">投资咨询</span><span class="en">Investment Advisory</span></a>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="zh">家族治理</span><span class="en">Family Governance</span></a>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="zh">企业咨询</span><span class="en">Corporate Advisory</span></a>
         </div>
         <div class="footer-col">
-            <h4 class="en">Expertise</h4><h4 class="zh">专业</h4>
-            <a onclick="switchView('expertise')" class="footer-link"><span class="en">Allocation</span><span class="zh">配置</span></a>
-            <a onclick="switchView('journey')" class="footer-link"><span class="en">Journey</span><span class="zh">旅程</span></a>
-            <a onclick="switchView('expertise')" class="footer-link"><span class="en">Insights</span><span class="zh">洞察</span></a>
+            <h4 class="zh">资源</h4>
+            <h4 class="en">Resources</h4>
+            <a onclick="switchView('journey')" class="footer-link"><span class="zh">客户旅程</span><span class="en">Client Journey</span></a>
+            <a onclick="switchView('expertise')" class="footer-link"><span class="zh">专业洞察</span><span class="en">Expertise</span></a>
+            <a onclick="switchView('home')" class="footer-link"><span class="zh">常见问题</span><span class="en">FAQ</span></a>
         </div>
         <div class="footer-col">
-            <h4 class="en">Legal</h4><h4 class="zh">法律</h4>
-            <a class="footer-link"><span class="en">Privacy Policy</span><span class="zh">隐私政策</span></a>
-            <a class="footer-link"><span class="en">Terms of Use</span><span class="zh">使用条款</span></a>
+            <h4 class="zh">联系方式</h4>
+            <h4 class="en">Contact</h4>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.9rem; line-height:1.8;">
+                <span class="zh">电话：+65 xxxx xxxx<br>
+                邮箱：contact@hywisefund.com<br>
+                地址：新加坡滨海湾金融中心</span>
+                <span class="en">Phone: +65 xxxx xxxx<br>
+                Email: contact@hywisefund.com<br>
+                Address: Marina Bay Financial Centre</span>
+            </p>
         </div>
     </div>
     <div class="footer-disclaimer">
-        <p class="en">Disclaimer: This website is for informational purposes only. HY WISEFUND (SINGAPORE) WEALTH MANAGEMENT PTE. LTD. is regulated by the Monetary Authority of Singapore (MAS). Past performance is not indicative of future results.</p>
-        <p class="zh">免责声明：本网站仅供参考。HY WISEFUND (SINGAPORE) WEALTH MANAGEMENT PTE. LTD. 受新加坡金融管理局 (MAS) 监管。过往表现不代表未来业绩。</p>
-        <div style="margin-top:1rem;">&copy; 2025 HY WISEFUND. All rights reserved.</div>
+        <p class="zh">
+            © 2025 HY WISEFUND. 版权所有。<br>
+            本网站内容仅供参考，不构成投资建议。投资有风险，决策需谨慎。HY WISEFUND 是一家注册于新加坡的独立财富咨询公司。
+        </p>
+        <p class="en">
+            © 2025 HY WISEFUND. All rights reserved.<br>
+            Content on this website is for reference only and does not constitute investment advice. Investments carry risks; decisions require caution. HY WISEFUND is an independent wealth advisory firm registered in Singapore.
+        </p>
     </div>
 </footer>
 
 <script>
-    // 语言切换
-    function toggleLang() {
-        const body = document.body;
-        const current = body.getAttribute('data-lang');
-        body.setAttribute('data-lang', current === 'en' ? 'zh' : 'en');
-        window.scrollTo(0,0);
-    }
+// ========== 语言切换 ==========
+function toggleLang() {
+    const body = document.body;
+    const currentLang = body.getAttribute('data-lang');
+    body.setAttribute('data-lang', currentLang === 'en' ? 'zh' : 'en');
+}
 
-    // 页面路由
-    function switchView(viewId) {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-        document.getElementById(viewId + '-view').classList.add('active');
+// ========== 视图切换 ==========
+function switchView(viewName) {
+    const allViews = document.querySelectorAll('.view');
+    allViews.forEach(v => v.classList.remove('active'));
+    
+    const targetView = document.getElementById(viewName + '-view');
+    if (targetView) {
+        targetView.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         
+        // 更新返回按钮状态
         const backBtn = document.getElementById('backBtn');
-        if(viewId === 'home') backBtn.classList.remove('active');
-        else backBtn.classList.add('active');
+        if (viewName === 'home') {
+            backBtn.classList.remove('active');
+        } else {
+            backBtn.classList.add('active');
+        }
+        
+        // 重置侧边导航
+        const firstLink = targetView.querySelector('.side-link');
+        if (firstLink) {
+            document.querySelectorAll('.side-link').forEach(l => l.classList.remove('active'));
+            firstLink.classList.add('active');
+        }
     }
+}
 
-    // 锚点跳转
-    function scrollToId(id) {
-        document.getElementById(id).scrollIntoView({behavior: 'smooth', block: 'start'});
-        document.querySelectorAll('.side-link').forEach(el => el.classList.remove('active'));
-        event.target.classList.add('active');
+// ========== 侧边导航滚动 ==========
+function scrollToId(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const offset = 100;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+        
+        // 更新侧边导航激活状态
+        document.querySelectorAll('.side-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('onclick').includes(id)) {
+                link.classList.add('active');
+            }
+        });
     }
+}
+
+// ========== FAQ 折叠 ==========
+function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    faqItem.classList.toggle('active');
+}
+
+// ========== 滚动动画 ==========
+function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(element => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+            element.classList.add('active');
+        }
+    });
+}
+
+// ========== 侧边导航高亮 ==========
+function updateSideNav() {
+    const sections = document.querySelectorAll('.content-block, .timeline-item');
+    const sideLinks = document.querySelectorAll('.side-link');
     
-    // FAQ 折叠
-    function toggleFaq(element) {
-        const faqItem = element.parentElement;
-        faqItem.classList.toggle('active');
-    }
+    let currentSection = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 150) {
+            currentSection = section.getAttribute('id');
+        }
+    });
     
-    // 初始化
-    document.body.setAttribute('data-lang', 'en');
+    sideLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(currentSection)) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// ========== 事件监听 ==========
+window.addEventListener('scroll', () => {
+    revealOnScroll();
+    updateSideNav();
+});
+
+window.addEventListener('load', () => {
+    revealOnScroll();
+});
+
+// ========== 初始化 ==========
+document.addEventListener('DOMContentLoaded', () => {
+    // 为所有需要动画的元素添加 reveal 类
+    const animateElements = document.querySelectorAll('.value-card, .process-card-small, .theme-card, .singapore-item, .faq-item');
+    animateElements.forEach(el => el.classList.add('reveal'));
+    
+    // 触发初始检查
+    revealOnScroll();
+});
 </script>
 
 </body>
