@@ -3,39 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>HY WISEFUND - Premier Wealth Consulting Singapore</title>
+<title>HY WISEFUND - Premier Strategic Consultancy Singapore</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
-    /* ================= 1. 视觉系统 (Consulting Elegance) ================= */
+    /* ================= 1. 视觉系统 (Visual System) ================= */
     :root {
         --bg-white: #ffffff;
-        --bg-snow: #f9fafb;
-        --bg-accent-light: #f3e8ff;
+        --bg-offwhite: #fcfcfd;
+        --bg-accent: #f5f3ff; /* 极淡紫 */
         
-        --primary: #2e1065;       /* 皇室紫：代表智慧与咨询 */
-        --gold: #b45309;          /* 晨曦金：代表价值 */
-        --accent: #9333ea;        /* 亮紫：代表洞察 */
-        --whatsapp: #25D366;      
+        --primary: #1e1b4b;       /* 智库深蓝 */
+        --gold: #b45309;          /* 尊贵金 */
+        --accent: #7c3aed;        /* 洞察紫 */
+        --whatsapp: #25D366;
         
         --text-main: #334155;
         --text-light: #64748b;
         
         --nav-height: 80px;
         --container: 1200px;
-        --radius: 6px;
-        --shadow-card: 0 15px 35px rgba(0,0,0,0.06);
+        --radius: 4px;
         
-        /* 字体栈 */
+        /* 字体定义 */
         --font-en: 'Lato', sans-serif;
-        --font-zh: 'PingFang SC', 'Microsoft YaHei', 'SimHei', sans-serif;
+        --font-zh: 'PingFang SC', 'Microsoft YaHei', 'Heiti SC', sans-serif; /* 优化中文显示 */
         --font-serif: 'Playfair Display', serif;
     }
 
-    /* ================= 2. 排版工程 ================= */
+    /* ================= 2. 极致排版 (Typography) ================= */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     
@@ -49,35 +48,39 @@
         -webkit-font-smoothing: antialiased;
     }
     
-    /* 中文模式字体优化 */
+    /* 中文模式字体覆盖 */
     body[data-lang="zh"] { 
         font-family: var(--font-zh); 
-        letter-spacing: 0.02em;
+        letter-spacing: 0.05em; /* 增加字间距，提升高级感 */
+        text-align: justify;    /* 两端对齐 */
     }
 
-    h1, h2, h3, h4, h5 { 
+    h1, h2, h3, h4 { 
         font-family: var(--font-serif); 
         color: var(--primary); 
         font-weight: 700; 
         line-height: 1.3;
-        text-wrap: balance;
     }
+    
+    /* 中文标题特殊处理 */
     body[data-lang="zh"] h1, body[data-lang="zh"] h2, body[data-lang="zh"] h3 { 
         font-family: var(--font-zh); 
+        font-weight: 600;
     }
 
+    /* 段落排版修复：杜绝孤儿字，两端对齐 */
     p { 
         margin-bottom: 1.5rem; 
-        text-align: justify; 
-        text-justify: inter-ideograph;
-        text-wrap: pretty;
         max-width: 800px;
+        text-align: justify; 
+        text-justify: inter-ideograph; /* 针对中文的强制两端对齐 */
     }
     
     img { width: 100%; height: auto; display: block; object-fit: cover; }
     a { text-decoration: none; color: inherit; cursor: pointer; transition: 0.3s; }
     ul { list-style: none; }
 
+    /* 语言显隐 */
     .zh { display: none; }
     .en { display: none; }
     body[data-lang="en"] .en { display: block; }
@@ -85,7 +88,7 @@
     body[data-lang="zh"] .zh { display: block; }
     body[data-lang="zh"] span.zh { display: inline; }
 
-    /* ================= 3. 导航栏 ================= */
+    /* ================= 3. 导航与组件 ================= */
     nav {
         position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
         background: rgba(255,255,255,0.98); border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -95,15 +98,15 @@
         max-width: var(--container); margin: 0 auto; height: 100%; padding: 0 5%;
         display: flex; justify-content: space-between; align-items: center;
     }
-    .logo { height: 45px; width: auto; }
+    .logo { height: 48px; width: auto; }
     
-    .nav-menu { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-menu { display: flex; gap: 3rem; align-items: center; }
     .nav-link { 
-        font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main);
-        position: relative; padding: 5px 0;
+        font-size: 0.95rem; font-weight: 500; color: var(--text-main);
+        position: relative; padding: 10px 0;
     }
     .nav-link::after {
-        content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+        content: ''; position: absolute; bottom: 5px; left: 0; width: 0; height: 2px;
         background: var(--accent); transition: 0.3s;
     }
     .nav-link:hover { color: var(--accent); }
@@ -111,24 +114,27 @@
 
     .lang-btn {
         padding: 0.4rem 1.2rem; border: 1px solid #eee; border-radius: 50px;
-        background: var(--bg-snow); font-size: 0.8rem; font-weight: 700; cursor: pointer;
+        background: var(--bg-offwhite); font-size: 0.8rem; font-weight: 700; cursor: pointer;
         color: var(--primary); transition: 0.3s;
     }
-    .lang-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+    .lang-btn:hover { border-color: var(--primary); background: var(--primary); color: white; }
 
-    /* ================= 4. 组件优化 ================= */
+    /* 按钮组件 */
     .btn {
-        display: inline-flex; align-items: center; gap: 10px; padding: 1rem 2.5rem; 
-        background: var(--primary); color: white; font-weight: 600; letter-spacing: 1px; 
-        border-radius: var(--radius); border: 1px solid var(--primary);
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 1rem 2.5rem; background: var(--primary); color: white;
+        font-weight: 600; border-radius: var(--radius); transition: 0.3s;
+        border: 1px solid var(--primary); min-width: 160px;
     }
     .btn:hover { background: white; color: var(--primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     
     .btn-outline {
-        display: inline-block; padding: 1rem 2.5rem; background: transparent; color: var(--primary);
-        font-weight: 600; letter-spacing: 1px; border-radius: var(--radius); border: 1px solid var(--primary);
+        display: inline-flex; align-items: center; justify-content: center;
+        padding: 1rem 2.5rem; background: transparent; color: var(--primary);
+        font-weight: 600; border-radius: var(--radius); border: 1px solid var(--primary);
+        min-width: 160px;
     }
-    .btn-outline:hover { background: var(--bg-accent-light); color: var(--primary); border-color: var(--accent); }
+    .btn-outline:hover { background: var(--bg-accent); border-color: var(--accent); color: var(--accent); }
 
     .btn-whatsapp {
         display: inline-flex; align-items: center; gap: 10px; padding: 1rem 2.5rem;
@@ -137,6 +143,7 @@
     }
     .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4); }
 
+    /* 悬浮返回按钮 */
     .back-btn-float {
         position: fixed; top: 100px; left: 3%; z-index: 1100;
         background: white; border: 1px solid #e2e8f0; padding: 0.8rem 1.5rem;
@@ -146,94 +153,78 @@
         transform: translateX(-10px);
     }
     .back-btn-float.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
-    .back-btn-float:hover { color: var(--accent); border-color: var(--accent); box-shadow: 0 12px 25px rgba(147, 51, 234, 0.15); }
+    .back-btn-float:hover { color: var(--accent); border-color: var(--accent); }
 
-    .section-pad { padding: 6rem 5%; max-width: var(--container); margin: 0 auto; }
+    /* 通用布局 */
+    .section-pad { padding: 7rem 5%; max-width: var(--container); margin: 0 auto; }
     .divider { width: 60px; height: 3px; background: var(--gold); margin: 1.5rem 0; }
+    .text-center { text-align: center; }
+    
+    /* 标题组样式 (中文在上，英文在下) */
+    .title-group { margin-bottom: 3rem; }
+    .title-group h2 { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .title-group span { 
+        display: block; font-family: var(--font-en); font-size: 0.9rem; 
+        color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; 
+    }
 
-    /* ================= 5. 视图切换逻辑 ================= */
-    .view { display: none; opacity: 0; animation: fadeUp 0.8s forwards; }
+    /* ================= 4. 视图动画 ================= */
+    .view { display: none; opacity: 0; animation: fadeUp 0.6s forwards; }
     .view.active { display: block; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ================= 6. 首页设计 (Consulting Focus) ================= */
+    /* ================= 5. 首页 (Home) ================= */
     .hero {
         position: relative; height: 90vh; display: flex; align-items: center; justify-content: center;
-        text-align: center; color: var(--primary); overflow: hidden;
-        background: radial-gradient(circle at center, #fff 0%, #fdfaff 100%);
-    }
-    .hero::before {
-        content: ''; position: absolute; inset: 0; 
-        background: url('https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/singapore-skyline.jpg') center/cover;
-        opacity: 0.1; filter: grayscale(100%);
+        text-align: center; overflow: hidden;
+        background: radial-gradient(circle at center, #fff 0%, #f7f9fc 100%);
     }
     .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 0 5%; }
     .hero h1 { font-size: 4rem; margin-bottom: 1.5rem; }
-    .hero p { font-size: 1.3rem; margin-bottom: 3rem; color: var(--text-main); }
+    .hero p { font-size: 1.25rem; margin: 0 auto 3rem; color: var(--text-main); }
 
-    .stats-bar { background: white; padding: 4rem 0; border-bottom: 1px solid #eee; }
-    .stats-grid { 
+    /* 信任条 */
+    .trust-bar { border-bottom: 1px solid #eee; padding: 3rem 0; background: white; }
+    .trust-grid { 
         max-width: var(--container); margin: 0 auto; padding: 0 5%;
         display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; 
     }
-    .stat-num { font-family: 'Playfair Display'; font-size: 2.5rem; color: var(--gold); }
+    .stat-num { font-family: 'Playfair Display'; font-size: 2.2rem; color: var(--gold); }
     .stat-label { font-size: 0.85rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
 
-    /* Split Section */
+    /* 核心咨询板块 (Zig-Zag) */
     .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; padding: 6rem 5%; max-width: var(--container); margin: 0 auto; }
-    .split-text h2 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .split-text p { font-size: 1.05rem; color: var(--text-main); margin-bottom: 2rem; }
-    .split-img { position: relative; height: 500px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); }
-    .split-img img { height: 100%; width: 100%; transition: 0.5s; }
-    .split-img:hover img { transform: scale(1.05); }
-    .split-img::after {
-        content: ''; position: absolute; z-index: -1; width: 100%; height: 100%; 
-        border: 2px solid var(--gold); top: 20px; left: 20px; opacity: 0.5;
-    }
+    .split-text p { font-size: 1.05rem; line-height: 1.8; }
+    .split-img { height: 450px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .split-img img { width: 100%; height: 100%; transition: 0.5s; }
+    .split-img:hover img { transform: scale(1.03); }
     .reverse { direction: rtl; } 
     .reverse .split-text { direction: ltr; }
-    .reverse .split-img::after { left: auto; right: 20px; }
 
-    /* Advisory Services Grid */
-    .process-section { background: var(--bg-snow); padding: 8rem 5%; text-align: center; }
+    /* 客户旅程卡片 */
     .process-grid { 
         display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; 
         max-width: var(--container); margin: 4rem auto 0; 
     }
     .process-card { 
-        background: white; padding: 2.5rem 2rem; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); 
-        position: relative; cursor: pointer; transition: 0.3s; text-align: left;
+        background: white; padding: 2.5rem 2rem; border-radius: 8px; 
+        border: 1px solid #eee; position: relative; cursor: pointer; transition: 0.3s;
     }
-    .process-card:hover { transform: translateY(-10px); border-bottom: 4px solid var(--accent); }
-    .process-icon { font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; display: block; }
-    
-    .process-header { margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
-    .process-header h4 { display: inline-block; margin-right: 10px; font-size: 1.1rem; }
-    .process-header span { display: inline-block; font-size: 1.05rem; color: var(--primary); font-weight: 600; }
-    
-    /* Investment Themes */
-    .themes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4rem; }
-    .theme-card { border-top: 3px solid var(--gold); padding-top: 2rem; }
-    .theme-card h3 { margin-bottom: 1rem; color: var(--primary); }
+    .process-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+    .process-step { font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; display: block; }
+    .process-card h4 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--primary); }
+    .process-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; }
 
-    .partners-bar { padding: 4rem 5%; border-top: 1px solid #eee; text-align: center; }
-    .partners-logos { 
-        display: flex; justify-content: center; gap: 4rem; margin-top: 2rem; flex-wrap: wrap; 
-        color: var(--text-light); font-weight: 700; font-size: 1.2rem; letter-spacing: 2px;
-    }
+    /* 主题板块 */
+    .themes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 4rem; }
+    .theme-card { background: var(--bg-offwhite); padding: 3rem; text-align: center; transition: 0.3s; }
+    .theme-card:hover { background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .theme-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
 
-    /* ================= 7. 二级页面 (Consulting Detail) ================= */
-    .detail-header { padding: 8rem 5% 4rem; background: var(--bg-snow); text-align: center; position: relative; }
-    .detail-header h1 { font-size: 3rem; color: var(--primary); }
-    
-    .breadcrumbs { font-size: 0.85rem; color: var(--text-light); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
-    
-    .header-back-link {
-        display: inline-flex; align-items: center; gap: 5px;
-        margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;
-        border-bottom: 1px solid transparent; transition: 0.3s;
-    }
-    .header-back-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    /* ================= 6. 二级页面 (Consulting Detail) ================= */
+    .detail-header { padding: 8rem 5% 4rem; background: var(--bg-offwhite); text-align: center; }
+    .detail-header h1 { font-size: 3rem; margin-bottom: 1rem; color: var(--primary); }
+    .breadcrumbs { font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
 
     .detail-layout { 
         display: grid; grid-template-columns: 260px 1fr; gap: 5rem; 
@@ -243,76 +234,61 @@
     .side-nav { position: sticky; top: 120px; align-self: start; }
     .side-link { 
         display: block; padding: 1rem 0; border-bottom: 1px solid #eee; 
-        color: var(--text-light); font-weight: 500; transition: 0.3s; 
+        color: var(--text-light); font-weight: 500; transition: 0.3s; cursor: pointer;
     }
     .side-link:hover, .side-link.active { color: var(--primary); padding-left: 10px; border-bottom-color: var(--gold); }
 
-    .content-block { margin-bottom: 6rem; scroll-margin-top: 100px; }
-    .content-block h2 { font-size: 2.2rem; margin-bottom: 1.5rem; position: relative; padding-left: 1.5rem; }
-    .content-block h2::before { content:''; position: absolute; left:0; top:10%; height:80%; width:4px; background:var(--gold); }
-    .content-block p { margin-bottom: 1.5rem; font-size: 1.05rem; }
+    .content-block { margin-bottom: 6rem; scroll-margin-top: 120px; }
+    .content-block h2 { font-size: 2.2rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+    .content-block h3 { font-size: 1.5rem; margin: 2rem 0 1rem; color: var(--primary); }
     
-    .info-box { background: var(--bg-snow); padding: 2rem; border-radius: 8px; border-left: 4px solid var(--accent); margin: 2rem 0; }
+    /* 引用/重点框 */
+    .insight-box { 
+        background: var(--bg-accent); padding: 2.5rem; border-radius: 4px; margin: 2rem 0; 
+        border-left: 4px solid var(--accent); 
+    }
+    .insight-box h4 { margin-bottom: 1rem; color: var(--accent); }
+
+    /* 列表优化 */
+    .check-list li { margin-bottom: 1rem; padding-left: 2rem; position: relative; }
+    .check-list li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; top: 2px; }
+
+    /* 表格 */
+    .data-table { width: 100%; border-collapse: collapse; margin: 2rem 0; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+    .data-table th, .data-table td { padding: 1.5rem; border: 1px solid #eee; text-align: left; }
+    .data-table th { background: var(--primary); color: white; }
     
-    .check-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; }
-    .check-list li::before { content: '✓'; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+    /* 时间轴 */
+    .timeline-item { display: flex; gap: 2rem; margin-bottom: 3rem; }
+    .timeline-date { min-width: 80px; font-weight: 700; color: var(--accent); font-family: 'Playfair Display'; font-size: 1.5rem; text-align: right; }
+    .timeline-content { border-left: 1px solid #eee; padding-left: 2rem; padding-bottom: 2rem; }
+    .timeline-content h3 { margin-bottom: 0.5rem; font-size: 1.3rem; }
 
-    /* Timeline */
-    .timeline-item { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; margin-bottom: 4rem; position: relative; }
-    .timeline-item::after { content:''; position: absolute; left: 40px; top: 60px; bottom: -40px; width: 1px; background: #eee; z-index: 0; }
-    .timeline-item:last-child::after { display: none; }
-    .timeline-marker { 
-        width: 80px; height: 80px; background: var(--bg-snow); border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--accent); font-weight: 700;
-        z-index: 1; border: 1px solid #eee;
-    }
-    .timeline-content h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary); }
-    .timeline-deliverable { background: #fff; border: 1px solid #eee; padding: 1.5rem; margin-top: 1rem; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-    .timeline-deliverable strong { color: var(--gold); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+    /* ================= 7. 联系页 (极简) ================= */
+    .contact-wrapper { max-width: 800px; margin: 0 auto; text-align: center; padding: 4rem 5%; background: white; border-radius: 8px; border: 1px solid #eee; }
+    .contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; text-align: left; }
+    .contact-group h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; letter-spacing: 1px; }
+    .contact-group p { font-size: 1.1rem; color: var(--primary); font-weight: 600; line-height: 1.4; }
 
-    /* ================= 8. 联系页 ================= */
-    .contact-clean-wrapper {
-        max-width: 800px; margin: 0 auto; text-align: center; padding: 6rem 5%;
-        background: white; border-radius: 8px;
-    }
-    .contact-item { margin-bottom: 3rem; }
-    .contact-label { 
-        color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; 
-        font-size: 0.85rem; margin-bottom: 0.5rem; display: block;
-    }
-    .contact-value { font-family: 'Playfair Display'; font-size: 1.8rem; color: var(--primary); }
-    .contact-address { font-size: 1.2rem; color: var(--text-main); line-height: 1.6; }
-
-    /* ================= 9. Footer ================= */
-    footer { background: var(--bg-snow); border-top: 1px solid #eee; padding: 6rem 5% 3rem; margin-top: 6rem; }
+    /* ================= 8. Footer ================= */
+    footer { background: var(--bg-offwhite); border-top: 1px solid #eee; padding: 6rem 5% 3rem; margin-top: 6rem; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: var(--container); margin: 0 auto; }
     .footer-brand h4 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary); }
-    .footer-brand p { font-size: 0.9rem; color: var(--text-light); max-width: 300px; }
-    
     .footer-col h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; color: var(--gold); }
     .footer-link { display: block; color: var(--text-main); margin-bottom: 0.8rem; font-size: 0.9rem; }
     .footer-link:hover { color: var(--accent); }
-    
-    .footer-disclaimer { 
-        margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; 
-        font-size: 0.75rem; color: #94a3b8; text-align: justify; 
-    }
+    .footer-disclaimer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee; font-size: 0.75rem; color: #94a3b8; }
 
     /* 响应式 */
     @media (max-width: 900px) {
-        .stats-grid, .split-section, .process-grid, .themes-grid, .detail-layout, .footer-grid, .timeline-item { grid-template-columns: 1fr; gap: 3rem; }
-        .hero h1 { font-size: 2.8rem; }
-        .split-section.reverse { direction: ltr; } 
-        .split-text { direction: ltr; }
+        .stats-grid, .split-section, .process-grid, .themes-grid, .detail-layout, .footer-grid, .contact-row { grid-template-columns: 1fr; gap: 3rem; }
+        .hero h1 { font-size: 2.5rem; }
         .nav-menu { display: none; }
-        .side-nav { position: sticky; top: var(--nav-height); z-index: 800; background: white; padding: 10px 0; overflow-x: auto; display: flex; gap: 20px; border-bottom: 1px solid #eee; white-space: nowrap; margin-bottom: 2rem; }
-        .side-link { border-bottom: none; padding: 5px 10px; background: #f5f5f5; border-radius: 4px; }
+        .side-nav { position: sticky; top: var(--nav-height); z-index: 800; background: white; padding: 10px 0; overflow-x: auto; display: flex; gap: 15px; border-bottom: 1px solid #eee; white-space: nowrap; margin-bottom: 2rem; }
+        .side-link { border-bottom: none; background: #f5f5f5; border-radius: 20px; padding: 5px 15px; }
         .side-link.active { background: var(--accent); color: white; }
-        .split-img { height: 300px; }
-        .split-img::after { display: none; }
-        .back-btn-float { top: 90px; padding: 0.5rem 1rem; font-size: 0.8rem; }
-        .timeline-item::after { left: 40px; }
+        .back-btn-float { top: 90px; }
+        .split-section.reverse { direction: ltr; } .reverse .split-text { direction: ltr; }
     }
 </style>
 </head>
@@ -325,8 +301,8 @@
         </div>
         <div class="nav-menu">
             <a class="nav-link" onclick="switchView('home')"><span class="en">Home</span><span class="zh">首页</span></a>
-            <a class="nav-link" onclick="switchView('solutions')"><span class="en">Consulting</span><span class="zh">咨询服务</span></a>
-            <a class="nav-link" onclick="switchView('expertise')"><span class="en">Expertise</span><span class="zh">专业领域</span></a>
+            <a class="nav-link" onclick="switchView('solutions')"><span class="en">Services</span><span class="zh">咨询服务</span></a>
+            <a class="nav-link" onclick="switchView('expertise')"><span class="en">Insights</span><span class="zh">专业洞察</span></a>
             <a class="nav-link" onclick="switchView('journey')"><span class="en">Journey</span><span class="zh">客户旅程</span></a>
             <a class="nav-link" onclick="switchView('contact')"><span class="en">Contact</span><span class="zh">联系</span></a>
             <button class="lang-btn" onclick="toggleLang()"><span class="en">中文</span><span class="zh">EN</span></button>
@@ -335,7 +311,7 @@
 </nav>
 
 <div id="backBtn" class="back-btn-float" onclick="switchView('home')">
-    <span style="font-size:1.2rem;">←</span> <span class="en">Back Home</span><span class="zh">返回首页</span>
+    <span>←</span> <span class="en">Back Home</span><span class="zh">返回首页</span>
 </div>
 
 <main id="home-view" class="view active">
@@ -343,133 +319,112 @@
     <section class="hero">
         <div class="hero-content">
             <div style="color:var(--accent); font-family:'Cinzel'; letter-spacing:2px; margin-bottom:1rem; font-weight:700;">
-                <span class="en">Vision . Clarity . Legacy</span><span class="zh">远见 · 清晰 · 传承</span>
+                <span class="en">Vision . Strategy . Legacy</span><span class="zh">远见 · 策略 · 传承</span>
             </div>
-            <h1 class="en">Expert Advisory for Generational Wealth</h1>
-            <h1 class="zh">世代财富的专家级顾问</h1>
-            <p class="en">HY WISEFUND combines Singapore's stability with institutional-grade strategic consulting.</p>
-            <p class="zh">恒源智汇结合新加坡的稳定性与机构级战略咨询服务。</p>
+            <h1 class="en">Architecting Generational Wealth</h1>
+            <h1 class="zh">构建世代传承的财富蓝图</h1>
+            <p class="en">We are Singapore's premier independent wealth consultancy. We provide the intellectual capital, not the products.</p>
+            <p class="zh">我们是新加坡顶级的独立财富咨询机构。我们提供智力资本，而非理财产品。</p>
             <div>
-                <button class="btn" onclick="switchView('solutions')"><span class="en">Our Services</span><span class="zh">我们的服务</span></button>
-                <button class="btn-outline" onclick="switchView('contact')"><span class="en">Inquire</span><span class="zh">咨询</span></button>
+                <button class="btn" onclick="switchView('solutions')"><span class="en">Our Expertise</span><span class="zh">我们的专长</span></button>
+                <button class="btn-outline" onclick="switchView('contact')"><span class="en">Private Inquiry</span><span class="zh">私密咨询</span></button>
             </div>
         </div>
     </section>
 
     <div class="stats-bar">
         <div class="stats-grid">
-            <div><div class="stat-num">S$2B+</div><div class="stat-label"><span class="en">Assets Advised</span><span class="zh">咨询资产规模</span></div></div>
+            <div><div class="stat-num">S$2B+</div><div class="stat-label"><span class="en">Advised Assets</span><span class="zh">咨询资产规模</span></div></div>
             <div><div class="stat-num">AAA</div><div class="stat-label"><span class="en">Jurisdiction</span><span class="zh">顶级管辖区</span></div></div>
-            <div><div class="stat-num">100%</div><div class="stat-label"><span class="en">Fiduciary</span><span class="zh">信托责任</span></div></div>
-            <div><div class="stat-num">15+</div><div class="stat-label"><span class="en">Years Experience</span><span class="zh">行业经验</span></div></div>
+            <div><div class="stat-num">100%</div><div class="stat-label"><span class="en">Independent</span><span class="zh">独立智库</span></div></div>
+            <div><div class="stat-num">15+</div><div class="stat-label"><span class="en">Years Insight</span><span class="zh">行业洞察</span></div></div>
         </div>
     </div>
 
     <section class="split-section">
         <div class="split-text">
             <div class="divider"></div>
-            <h2 class="en">The Singapore Advantage</h2><h2 class="zh">新加坡优势</h2>
-            <p class="en">In an era of global uncertainty, capital seeks a sanctuary. Singapore offers political neutrality, a robust legal framework based on English Common Law, and a tax-efficient environment for wealth preservation.</p>
-            <p class="zh">在全球不确定的时代，资本寻求避风港。新加坡提供政治中立、基于英国普通法的健全法律框架，以及有利于财富保值的税务环境。</p>
-            <a onclick="switchView('solutions')" style="color:var(--accent); font-weight:600;"><span class="en">Explore Planning</span><span class="zh">探索规划服务</span> &rarr;</a>
+            <div class="title-group">
+                <h2 class="zh">新加坡优势</h2>
+                <span class="en">The Strategic Sanctuary</span>
+            </div>
+            <p class="en">In an era of fragmentation, capital seeks a sanctuary. Singapore offers political neutrality, common law stability, and strategic proximity to Asian growth engines.</p>
+            <p class="zh">在碎片化的时代，资本寻求避风港。新加坡提供政治中立、普通法系的稳定性，以及紧邻亚洲增长引擎的战略位置。</p>
+            <a onclick="switchView('solutions')" style="color:var(--accent); font-weight:600;"><span class="en">Explore Advisory</span><span class="zh">探索咨询服务</span> &rarr;</a>
         </div>
         <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg" alt="Singapore Jurisdiction" loading="lazy">
+            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/merlion.jpg" alt="Singapore">
         </div>
     </section>
 
-    <section class="process-section">
-        <div class="section-title">
-            <h2 class="en">The Client Journey</h2><h2 class="zh">客户旅程</h2>
-            <p class="en">A disciplined 4-step advisory process.</p>
-            <p class="zh">严谨的四步顾问咨询流程。</p>
+    <section class="section-pad text-center" style="background:var(--bg-offwhite);">
+        <div class="title-group">
+            <h2 class="zh">客户旅程</h2>
+            <span class="en">The Advisory Process</span>
         </div>
         <div class="process-grid">
             <div class="process-card" onclick="switchView('journey')">
-                <span class="process-icon">🔍</span>
-                <div class="process-header">
-                    <h4 class="en">Discovery</h4><span class="zh">| 发现与诊断</span>
-                </div>
-                <p class="en" style="font-size:0.9rem;">Understanding your financial DNA.</p>
-                <p class="zh" style="font-size:0.9rem;">深入理解您的金融基因。</p>
+                <span class="process-step">Step 01</span>
+                <h4 class="zh">发现与诊断</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Discovery</h4>
+                <p class="zh">深入理解您的金融基因与传承目标。</p>
             </div>
             <div class="process-card" onclick="switchView('journey')">
-                <span class="process-icon">📐</span>
-                <div class="process-header">
-                    <h4 class="en">Blueprint</h4><span class="zh">| 蓝图设计</span>
-                </div>
-                <p class="en" style="font-size:0.9rem;">Designing the strategic roadmap.</p>
-                <p class="zh" style="font-size:0.9rem;">设计战略性的财富路线图。</p>
+                <span class="process-step">Step 02</span>
+                <h4 class="zh">蓝图设计</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Blueprint</h4>
+                <p class="zh">设计法律架构与税务筹划路线图。</p>
             </div>
             <div class="process-card" onclick="switchView('journey')">
-                <span class="process-icon">⚖️</span>
-                <div class="process-header">
-                    <h4 class="en">Selection</h4><span class="zh">| 策略筛选</span>
-                </div>
-                <p class="en" style="font-size:0.9rem;">Selecting best-in-class vendors.</p>
-                <p class="zh" style="font-size:0.9rem;">筛选一流的供应商与策略。</p>
+                <span class="process-step">Step 03</span>
+                <h4 class="zh">策略筛选</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Selection</h4>
+                <p class="zh">筛选一流的托管银行与基金经理。</p>
             </div>
             <div class="process-card" onclick="switchView('journey')">
-                <span class="process-icon">🛡️</span>
-                <div class="process-header">
-                    <h4 class="en">Oversight</h4><span class="zh">| 监督与管家</span>
-                </div>
-                <p class="en" style="font-size:0.9rem;">Ongoing risk monitoring.</p>
-                <p class="zh" style="font-size:0.9rem;">持续的风险监控与管理。</p>
+                <span class="process-step">Step 04</span>
+                <h4 class="zh">监督管家</h4><h4 class="en" style="font-size:0.9rem; color:var(--text-light);">Oversight</h4>
+                <p class="zh">持续的风险监控与绩效审查。</p>
             </div>
         </div>
         <div style="margin-top:3rem;">
-            <button class="btn-outline" onclick="switchView('journey')"><span class="en">View Full Process</span><span class="zh">查看完整流程</span></button>
+            <button class="btn-outline" onclick="switchView('journey')"><span class="en">View Full Details</span><span class="zh">查看完整细节</span></button>
         </div>
     </section>
 
     <section class="split-section reverse">
         <div class="split-text">
             <div class="divider"></div>
-            <h2 class="en">A Comprehensive Ecosystem</h2><h2 class="zh">全方位生态系统</h2>
-            <p class="en">We act as your strategic advisor. We help you navigate the landscape of Trusts, Family Offices, and Global Custodians. We serve as your gateway to the premier financial institutions of Asia.</p>
-            <p class="zh">我们充当您的战略顾问。我们帮助您驾驭信托、家族办公室和全球托管机构的复杂环境。我们是您通往亚洲顶级金融机构的门户。</p>
-            <a onclick="switchView('solutions')" style="color:var(--accent); font-weight:600;"><span class="en">View Services</span><span class="zh">查看咨询服务</span> &rarr;</a>
+            <div class="title-group">
+                <h2 class="zh">全方位生态系统</h2>
+                <span class="en">A Comprehensive Ecosystem</span>
+            </div>
+            <p class="en">We act as your strategic architect. We help you navigate the landscape of Trusts, Foundations, and Global Custodians. We serve as your gateway to the premier financial institutions.</p>
+            <p class="zh">我们充当您的战略架构师。我们帮助您驾驭信托、基金会和全球托管机构的复杂环境。我们是您通往顶级金融机构的门户。</p>
         </div>
         <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg" alt="Financial Ecosystem" loading="lazy">
+            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/marina-bay-sands.jpg" alt="Ecosystem">
         </div>
     </section>
 
     <section class="section-pad">
-        <div class="section-title">
-            <h2 class="en">Period 9 Strategic Themes</h2><h2 class="zh">九运战略主题</h2>
-            <p class="en">Advising on the shift to the Fire element.</p>
-            <p class="zh">针对向“火”元素转变的战略建议。</p>
+        <div class="text-center title-group">
+            <h2 class="zh">九运战略主题</h2>
+            <span class="en">Strategic Themes</span>
         </div>
-        <div class="themes-grid">
-            <div class="theme-card">
-                <h3 class="en">Technology & AI</h3><h3 class="zh">科技与人工智能</h3>
-                <p class="en">The ultimate manifestation of Fire. Advising on exposure to semiconductor infrastructure.</p>
-                <p class="zh">火元素的终极体现。我们就半导体基础设施的敞口提供建议。</p>
+        <div class="themes-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:2rem;">
+            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
+                <h3 class="zh" style="margin-bottom:0.5rem;">科技与人工智能</h3>
+                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Technology & AI</span>
+                <p class="zh" style="margin-top:1rem;">火元素的终极体现。建议关注半导体基础设施与企业级软件。</p>
             </div>
-            <div class="theme-card">
-                <h3 class="en">Sustainable Energy</h3><h3 class="zh">可持续能源</h3>
-                <p class="en">Energy transition offers generational growth opportunities.</p>
-                <p class="zh">能源转型提供了代际增长的机会。</p>
+            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
+                <h3 class="zh" style="margin-bottom:0.5rem;">可持续能源</h3>
+                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Sustainable Energy</span>
+                <p class="zh" style="margin-top:1rem;">从太阳能到核聚变。能源转型提供了长期的代际增长机会。</p>
             </div>
-            <div class="theme-card">
-                <h3 class="en">Digital Assets</h3><h3 class="zh">数字资产</h3>
-                <p class="en">The digitization of value. Advising on regulated access to this asset class.</p>
-                <p class="zh">价值的数字化。我们就进入这一资产类别的受监管渠道提供建议。</p>
+            <div class="theme-card" style="background:var(--bg-accent); padding:2rem; border-radius:4px;">
+                <h3 class="zh" style="margin-bottom:0.5rem;">数字资产</h3>
+                <span class="en" style="font-size:0.8rem; letter-spacing:1px;">Digital Assets</span>
+                <p class="zh" style="margin-top:1rem;">价值的数字化。就进入这一资产类别的受监管渠道提供建议。</p>
             </div>
-        </div>
-    </section>
-
-    <section class="split-section">
-        <div class="split-text">
-            <div class="divider"></div>
-            <h2 class="en">Sustainable Growth</h2><h2 class="zh">可持续增长</h2>
-            <p class="en">Wealth is not just about accumulation; it is about longevity. We advise on sectors that define the future, ensuring your legacy thrives in the new cycle.</p>
-            <p class="zh">财富不仅在于积累，更在于长久。我们就定义未来的板块提供建议，确保您的家族基业在新周期中繁荣发展。</p>
-        </div>
-        <div class="split-img">
-            <img src="https://raw.githubusercontent.com/jtsgai/pdf-downloads/main/images/gardens-by-the-bay.jpg" alt="Sustainable Growth" loading="lazy">
         </div>
     </section>
 
@@ -491,47 +446,68 @@
 <main id="solutions-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Services</span><span class="zh">首页 > 咨询服务</span></div>
-        <h1 class="en">Consulting Services</h1><h1 class="zh">咨询服务体系</h1>
-        <a onclick="switchView('home')" class="header-back-link">
-            <span>←</span> <span class="en">Return to Home</span><span class="zh">返回首页</span>
-        </a>
+        <h1 class="zh">咨询服务体系</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">Consulting Services</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('sol-plan')" class="side-link active"><span class="en">01. Strategic Planning</span><span class="zh">01. 战略规划</span></a>
-            <a onclick="scrollToId('sol-invest')" class="side-link"><span class="en">02. Investment Advisory</span><span class="zh">02. 投资咨询</span></a>
-            <a onclick="scrollToId('sol-gov')" class="side-link"><span class="en">03. Family Governance</span><span class="zh">03. 家族治理</span></a>
+            <a onclick="scrollToId('sol-plan')" class="side-link active"><span class="zh">战略规划</span><br><span class="en" style="font-size:0.7rem">Strategic Planning</span></a>
+            <a onclick="scrollToId('sol-invest')" class="side-link"><span class="zh">投资咨询</span><br><span class="en" style="font-size:0.7rem">Investment Advisory</span></a>
+            <a onclick="scrollToId('sol-gov')" class="side-link"><span class="zh">家族治理</span><br><span class="en" style="font-size:0.7rem">Family Governance</span></a>
+            <a onclick="scrollToId('sol-corp')" class="side-link"><span class="zh">企业咨询</span><br><span class="en" style="font-size:0.7rem">Corporate Advisory</span></a>
         </aside>
 
         <div class="content-body">
             <div id="sol-plan" class="content-block">
-                <h2 class="en">Strategic Wealth Planning</h2><h2 class="zh">战略财富规划</h2>
-                <p class="en">We provide high-level architectural advice. This involves analyzing your global assets and recommending the optimal structures (such as Trusts or Family Offices) for tax efficiency and privacy.</p>
-                <p class="zh">我们提供高层架构建议。这包括分析您的全球资产，并推荐最佳结构（如信托或家族办公室），以实现税务效率和隐私保护。</p>
-                
-                <div class="info-box">
-                    <h4 class="en" style="color:var(--primary); margin-bottom:0.5rem;">Advisory Focus</h4>
-                    <h4 class="zh" style="color:var(--primary); margin-bottom:0.5rem;">咨询重点</h4>
+                <h2 class="zh">战略财富规划</h2>
+                <p class="zh">我们提供高层架构建议。这包括分析您的全球资产，并推荐最佳结构（如信托、基金会或私人有限公司），以实现税务效率和隐私保护。</p>
+                <div class="insight-box">
+                    <h4 class="zh">咨询重点</h4>
                     <ul class="check-list">
-                        <li><span class="en"><strong>Tax Efficiency:</strong> Advising on 13O/13U incentives.</span><span class="zh"><strong>税务效率：</strong> 就 13O/13U 激励计划提供建议。</span></li>
-                        <li><span class="en"><strong>Succession:</strong> Designing roadmaps for wealth transfer.</span><span class="zh"><strong>传承：</strong> 设计财富转移的路线图。</span></li>
+                        <li class="zh"><strong>税务效率：</strong> 就 13O/13U 激励计划的可行性提供建议。</li>
+                        <li class="zh"><strong>传承路线：</strong> 设计跨代际的财富转移路线图。</li>
+                        <li class="zh"><strong>身份规划：</strong> 协助申请新加坡 GIP 及税务居民身份。</li>
                     </ul>
                 </div>
             </div>
 
             <div id="sol-invest" class="content-block">
-                <h2 class="en">Investment Advisory</h2><h2 class="zh">投资咨询</h2>
-                <p class="en">We operate as an Independent Advisor. We do not hold your money; premier custodian banks do. We provide the intellectual capital, strategy, and manager selection to optimize your portfolio.</p>
+                <h2 class="zh">投资咨询与监督</h2>
                 <p class="zh">我们作为独立顾问运营。我们不持有您的资金；顶级托管银行负责持有。我们提供智力资本、策略和管理人筛选，以优化您的投资组合。</p>
-                <p class="en">This model eliminates conflict of interest. Our incentive is solely aligned with the growth and preservation of your portfolio, not sales commissions.</p>
                 <p class="zh">这种模式消除了利益冲突。我们的动机完全与您投资组合的增长和保值一致，而非销售佣金。</p>
+                
+                <table class="data-table">
+                    <tr>
+                        <th>对比项目</th>
+                        <th>银行理财顾问</th>
+                        <th>独立财富顾问 (HY)</th>
+                    </tr>
+                    <tr>
+                        <td><strong>立场</strong></td>
+                        <td>代表银行销售产品</td>
+                        <td>代表客户筛选优劣</td>
+                    </tr>
+                    <tr>
+                        <td><strong>产品范围</strong></td>
+                        <td>受限于本行产品库</td>
+                        <td>全市场开放架构</td>
+                    </tr>
+                    <tr>
+                        <td><strong>收费模式</strong></td>
+                        <td>隐藏佣金为主</td>
+                        <td>透明咨询费为主</td>
+                    </tr>
+                </table>
             </div>
 
             <div id="sol-gov" class="content-block">
-                <h2 class="en">Family Governance</h2><h2 class="zh">家族治理</h2>
-                <p class="en">Wealth preservation is meaningless without a governance plan. We help you draft Family Constitutions and establish Family Councils to ensure your values survive alongside your valuables.</p>
+                <h2 class="zh">家族治理</h2>
                 <p class="zh">没有治理计划，财富保值就毫无意义。我们帮助您起草家族宪章并建立家族委员会，确保您的价值观与财富一同传承。</p>
+            </div>
+            
+            <div id="sol-corp" class="content-block">
+                <h2 class="zh">企业咨询</h2>
+                <p class="zh">针对企业家客户，我们提供流动性事件管理（IPO前规划）、并购建议以及非核心资产的剥离策略。</p>
             </div>
         </div>
     </div>
@@ -540,69 +516,58 @@
 <main id="journey-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Journey</span><span class="zh">首页 > 客户旅程</span></div>
-        <h1 class="en">The Client Journey</h1><h1 class="zh">客户旅程</h1>
-        <a onclick="switchView('home')" class="header-back-link">
-            <span>←</span> <span class="en">Return to Home</span><span class="zh">返回首页</span>
-        </a>
+        <h1 class="zh">客户旅程</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">The Client Journey</h1>
     </div>
 
-    <div class="content-layout">
+    <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('step-1')" class="side-link active"><span class="en">Step 1: Discovery</span><span class="zh">第一步：发现</span></a>
-            <a onclick="scrollToId('step-2')" class="side-link"><span class="en">Step 2: Blueprint</span><span class="zh">第二步：蓝图</span></a>
-            <a onclick="scrollToId('step-3')" class="side-link"><span class="en">Step 3: Selection</span><span class="zh">第三步：筛选</span></a>
-            <a onclick="scrollToId('step-4')" class="side-link"><span class="en">Step 4: Oversight</span><span class="zh">第四步：监督</span></a>
+            <a onclick="scrollToId('step-1')" class="side-link active"><span class="zh">01. 发现</span></a>
+            <a onclick="scrollToId('step-2')" class="side-link"><span class="zh">02. 蓝图</span></a>
+            <a onclick="scrollToId('step-3')" class="side-link"><span class="zh">03. 筛选</span></a>
+            <a onclick="scrollToId('step-4')" class="side-link"><span class="zh">04. 监督</span></a>
         </aside>
 
         <div class="content-body">
             <div id="step-1" class="timeline-item">
-                <div class="timeline-marker">01</div>
+                <div class="timeline-date">01</div>
                 <div class="timeline-content">
-                    <h3 class="en">Discovery & Diagnosis</h3><h3 class="zh">发现与诊断</h3>
-                    <p class="en">We begin with a listening session. We map your "Financial DNA"—your risk tolerance, liquidity needs, and multi-generational aspirations.</p>
-                    <p class="zh">我们以倾听开始。我们绘制您的“金融基因”——您的风险承受能力、流动性需求和多代愿景。</p>
-                    <div class="timeline-deliverable">
-                        <strong class="en">Deliverable:</strong><strong class="zh">交付物：</strong>
-                        <span class="en">Needs Analysis Report.</span><span class="zh">需求分析报告。</span>
+                    <h3 class="zh">发现与诊断</h3>
+                    <p class="zh">我们以深度倾听开始。我们绘制您的“金融基因”——您的风险承受能力、流动性需求和多代愿景。</p>
+                    <div class="insight-box">
+                        <strong>交付物：</strong> 需求分析报告 (Needs Analysis Report)
                     </div>
                 </div>
             </div>
 
             <div id="step-2" class="timeline-item">
-                <div class="timeline-marker">02</div>
+                <div class="timeline-date">02</div>
                 <div class="timeline-content">
-                    <h3 class="en">Strategic Blueprint</h3><h3 class="zh">战略蓝图</h3>
-                    <p class="en">We design the roadmap. We coordinate with tax advisors and lawyers to recommend the optimal legal structures and asset allocation policies.</p>
-                    <p class="zh">我们设计路线图。我们与税务顾问和律师协调，推荐最佳的法律结构和资产配置政策。</p>
-                    <div class="timeline-deliverable">
-                        <strong class="en">Deliverable:</strong><strong class="zh">交付物：</strong>
-                        <span class="en">Strategic Roadmap Document.</span><span class="zh">战略路线图文件。</span>
+                    <h3 class="zh">战略蓝图</h3>
+                    <p class="zh">我们设计路线图。我们与税务顾问和律师协调，推荐最佳的法律结构和资产配置政策声明 (IPS)。</p>
+                    <div class="insight-box">
+                        <strong>交付物：</strong> 战略路线图与结构建议书
                     </div>
                 </div>
             </div>
 
             <div id="step-3" class="timeline-item">
-                <div class="timeline-marker">03</div>
+                <div class="timeline-date">03</div>
                 <div class="timeline-content">
-                    <h3 class="en">Vendor Selection</h3><h3 class="zh">供应商筛选</h3>
-                    <p class="en">We help you select the best-in-class custodian banks and fund managers. We act as your advocate in negotiating fees and terms.</p>
-                    <p class="zh">我们帮助您筛选一流的托管银行和基金经理。我们作为您的代表，协助协商费用和条款。</p>
-                    <div class="timeline-deliverable">
-                        <strong class="en">Deliverable:</strong><strong class="zh">交付物：</strong>
-                        <span class="en">Selection Recommendation.</span><span class="zh">筛选推荐书。</span>
+                    <h3 class="zh">供应商筛选</h3>
+                    <p class="zh">我们帮助您筛选一流的托管银行和基金经理。我们作为您的代表，协助协商费用和条款，确保您获得机构级的待遇。</p>
+                    <div class="insight-box">
+                        <strong>交付物：</strong> 筛选推荐报告 (Selection Report)
                     </div>
                 </div>
             </div>
 
             <div id="step-4" class="timeline-item">
-                <div class="timeline-marker">04</div>
+                <div class="timeline-date">04</div>
                 <div class="timeline-content">
-                    <h3 class="en">Oversight & Stewardship</h3><h3 class="zh">监督与管家</h3>
-                    <p class="en">We provide ongoing risk monitoring and performance review to ensure alignment with the changing macro environment.</p>
-                    <p class="zh">我们提供持续的风险监控和绩效审查，以确保与不断变化的宏观环境保持一致。</p>
-                    <div class="timeline-deliverable">
-                        <strong class="en">Deliverable:</strong><strong class="zh">交付物：</strong>
-                        <span class="en">Quarterly Review Reports.</span><span class="zh">季度审查报告。</span>
+                    <h3 class="zh">监督与管家</h3>
+                    <p class="zh">财富管理是动态的。我们提供持续的风险监控、综合报表整合和绩效审查，以确保与不断变化的宏观环境保持一致。</p>
+                    <div class="insight-box">
+                        <strong>交付物：</strong> 季度审查报告 (Quarterly Review)
                     </div>
                 </div>
             </div>
@@ -613,36 +578,39 @@
 <main id="expertise-view" class="view">
     <div class="detail-header">
         <div class="breadcrumbs"><span class="en">Home > Expertise</span><span class="zh">首页 > 专业洞察</span></div>
-        <h1 class="en">Expertise & Insights</h1><h1 class="zh">专业领域与洞察</h1>
-        <a onclick="switchView('home')" class="header-back-link">
-            <span>←</span> <span class="en">Return to Home</span><span class="zh">返回首页</span>
-        </a>
+        <h1 class="zh">专业领域与洞察</h1><h1 class="en" style="font-size:1.5rem; opacity:0.6;">Expertise & Insights</h1>
     </div>
 
     <div class="detail-layout">
         <aside class="side-nav">
-            <a onclick="scrollToId('exp-alloc')" class="side-link active"><span class="en">Asset Allocation</span><span class="zh">资产配置</span></a>
-            <a onclick="scrollToId('exp-risk')" class="side-link"><span class="en">Risk Management</span><span class="zh">风险管理</span></a>
-            <a onclick="scrollToId('exp-fire')" class="side-link"><span class="en">Fire Era Strategy</span><span class="zh">九运策略</span></a>
+            <a onclick="scrollToId('exp-alloc')" class="side-link active"><span class="zh">配置建议</span></a>
+            <a onclick="scrollToId('exp-risk')" class="side-link"><span class="zh">风险管理</span></a>
+            <a onclick="scrollToId('exp-fire')" class="side-link"><span class="zh">九运策略</span></a>
         </aside>
 
         <div class="content-body">
             <div id="exp-alloc" class="content-block">
-                <h2 class="en">Strategic Allocation Advice</h2><h2 class="zh">战略配置建议</h2>
-                <p class="en">We follow an adapted "Endowment Model" (Yale Model). In the new era, the traditional 60/40 portfolio is insufficient. We advise on constructing "All-Weather" portfolios that include defensive moats and high-growth engines.</p>
-                <p class="zh">我们遵循改良版的“捐赠基金模式”（耶鲁模式）。在新时代，传统的60/40投资组合已显不足。我们就构建包含防御护城河和高增长引擎的“全天候”投资组合提供建议。</p>
+                <h2 class="zh">战略配置建议</h2>
+                <p class="zh">我们遵循改良版的“捐赠基金模式”（耶鲁模式）。在新时代，传统的 60/40 投资组合已显不足。我们建议构建包含“防御护城河”和“高增长引擎”的“全天候”投资组合。</p>
+                <div style="margin-top:1.5rem; border:1px solid #eee; padding:1.5rem; border-radius:4px;">
+                    <h4 class="zh" style="margin-bottom:1rem; color:var(--primary);">配置模型示意</h4>
+                    <ul class="check-list">
+                        <li class="zh"><strong>流动性底仓：</strong> 高等级债券与现金管理工具。</li>
+                        <li class="zh"><strong>增长引擎：</strong> 全球优质股票与科技板块。</li>
+                        <li class="zh"><strong>抗通胀层：</strong> 实物资产与基础设施。</li>
+                        <li class="zh"><strong>非相关回报：</strong> 市场中性策略与宏观对冲。</li>
+                    </ul>
+                </div>
             </div>
 
             <div id="exp-risk" class="content-block">
-                <h2 class="en">Risk Management</h2><h2 class="zh">风险管理</h2>
-                <p class="en">Risk is not just volatility; it is the permanent loss of capital. We advise on stress-testing portfolios against geopolitical shocks and inflation scenarios.</p>
-                <p class="zh">风险不仅仅是波动，而是资本的永久损失。我们就针对地缘政治冲击和通胀情景的投资组合压力测试提供建议。</p>
+                <h2 class="zh">风险管理</h2>
+                <p class="zh">风险不仅仅是波动，而是资本的永久损失。我们就针对地缘政治冲击和通胀情景的投资组合压力测试提供建议。我们强调“购买力保值”而非单纯的名义回报。</p>
             </div>
             
             <div id="exp-fire" class="content-block">
-                <h2 class="en">The "Period 9" Thesis</h2><h2 class="zh">“九运”投资逻辑</h2>
-                <p class="en">Aligned with the Fire element, we advise focusing on sectors that represent illumination and energy: AI, Optics, Fusion Energy, and Digital Assets.</p>
-                <p class="zh">顺应离火元素，我们建议关注代表光明与能量的板块：人工智能、光学、聚变能源以及数字资产。</p>
+                <h2 class="zh">“九运”投资逻辑</h2>
+                <p class="zh">顺应离火元素，我们建议关注代表光明与能量的板块：人工智能、光学、聚变能源以及数字资产。这20年的周期有利于透明度和快速创新。</p>
             </div>
         </div>
     </div>
@@ -650,35 +618,30 @@
 
 <main id="contact-view" class="view">
     <div class="detail-header">
-        <h1 class="en">Direct Connect</h1><h1 class="zh">直接联系</h1>
-        <a onclick="switchView('home')" class="header-back-link">
-            <span>←</span> <span class="en">Return to Home</span><span class="zh">返回首页</span>
-        </a>
+        <h1 class="zh">直接联系</h1>
     </div>
     
     <div class="section-pad">
         <div class="contact-clean-wrapper">
-            <div class="contact-item">
-                <span class="contact-label"><span class="en">Headquarters</span><span class="zh">总部地址</span></span>
-                <div class="contact-address">
-                    <span class="en">33 UBI AVENUE 3 #08-43<br>VERTEX SINGAPORE (408868)</span>
-                    <span class="zh">新加坡 Ubi Avenue 3 33号 #08-43<br>Vertex Singapore (408868)</span>
+            <div class="contact-row">
+                <div class="contact-group">
+                    <h4><span class="zh">总部地址</span><span class="en" style="font-size:0.7rem; display:block;">HEADQUARTERS</span></h4>
+                    <p class="zh">新加坡 Ubi Avenue 3 33号 #08-43<br>Vertex Singapore (408868)</p>
+                </div>
+                <div class="contact-group">
+                    <h4><span class="zh">注册信息</span><span class="en" style="font-size:0.7rem; display:block;">REGISTRATION</span></h4>
+                    <p class="zh">UEN: 202447435C</p>
                 </div>
             </div>
             
-            <div class="contact-item">
-                <span class="contact-label"><span class="en">Company Registration</span><span class="zh">公司注册号</span></span>
-                <div class="contact-value">UEN: 202447435C</div>
+            <div class="contact-group" style="text-align:center;">
+                <h4><span class="zh">电子邮箱</span><span class="en" style="font-size:0.7rem; display:block;">EMAIL</span></h4>
+                <p class="zh"><a href="mailto:contact@hywisefund.com" style="color:var(--primary); font-size:1.5rem;">contact@hywisefund.com</a></p>
             </div>
 
-            <div class="contact-item">
-                <span class="contact-label"><span class="en">Email Us</span><span class="zh">发送邮件</span></span>
-                <div class="contact-value"><a href="mailto:contact@hywisefund.com" style="color:var(--primary);">contact@hywisefund.com</a></div>
-            </div>
-
-            <div style="margin-top:4rem;">
+            <div style="margin-top:4rem; text-align:center;">
                 <a href="https://wa.me/6588888888" target="_blank" class="btn-whatsapp">
-                    <span class="en">Chat on WhatsApp</span><span class="zh">WhatsApp 在线咨询</span>
+                    <span class="zh">WhatsApp 在线咨询</span>
                 </a>
             </div>
         </div>
@@ -689,23 +652,23 @@
     <div class="footer-grid">
         <div class="footer-col">
             <h4 class="en">HY WISEFUND</h4><h4 class="zh">恒源智汇</h4>
-            <a onclick="switchView('home')"><span class="en">Home</span><span class="zh">首页</span></a>
-            <a onclick="switchView('contact')"><span class="en">Contact</span><span class="zh">联系</span></a>
+            <a onclick="switchView('home')" class="footer-link"><span class="en">Home</span><span class="zh">首页</span></a>
+            <a onclick="switchView('contact')" class="footer-link"><span class="en">Contact</span><span class="zh">联系</span></a>
         </div>
         <div class="footer-col">
             <h4 class="en">Services</h4><h4 class="zh">服务</h4>
-            <a onclick="switchView('solutions')"><span class="en">Family Office</span><span class="zh">家族办公室</span></a>
-            <a onclick="switchView('solutions')"><span class="en">Asset Management</span><span class="zh">资产管理</span></a>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="en">Strategic Planning</span><span class="zh">战略规划</span></a>
+            <a onclick="switchView('solutions')" class="footer-link"><span class="en">Investment Advisory</span><span class="zh">投资咨询</span></a>
         </div>
         <div class="footer-col">
             <h4 class="en">Expertise</h4><h4 class="zh">专业</h4>
-            <a onclick="switchView('expertise')"><span class="en">Allocation</span><span class="zh">配置</span></a>
-            <a onclick="switchView('journey')" class="footer-link"><span class="en">Client Journey</span><span class="zh">客户旅程</span></a>
+            <a onclick="switchView('expertise')" class="footer-link"><span class="en">Allocation</span><span class="zh">配置</span></a>
+            <a onclick="switchView('journey')" class="footer-link"><span class="en">Journey</span><span class="zh">旅程</span></a>
         </div>
         <div class="footer-col">
             <h4 class="en">Legal</h4><h4 class="zh">法律</h4>
-            <a><span class="en">Privacy Policy</span><span class="zh">隐私政策</span></a>
-            <a><span class="en">Terms of Use</span><span class="zh">使用条款</span></a>
+            <a class="footer-link"><span class="en">Privacy Policy</span><span class="zh">隐私政策</span></a>
+            <a class="footer-link"><span class="en">Terms of Use</span><span class="zh">使用条款</span></a>
         </div>
     </div>
     <div class="footer-disclaimer">
@@ -727,6 +690,8 @@
     // 页面路由
     function switchView(viewId) {
         window.scrollTo({top: 0, behavior: 'smooth'});
+        
+        // 更新视图
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
         document.getElementById(viewId + '-view').classList.add('active');
         
